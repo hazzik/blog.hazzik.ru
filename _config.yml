@@ -9,14 +9,14 @@ permalink:        pretty
 title:            Hazzik's blog
 tagline:          ''
 description:      ''
-url:              http://alexzaytsev.me
+url:              http://blog.hazzik.ru
 
 author:
   name:           'Alexander Zaytsev'
-  url:            http://alexzaytsev.me
+  url:            http://blog.hazzik.ru
 
 paginate:         5
 
 github:
-  source:    'http://github.com/hazzik/alexzaytsev.me/edit/gh-pages/'
+  source:    'http://github.com/hazzik/blog.hazzik.ru/edit/gh-pages/'
   
