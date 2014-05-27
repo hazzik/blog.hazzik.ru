@@ -1,0 +1,22 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Hazzik's blog
+tagline:          ''
+description:      ''
+url:              http://alexzaytsev.me
+
+author:
+  name:           'Alexander Zaytsev'
+  url:            http://alexzaytsev.me
+
+paginate:         5
+
+github:
+  source:    'http://github.com/hazzik/alexzaytsev.me/edit/gh-pages/'
+  
