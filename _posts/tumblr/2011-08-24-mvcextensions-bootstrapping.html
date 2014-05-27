@@ -1,0 +1,99 @@
+---
+layout: post
+title: 'MvcExtensions: bootstrapping'
+date: '2011-08-24T13:52:00+12:00'
+tags:
+- asp.net mvc
+- mvcextensions
+tumblr_url: http://blog.hazzik.ru/post/19465324433/mvcextensions-bootstrapping
+---
+<p>Как я уже <a href="/2011/08/20/mvcextensions-intro/">писал во введении</a>, весь код, выполняющийся при старте приложения необходимо помещать в, BootstrapperTask.</p>
+
+<h1>Bootstrapper tasks</h1>
+
+<p>В MvcExtensions для размещения кода, выполняющегося при запуске приложения существует понятие <a href="http://en.wikipedia.org/wiki/Bootstrapping_(computing)">Bootstrapper</a>, которому можно назначать задачи.</p>
+
+<!-- more -->
+
+<p>Назначение задачи происходит следующим образом:</p>
+
+<pre><code>//Global.asax.cs
+public class MvcApplication : WindsorMvcApplication {
+    public MvcApplication() {
+        Bootstrapper.BootstrapperTasks
+            .Include&lt;RegisterControllers&gt;(); // задача, для регистрации контроллеров в IoC контейнер.
+        }
+    }
+</code></pre>
+
+<p>Кроме стандартной задачи для регистрации контроллеров существует еще несколько стандартных задач, которые подключают дополнительные возможности. Также есть несколько базовых классов, которые позволяют выполняет такие полезные действия, как регистрация маршрутов, фильтров, модел-байндеров, etc.</p>
+
+<h2>Регистрация маршрутов</h2>
+
+<p>Для регистрации маршрутов вам необходимо унаследоваться от абстрактного класса <em>RegisterRoutesBase</em>, и подключить задачу к bootstrapper.</p>
+
+<pre><code>public class RegisterRoutes : RegisterRoutesBase {
+    public RegisterRoutes(RouteCollection routes) 
+        : base(routes) { }
+
+    protected override void Register() {
+        Routes.IgnoreRoute("favicon.ico");
+        Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+        Routes.MapRoute("Default",
+            "{controller}/{action}/{id}",
+            new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+    }
+}
+</code></pre>
+
+<h2>Конфигурация фильтров</h2>
+
+<p>Еще одной интересной возможностью MvcExtensions является возможность добавлять фильтры (IMvcFilter) к действиям контроллеров динамически. Этот подход позволяет писать фильтры не через атрибуты, а как обычные классы, при этом появляется возможность использовать инжекцию зависимостей через конструктор. Для регистрации фильтров необходимо унаследоваться от базового абстрактного класса <em>ConfigureFiltersBase</em>.</p>
+
+<p>Рассмотрим небольшой пример:</p>
+
+<pre><code>public class ConfigureFilters : ConfigureFiltersBase { 
+    public ConfigureFilters(IFilterRegistry registry) 
+        : base(registry) { }
+
+
+    protected override void Configure() {
+        Registry.Register&lt;ProductController, PopulateCategories, PopulateSuppliers&gt;(c =&gt; c.Create())
+                .Register&lt;ProductController, PopulateCategories, PopulateSuppliers&gt;(c =&gt; c.Edit(0));
+    }
+}
+</code></pre>
+
+<p>Как видно из примера, для контроллера <em>ProductController</em> для действий <em>Create</em> и <em>Edit</em> регистрируются два фильтра <em>PopulateCategories</em> и <em>PopulateSuppliers</em></p>
+
+<h2>Регистрация ModelBinder</h2>
+
+<p>В жизни бывает всякое и иногда необходимо написать свой ModelBinder, с помощью <em>ConfigureModelBindersBase</em> вы можете привязать свой ModelBinder к модели.</p>
+
+<pre><code>public class ConfigureModelBinders : ConfigureModelBindersBase { 
+    public ConfigureModelBinders(TypeMappingRegistry&lt;object, IModelBinder&gt; registry)
+        : base(registry) { }
+
+    protected override void Configure() {
+        Registry.Register&lt;ProductEditModel, ProductEditModelBinder&gt;();
+    }
+} 
+</code></pre>
+
+<p>Здесь вроде все понятно.</p>
+
+<h2>Собственные Bootstrapper tasks</h2>
+
+<p>Нет ничего проще, чем создать собственные задачи: необходимо просто  унаследоваться от базового класса <em>BootstrapperTask</em>. Также задачи могут зависеть от других задач, для этого вашу задачу нужно пометить атрибутом [DependsOn]. И главное: н<em>е забудьте зарегистрировать свои задачи в бутстрапер.</em></p>
+
+<pre><code>[DependsOn(typeof(RegisterRoutes))]
+public class ConfigureFiltersBase : BootstrapperTask {
+    protected override void Configure() {
+        // Ваш код будет здесь
+    }
+}
+</code></pre>
+
+<h1>Вместо заключения</h1>
+
+<p>На сегодня все. В следующей статье я планирую подробно рассмотреть конфигурацию метаданых.</p>

@@ -1,0 +1,17 @@
+---
+layout: post
+title: Бизнес-правила в DDD
+date: '2010-05-21T22:40:00+12:00'
+tags:
+- questions
+- business rules
+- DDD
+tumblr_url: http://blog.hazzik.ru/post/19465320704/ddd-business-rules
+---
+<p>У нас в системе есть одно очень интересное и достаточно распространенное бизнес-правило:<br/><br/><i>Адрес электронной почты пользователя должен быть уникальным в пределах системы.</i><br/><br/></p>
+
+<pre class="brush:csharp">public class User : IEntity<br/>{<br/>  public int Id { get; set; }<br/><br/>  public string Email { get; set; }<br/><br/>  public string Name { get; set; }<br/>}<br/></pre>
+
+<p><br/>Где должна находиться реализация данного бизнес-правила?<br/><br/>Жду ваших ответов с примерами кода в комментариях.</p>
+
+<div class="blogger-post-footer"><img width="1" height="1" src="https://blogger.googleusercontent.com/tracker/1624027437398699573-1790873962076866235?l=hazzik.blogspot.com" alt=""/></div>

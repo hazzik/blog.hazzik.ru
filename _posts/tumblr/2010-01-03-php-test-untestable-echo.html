@@ -1,0 +1,27 @@
+---
+layout: post
+title: 'PHP: тестируем нетестируемое – echo'
+date: '2010-01-03T22:09:00+13:00'
+tags:
+- php
+- PHPUnit
+- xUnit
+tumblr_url: http://blog.hazzik.ru/post/19465317139/php-test-untestable-echo
+---
+<p>В данной заметке я хочу рассказать, как тестировать конструкции echo и ей подобные в <a href="http://php.net/">PHP</a>.<br/><a name="more"></a><br/>Допустим у нас есть такой код:<br/></p>
+
+<pre class="brush:php"><br/>class World {<br/> public function printHello() {<br/>   echo 'hello world';<br/> }<br/><br/> public function printHello2() {<br/>?&gt;<br/>   hello world<br/>&lt;?php<br/> }<br/><br/>//...<br/><br/>}<br/></pre>
+
+<p><br/>«Как же нам протестировать методы Hello и Hello2?» – вчера ночью этот вопрос загнал меня в тупик. Немного поразмыслив, я все-таки выкрутился из ситуации – для первого случая достаточно отрефакторить код таким образом, чтобы на вход конструкции <i>echo</i> подавался результат функции, вычисляющий требуемое значение:<br/></p>
+
+<pre class="brush:php"><br/>class World {<br/> /** @returns string */<br/> public function getGreeting(){<br/>   return 'hello world';<br/> }<br/><br/> public function printHello(){<br/>   echo $this-&gt;getGreeting();<br/> }<br/><br/>//...<br/><br/>}<br/></pre>
+
+<p><br/>Такой код уже поддается тестированию:<br/></p>
+
+<pre class="brush:php"><br/>/** @test */<br/>public function getGreetingReturnsHelloWorld () {<br/> $world = new World;<br/><br/> self::assertEquals('hello world', $world-&gt;getGreeting());<br/>}<br/></pre>
+
+<p><br/>Но как же быть во втором случае? Во втором случае нам поможет <a href="http://xunitpatterns.com/indirect%20output.html">тестирование непрямого вывода </a>. Перед вызовом тестовой системы добавим вызов функции <i>ob_start()</i> которая включает буферизированный вывод, а после вызова системы проверим содержимое буфера с помощью вызова функции <i>ob_get_flush()</i>:<br/></p>
+
+<pre class="brush:php"><br/>/** @test */<br/>public function hello2InderectTesting () {<br/> $world = new World;<br/><br/> ob_start();<br/> $world-&gt; printHello2 ();<br/> $actual = ob_get_flush();<br/><br/> self::assertEquals('hello world', $actual);<br/>}<br/></pre>
+
+<div class="blogger-post-footer"><img width="1" height="1" src="https://blogger.googleusercontent.com/tracker/1624027437398699573-6514169990731740574?l=hazzik.blogspot.com" alt=""/></div>

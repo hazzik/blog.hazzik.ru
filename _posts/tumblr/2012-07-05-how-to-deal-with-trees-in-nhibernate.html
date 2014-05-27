@@ -1,0 +1,138 @@
+---
+layout: post
+title: 'NHibernate: как хранить иерархические сущности (деревья) в базе'
+date: '2012-07-05T09:06:00+12:00'
+tags:
+- NHibernate
+- Tree-like structures
+tumblr_url: http://blog.hazzik.ru/post/26513646268/how-to-deal-with-trees-in-nhibernate
+---
+<p>Многие из вас, скорее всего, сталкивались с простой на первый взгляд задачей: сохранение иерархических данных в базу и последующая работа с ними. Кажется, что нет ничего проще: создадим в таблице колонку PARENT_ID и будем записывать туда, собственно, идентификатор нашей вышестоящей сущности.</p>
+
+<pre><code>    class Tree {
+        int Id;
+        Tree Parent;
+    }
+</code></pre>
+
+<p>Но, это только на первый взгляд.</p>
+
+<!-- more -->
+
+<p>Все хорошо до тех пор, пока вы будете работать на одном уровне иерархии: родитель и его дети. Но самое интересно начинается, когда вам необходимо расширить уровни, к примеру, нужно проверить, что какая-то сущность стоит выше другой сущности на любом из уровней.</p>
+
+<p>C такой задачей ни одна ORM уже не справится: в лучшем случае вы получите <a href="http://nhprof.com/Learn/Alerts/SelectNPlusOne">SELECT N+1</a>. Для решения этой проблемы вам придется написать кастомный <em>зависящий от конкретной базы</em> запрос: рекурсивные запрос с WITH в Microsoft Sql Server; запрос с CONNECT BY PRIOR в Oracle; либо специальную хранимую процедуру.</p>
+
+<p>В статье &#8220;<a href="http://nhibernate.hibernatingrhinos.com/16/how-to-map-a-tree-in-nhibernate">How to map a tree in NHibernate</a>" <a href="http://lostechies.com/gabrielschenker/author/gabrielschenker/">Gabriel Schenker</a> предлагает альтернативный вариант: необходимо добавить таблицу, в которой для каждой сущности мы будем хранить ссылки на всех ее предков и всех ее потомков. Потомки будут отображаться на коллекцию <em>Descendants</em>, а предки на коллекцию <em>Ancestors</em>. Обе коллекции many-to-many:</p>
+
+<pre><code>    class Tree {
+        int Id;
+        Tree Parent;
+        IEnumerable&lt;Tree&gt; Children;
+        IEnumerable&lt;Tree&gt; Ancestors;
+        IEnumerable&lt;Tree&gt; Descendant;
+    }
+</code></pre>
+
+<p>С такой структурой очень легко обращаться.</p>
+
+<p>Но, плюсы не бывают без минусов. Из минусов могу отметить то, что вам необходимо следить за состоянием таблицы иерархических связей: это можно делать из кода, либо с помощью триггера\запроса\хранимой процедуры. К счастью, если это делать в коде, то этот код нужно написать лишь раз и использовать его везде, где необходимо, что я собственно и <a href="https://github.com/hazzik/Grapes">сделал</a>.</p>
+
+<h1>Brandy.Grapes</h1>
+
+<p><a href="https://github.com/hazzik/Grapes">Brandy.Grapes</a> - это небольшой (всего 3) набор библиотек, который позволяет легко и непринужденно работать с сохраняемыми иерархическими сущностями в <a href="http://nhforge.org">NHibernate</a>.</p>
+
+<ul><li><p>Необходимо установить библиотеку через <a href="http://nuget.org">nuget</a> (поддерживается NHibernate By Code и FluentNHibernate):</p>
+
+<pre><code>&gt; install-package Brandy.Grapes.NHibernate
+</code></pre>
+
+<p>или</p>
+
+<pre><code>&gt; install-pacakge Brandy.Grapes.FluentNhibernate
+</code></pre></li>
+<li><p>Унаследовать вашу сущность от <em>TreeEntry`1</em></p>
+
+<pre><code>public class MySuperTree : TreeEntry&lt;MySuperTree&gt; {
+    public virtual int Id { get; set; }
+
+    public virtual string Name { get; set; }
+}
+</code></pre></li>
+<li><p>Наконец, написать маппинг, к примеру, для FluentNHibernate:</p>
+
+<pre><code>using Brandy.Grapes.FluentNHibernate;
+public class MySuperTreeMap : ClassMap {
+    public MySuperTreeMap() {
+        Id(x =&gt; x.Id);
+        Map(x =&gt; x.Name);
+
+        this.MapTree("MySuperTreeHierarchy"); // вся магия происходит здесь
+    }
+}
+</code></pre></li>
+<li><p>Наслаждаться: теперь <em>Brandy.Grapes</em> будет отслеживать изменения в иерархии и корректно сохранять их в базу.</p></li>
+</ul><p>Как справедливо заметил Денис Боровнев, при изменении иерархии необходимо из базы подгрузить всю иерархию для данного элемента, чтобы правильно обновить связи. Если у вас в проекте иерархические сущности изменяются достаточно часто, то можно отключить изменение иерархии из кода и обновлять связи через базу. Существует несколько способов:</p>
+
+<ul><li><p>Вызывать хранимую процедуру (по триггеру, или из кода), для обновления иерархических связей:</p>
+
+<pre><code>-- пример для Microsoft Sql Server
+CREATE PROCEDURE [dbo].[FillHierarchy] (@table_name nvarchar(MAX), @hierarchy_name nvarchar(MAX))
+AS
+BEGIN
+    DECLARE @sql nvarchar(MAX), @id_column_name nvarchar(MAX)
+    SET @id_column_name = '[' + @table_name + '_ID]'
+    SET @table_name = '[' + @table_name + ']'
+    SET @hierarchy_name = '[' + @hierarchy_name + ']'
+
+    SET @sql = ''
+    SET @sql = @sql + 'WITH Hierachy(CHILD_ID, PARENT_ID) AS ( '
+    SET @sql = @sql + 'SELECT ' + @id_column_name + ', [PARENT_ID] FROM ' + @table_name + ' e '
+    SET @sql = @sql + 'UNION ALL '
+    SET @sql = @sql + 'SELECT e.' + @id_column_name + ', e.[PARENT_ID] FROM ' + @table_name + ' e '
+    SET @sql = @sql + 'INNER JOIN Hierachy eh ON e.' + @id_column_name + ' = eh.[PARENT_ID]) '
+    SET @sql = @sql + 'INSERT INTO ' + @hierarchy_name + ' ([CHILD_ID], [PARENT_ID]) ( '
+    SET @sql = @sql + 'SELECT [CHILD_ID], [PARENT_ID] FROM Hierachy WHERE [PARENT_ID] IS NOT NULL '
+    SET @sql = @sql + ') '
+
+    EXECUTE (@sql)
+END
+GO
+</code></pre></li>
+<li><p>Для каждой иерархии создать <em>View</em> (тот же запрос, что и в хранимой процедуре) и отобразить связи <em>Ancestors</em> и <em>Descendants</em> на эту <em>View</em>:</p>
+
+<pre><code>-- Пример для Microsoft Sql Server
+CREATE VIEW [MySuperTreeHierarchy]
+AS
+    WITH Hierachy (CHILD_ID, PARENT_ID) 
+    AS 
+    (
+        SELECT [MySuperTree_ID], [PARENT_ID] FROM [MySuperTree] AS e
+        UNION ALL
+        SELECT e.[MySuperTree_ID], e.[PARENT_ID] FROM [MySuperTree] AS e 
+            INNER JOIN Hierachy AS eh ON e.[MySuperTree_ID] = eh.[PARENT_ID]
+    )
+
+    SELECT [CHILD_ID], [PARENT_ID] FROM Hierachy WHERE [PARENT_ID] IS NOT NULL
+GO
+</code></pre></li>
+</ul><p>Оба этих подхода обладают большей гибкостью и надежностью, чем иерархические запросы на чистом SQL из кода.</p>
+
+<p>PS: интерфейс абстрактного класса <em>TreeEntry`1</em>:</p>
+
+<pre><code>    public abstract class TreeEntry&lt;T&gt; where T : TreeEntry {
+        public virtual T Parent { get; set; }
+
+        public virtual IEnumerable&lt;T&gt; Children { get; }
+
+        public virtual IEnumerable&lt;T&gt; Ancestors { get; }
+
+        public virtual IEnumerable&lt;T&gt; Descendants { get; }
+
+        public virtual void AddChild(T child);
+
+        public virtual void RemoveChild(T child);
+    }
+</code></pre>
+
+<p>PPS: для EF такое сделать также возможно, но т.к. <em>EF</em> не поддерживает скрытие коллекций за интерфейсом IEnumerable`1, я не стал выкладывать реализацию для EF в открытый доступ.</p>

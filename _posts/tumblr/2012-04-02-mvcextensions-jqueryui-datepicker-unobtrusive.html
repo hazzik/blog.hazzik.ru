@@ -1,0 +1,143 @@
+---
+layout: post
+title: MvcExtensions - как подключить jquery-ui date picker в ASP.NET MVC. Unobtrusive
+  way.
+date: '2012-04-02T22:00:00+12:00'
+tags:
+- jquery-ui
+- mvcextensions
+- datepicker
+- asp.net mvc
+tumblr_url: http://blog.hazzik.ru/post/20342899443/mvcextensions-jqueryui-datepicker-unobtrusive
+---
+<p>В <a href="http://metrika.yandex.ru">Яндекс.Метрика</a> подсмотрел, что по такому поисковому запросу приходят в мой блог и решил написать статью об этом. Задача довольно простая - позволить пользователю выбирать дату из красивого календаря, такого как <a href="http://jqueryui.com/demos/datepicker/">jQuery UI Datepicker</a></p>
+
+<h3>Решение &#8220;в лоб&#8221;.</h3>
+
+<p>Как известно, <a href="http://asp.net/mvc">ASP.NET MVC</a> поддерживает шаблоны для редакторов полей. Первый вариант - использовать такой шаблон &#8220;в лоб&#8221;. <!-- more --> Создадим файл с названием &#8220;DateTime.cshtml&#8221; и положим его в &#8220;/Views/Shared/EditorTemplates/&#8221;. Содержание файла будет таким:</p>
+
+<pre><code>@model DateTime?
+@Html.TextBox("") @* "" - мы говорим, что для названия поля будет использоваться название модели *@
+&lt;script type="text/javascript"&gt;
+    (function($) {
+        $(function() {
+            var settings = {
+                //здесь стандартные настройки для datepicker
+            };
+            $('#@Html.IdForModel()').datepicker(settings);
+        });            
+    })(jQuery);
+&lt;/script&gt;
+</code></pre>
+
+<p>Теперь, каждый раз, когда вы будете писать <code>@Html.EditorFor(x =&gt; x.FieldOfDateTimeType)</code> будет использоваться данный шаблон.</p>
+
+<p>У этого решения есть недостатки:</p>
+
+<ol><li>Решение не гибкое - не позволяет использовать разные настройки для разных редакторов. Для того, чтобы использовать другие настройки календаря необходимо создать <em>отдельный</em> шаблон.</li>
+<li>Каждый раз, при отрисовке календарика в разметку будет добавляться дополнительный <script>, что будет сказываться на производительности.</script></li>
+</ol><h3>Делаем жизнь проще.</h3>
+
+<p>Очевидно, что дублирующийся в конечном HTML скрипт нужно куда-то вынести. Вынесем его в базовый слой, или в отдельный файл. Для этого, нам необходимо модифицировать наш sizzle-селектор для того, чтобы он находил <em>все</em> календарики. Для этого пометим наш календарик с помощью аттрибута <code>role="datepicker"</code> и для поддержки html5 присвоим ему тип - &#8220;date&#8221;:</p>
+
+<p>DateTime.cshtml:</p>
+
+<pre><code>@model DateTime?
+@Html.TextBox("", null, new { role = "datepicker", type = "date" }) 
+</code></pre>
+
+<p>_Layout.cshtml:</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;
+    (function($) {
+        $(function() {
+            var settings = {
+                //здесь стандартные настройки для datepicker
+            };
+            $('input[role=datepicker], input[type=date]').datepicker(settings);
+        });            
+    })(jQuery);
+&lt;/script&gt;
+</code></pre>
+
+<p>Данное решение более элегантно, чем решение в лоб, но при этом остается почти таким же не гибким.</p>
+
+<h3>Решение с использованием <a href="http://mvcextensions.codeplex.com/">MvcExtensions</a> + unobtrusive javascript.</h3>
+
+<p>Предыдущее решение уже unobtrusive, но пока не позволяет передавать дополнительные параметры в календарик. Для этого к нам на помощь придут наши друзья <a href="http://github.com/MvcExtensions/Core/blob/master/src/MvcExtensions/ModelMetadata/IModelMetadataAdditionalSetting.cs"><code>IModelMetadataAdditionalSetting</code></a>s. Для их использования мы создадим метод расширения <code>AsDatePicker</code>:</p>
+
+<pre><code>public static class ModelMetadataItemBuilderDatePickerExtensions {
+    public static ModelMetadataItemBuilder&lt;T&gt; AsDatepicker&lt;T&gt;(this ModelMetadataItemBuilder&lt;T&gt; self, 
+        DateTime? minDate = null, DateTime? maxDate = null) {
+        self.Template("DateTime");
+
+        var setting = self.Item.GetAdditionalSettingOrCreateNew&lt;DatePickerSettings&gt;();
+        setting.MinDate = minDate;
+        setting.MaxDate = maxDate;
+
+        return self;
+    }
+}
+</code></pre>
+
+<p>Здесь всё просто: выставляется шаблон и создаются настройки для календарика. В шаблоне мы будет отрисовывать это следующим образом:</p>
+
+<pre><code>@{var settings = ViewData.ModelMetadata.GetAdditionalSettingOrCreateNew&lt;DatePickerSettings&gt;(); }
+@Html.TextBoxFor(_ =&gt; _, settings.ToHtmlAttributes() /*html attributes*/)
+</code></pre>
+
+<p>Здесь настройки сериализуются в data-* аттрибуты у элемента <code>&lt;input /&gt;</code>. При этом, будет соблюдена конвенция, что знак подчеркивания будет преобразован в дефис.</p>
+
+<p>Класс <code>DatePickerSettings</code>:</p>
+
+<pre><code>public class DatePickerSettings : IModelMetadataAdditionalSetting {
+    public DateTime? MinDate { get; set; }
+    public DateTime? MaxDate { get; set; }
+
+    public object ToHtmlAttributes() {
+        return new
+                   {
+                       role = "datepicker",
+                       type = "date",
+                       data_min_date = MinDate,
+                       data_max_date = MaxDate,
+                   };
+    }
+}
+</code></pre>
+
+<p><a href="http://jqueryui.com">jQuery-UI</a> для настроек использует camelCase нотацию, а, jQuery, к счастью, автоматически преобразуте дефисы в data-* аттрибутах в такую нотацию. Таким образом нам нужно просто для каждого <code>&lt;input&gt;</code> взять его data-* аттрибуты и просто передать в качестве настроек в datapicker. Это будет сделано скриптом в <code>_Layout.cshtml</code>:</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;
+    (function($) {
+        $(function() {
+            $('[role=datepicker]', input[type=date]').each(function () {
+                var self = $(this);
+                self.datepicker(self.data());
+            });
+        });            
+    })(jQuery);
+&lt;/script&gt;
+</code></pre>
+
+<p>В метаданных это будет использоваться так:</p>
+
+<pre><code>public class MyModelMetadata: ModelMetadataConfiguration&lt;MyModel&gt; {
+    public MyModelMetadata() {
+        Configure(m =&gt; m.FieldOfDateTimeType)
+            .AsDatepicker(minDate: DateTime.Today, maxDate: DateTime.Today.AddDays(10));
+    }
+}
+</code></pre>
+
+<h3>Вместо заключения</h3>
+
+<p>Данное решение обладает абсолютной гибкостью и позволяет управлять любыми свойствами для каждого из ваших календарей (и не только календарей) через метаданные формы.</p>
+
+<hr><p>По материалам <a href="http://www.dotnetconf.ru/Materialy/Primenenie_metadannih_ViewModel_dlya_konfigurirovania_kompleksnih_javascript_controlov">доклада &#8220;Metadata + JavaScript = ♥&#8221;</a> Рахматиллаева Тимура на dotnetconf.</p>
+
+<h3>UPDATE: Добавил примеры к статье.</h3>
+
+<ul><li>Примеры доступны здесь: <a href="http://hazzik-samples.apphb.com/DatePicker">http://hazzik-samples.apphb.com/DatePicker</a></li>
+<li>Исходиники примеров здесь: <a href="https://github.com/hazzik/Samples-From-My-Blog">https://github.com/hazzik/Samples-From-My-Blog</a></li>
+</ul>

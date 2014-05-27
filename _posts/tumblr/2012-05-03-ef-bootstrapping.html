@@ -1,0 +1,72 @@
+---
+layout: post
+title: EF Bootstrapping
+date: '2012-05-03T20:46:00+12:00'
+tags:
+- EntityFramework
+- bootstrapping
+tumblr_url: http://blog.hazzik.ru/post/22312701762/ef-bootstrapping
+---
+<p>Привет всем любителям EF Code First.</p>
+
+<p>Вчера на коленке написал конфигуратор для EF CF во fluent- стиле. Использование выглядит так:</p>
+
+<pre><code>var factory = Configure.WithContext&lt;MyDbContext&gt;("connectionstring") // использовать контекст типа MyDbContext и строку подключения connectionstring
+     .AddMappingsFromAssemblyOf&lt;XXX&gt;()  // здесь есть перегрузки, принимающие Type и Assembly. В подключенной сборке находит все реализации EntityTypeConfiguration`1 и ComplexTypeConfiguration`1
+     .LazyLoadingEnabled(true) // пример конфигурации контекста
+     .BuildDbContextFactory(); // возвращается реализация IDbContextFactory
+</code></pre>
+
+<!-- more -->
+
+<p>Назначение - использовать generic context и автонахождение маппингов.</p>
+
+<h1>Список методов</h1>
+
+<pre><code>public static class Configure
+{
+    public static DbContextFactoryConfiguration WithContext&lt;TContext&gt;(string connectionString) where TContext : DbContext;
+
+    public static DbContextFactoryConfiguration WithContext(string connectionString);
+
+    public static DbContextFactoryConfiguration WithContext(Type contextType, string connectionString);
+}
+
+public class DbContextFactoryConfiguration
+{
+    public DbContextFactoryConfiguration AddMappingsFromAssembly(Assembly assembly);
+
+    public DbContextFactoryConfiguration AddMappingsFromAssemblyOf(Type type);
+
+    public DbContextFactoryConfiguration AddMappingsFromAssemblyOf&lt;T&gt;();
+
+    public DbContextFactoryConfiguration AutoDetectChangesEnabled(bool value);
+
+    public DbContextFactoryConfiguration LazyLoadingEnabled(bool value);
+
+    public DbContextFactoryConfiguration ProxyCreationEnabled(bool value);
+
+    public DbContextFactoryConfiguration ValidateOnSaveEnabled(bool value);
+
+    public IDbContextFactory BuildDbContextFactory();
+}
+
+public interface IDbContextFactory : System.Data.Entity.IDbContextFactory&lt;DbContext&gt;
+{
+}
+</code></pre>
+
+<h1>Вопросы</h1>
+
+<ul><li>это будет востребованно? </li>
+<li>стоит развивать дальше?</li>
+<li>какие конфигурационные параметры я пропустил?</li>
+<li><p>что еще нужно добавить?</p></li>
+<li><p>как вы конфигурируете контекст в EF?</p></li>
+</ul><h1>Обсуждение</h1>
+
+<p>В гуглгруппе DotNetConf: <a href="https://groups.google.com/d/topic/dotnetconf/gx4PqT6xhtM/discussion">https://groups.google.com/d/topic/dotnetconf/gx4PqT6xhtM/discussion</a></p>
+
+<h1>UPD</h1>
+
+<p>Разместил код на GitHub: <a href="https://github.com/hazzik/EFBootstrapper">https://github.com/hazzik/EFBootstrapper</a></p>

@@ -1,0 +1,105 @@
+---
+layout: post
+title: 'MvcExtensions: введение'
+date: '2011-08-20T08:00:00+12:00'
+tags:
+- asp.net mvc
+- mvcextensions
+tumblr_url: http://blog.hazzik.ru/post/19465323230/mvcextensions-intro
+---
+<p><a href="http://mvcextensions.codeplex.com/">MvcExtensions</a> - это библиотека расширений для ASP.NET MVC. Библиотека предоставляет пользователю мощнейший инструмент для конфигурирования метаданных для ASP.NET MVC посредством fluent-интерфейса. Второй важной особенностью библиотеки является возведение использования IoC контейнера в абсолют (Можно инжектировать данные даже в атрибуты).<!-- more --></p>
+
+<h1>С чего начать?</h1>
+
+<p>Для начала вам необходимо определится с IoC контейнером, который вы хотите использовать - в MvcExtensions есть адаптеры для следующих популярных IoC контейнеров: <a href="http://www.castleproject.org/container/">Castle.Windsor</a>, <a href="http://unity.codeplex.com/">Unity</a>, <a href="http://ninject.org/">Ninject</a>, <a href="http://structuremap.net/structuremap/">StructureMap</a>. Для этого вам необходимо установить соответствующую версию адаптера через nuget: <a href="http://nuget.org/List/Packages/mvcextensions.windsor">Castle.Windsor</a>, <a href="http://nuget.org/List/Packages/mvcextensions.unity">Unity</a>, <a href="http://nuget.org/List/Packages/mvcextensions.ninject">Ninject</a>, <a href="http://nuget.org/List/Packages/mvcextensions.structuremap">StructureMap</a>.</p>
+
+<p>Затем вам необходимо унаследовать класс своего приложения от базового приложения для выбранного адаптера, например, <code>MvcExtensions.Windsor.WindsorMvcApplication</code>:</p>
+
+<pre><code>    //Global.asax.cs
+    public class MvcApplication : WindsorMvcApplication {
+        public MvcApplication() {
+        }
+    }
+</code></pre>
+
+<p><em><strong>UPD</strong> По умолчанию в HttpAppication в качестве бутсраппер-методов создаются методы <code>Application_Start</code> и <code>Application_End</code>. MvcExtensions предоставляет альтернативные методы для этого <code>OnStart</code> и <code>OnEnd</code>. Необходимо использовать их, иначе код в метода <code>Application_Start</code> и <code>Application_End</code> <strong>не будет</strong> вызван.</em></p>
+
+<h1>Инициализируем IoC контейнер</h1>
+
+<p>Для инициализации вашего любимого IoC контейнера вам необходимо просто реализовать соответствующий интерфейс или унаследоваться от базового класса: <code>IWindsorInstaller</code>, <code>Ninject.Modules.NinjectModule</code>, <code>StructureMap.Configuration.DSL.Registry</code>, <code>Microsoft.Practices.Unity.IModule</code>. Например для Windosor:</p>
+
+<pre><code>    public class AccountInstaller : IWindsorInstaller {
+        public void Install(IWindsorContainer container, IConfigurationStore store) {
+            var registration = Component.For&lt;IAuthenticationService&gt;()
+                .ImplementedBy&lt;FormsAuthenticationService&gt;()
+                .LifeStyle.Transient;
+
+            container.Register(registration);
+        }
+    }
+</code></pre>
+
+<p>Полученные таким образом классы нужно положить в ваше MVC приложение в любую папку, я рекомендую в /Infrastructure. <em>Необходимо запомнить, что контроллеры таким образом инициализировать не требуется!</em>.</p>
+
+<h1>Регистрация контроллеров</h1>
+
+<p>В MvcExtensions весь код, выполняющийся при старте приложения необходимо помещать в, так называемые, <code>BootstrapperTask</code>. Существуют некоторые стандартные таски, такие как например регистрация контроллеров. Для того, чтобы проинструктировать MvcExtensions, что вы хотите зарегистрировать свои контроллеры, необходимо всего-лишь включить задачу <code>RegisterControllers</code> в последовательность задач, выполняемых при старте:</p>
+
+<pre><code>    //Global.asax.cs
+    public class MvcApplication : WindsorMvcApplication {
+        public MvcApplication() {
+            Bootstrapper.BootstrapperTasks
+                .Include&lt;RegisterControllers&gt;();
+        }
+    }
+</code></pre>
+
+<p>После этого все контроллеры в вашем MVC приложении будут создаваться с помощью IoC контейнера.</p>
+
+<h1>Метаданные</h1>
+
+<p>MvcExtensions предлагает пользователям замену стандартному способу конфигурирования метеданных через DataAnnotations, посредством fluent-интерфейса для конфигурирования. Этот подход обладает феноменальной гибкостью и неограниченными возможностями для расширения.</p>
+
+<p>Для того, чтобы использовать эту возможность в MvcExtensions необходимо также зарегистрировать ее:</p>
+
+<pre><code>    //Global.asax.cs
+    public class MvcApplication : WindsorMvcApplication {
+        public MvcApplication() {
+            Bootstrapper.BootstrapperTasks
+                .Include&lt;RegisterControllers&gt;()
+                .Include&lt;RegisterModelMetadata&gt;();
+        }
+    }
+</code></pre>
+
+<p>Затем необходимо написать конфигурацию для ваших форм и моделей отображения:</p>
+
+<pre><code>    public class SignUpMetadata : ModelMetadataConfiguration {
+        public SignUpMetadata() {
+            Configure(x =&gt; x.Login)
+                .DisplayName("Имя пользователя")
+                .Required("Необходимо указать имя пользователя");
+
+            Configure(x =&gt; x.Email)
+                .DisplayName("Адрес электронной почты")
+                .Required("Необходимоуказать адрес электронной почты")
+                .AsEmail();
+
+            Configure(x =&gt; x.Password)
+                .DisplayName("Пароль")
+                .Required("Необходимо указать пароль")
+                .MinimumLength(6, " Длина пароля должна быть не меньше 6 символов")
+                .AsPassword();
+
+            Configure(x =&gt; x.ConfirmPassword)
+                .DisplayName("Пароль еще раз")
+                .Required("Необходимо указать подтверждение пароля")
+                .AsPassword()
+                .Compare("Password", "Пароль и подвтерждение пароля должны совпадать");
+        }
+    }
+</code></pre>
+
+<h1>Заключение</h1>
+
+<p>На этом первый этап конфигурирования MvcExtensions завершен. Если что-то осталось непонятно - задавайте вопросы, буду стараться разъяснять.</p>

@@ -1,0 +1,21 @@
+---
+layout: post
+title: nvarchar(?)
+date: '2012-04-11T22:07:00+12:00'
+tags:
+- db
+tumblr_url: http://blog.hazzik.ru/post/20897397905/nvarchar
+---
+<p>Всегда, когда работаю с базой данных и вижу вот такое:</p>
+
+<pre><code>CREATE TABLE [dbo].[Users] (
+    [UserId] int IDENTITY NOT NULL,
+    [EMail] nvarchar(215) NOT NULL,
+)
+</code></pre>
+
+<p>задаю себе одни и те же вопросы:</p>
+
+<ul><li>чем руководствовался автор, когда выбирал максимальную длину строки?</li>
+<li>Почему именно 215, а не 214 или 216?</li>
+</ul><p>У меня нет ответа на эти вопросы. Может быть вы знаете?</p>

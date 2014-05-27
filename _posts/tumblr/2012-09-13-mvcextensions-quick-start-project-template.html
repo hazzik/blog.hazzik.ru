@@ -1,0 +1,39 @@
+---
+layout: post
+title: 'MvcExtensions: Quick Start Project Template'
+date: '2012-09-13T10:23:00+12:00'
+tags:
+- mvcextensions
+- asp.net mvc
+- asp.net
+tumblr_url: http://blog.hazzik.ru/post/31422556143/mvcextensions-quick-start-project-template
+---
+<p>Очень часто, когда кто-то пытается начать использовать <a href="http://mvcextensions.github.com">MvcExtensions</a> у него появляются вопросы: с чего начать и как это использовать. Чтобы этих вопрос стало меньше создал проект <a href="https://github.com/BrandyFx/ProjectTemplate">ProjectTemplate</a>. <!--more--></p>
+
+<h1>Что внутри?</h1>
+
+<ul><li>В качестве основного фреймворка выбран <a href="http://asp.net/mvc">ASP.NET MVC</a> вместе с <a href="http://mvcextensions.github.com">MvcExtensions</a></li>
+<li><a href="http://www.castleproject.org/projects/windsor">Castle.Windsor</a> используется как IoC контейнер</li>
+<li>Для клиентской части используется <a href="http://jquery.com">jQuery</a>, <a href="http://jqueryui.com">jQuery UI</a>, <a href="http://modernizr.com">Modernizr</a> и <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a></li>
+<li>Скрипты и CSS сжимаются с помощью <a href="http://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization">Microsoft.Web.Optimization</a> + BundleTransformer (<a href="http://www.nuget.org/packages/BundleTransformer.Less">LESS</a> и <a href="http://www.nuget.org/packages/BundleTransformer.Yui">YUI</a>)</li>
+<li>Для логирования ошибок используется <a href="http://code.google.com/p/elmah/">ELMAH</a></li>
+<li>Для сборки проекта используется <a href="https://github.com/psake">psake</a></li>
+</ul><p>Все это чудо настроено и просто работает</p>
+
+<h1>Как использовать?</h1>
+
+<ol><li>Скачать (для <a href="https://github.com/BrandyFx/ProjectTemplate/zipball/master">MVC 4</a>, <a href="https://github.com/BrandyFx/ProjectTemplate/zipball/mvc3">MVC 3</a>)</li>
+<li>Распаковать*</li>
+<li>Открыть проект и добавить вашу логику</li>
+<li>???</li>
+<li>RROFIT!</li>
+</ol><p>*После распаковки я рекомендую создать git репозиторий и закоммитить туда первоначальную структуру</p>
+
+<pre><code> &gt; git init
+ &gt; git add .
+ &gt; git commit -m 'Initial project strucure'
+</code></pre>
+
+<h1>PS</h1>
+
+<p>Жду ваших предложений по развитию проекта.</p>

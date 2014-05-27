@@ -1,0 +1,135 @@
+---
+layout: post
+title: Вычисляемые поля для любого LINQ-провайдера
+date: '2012-10-24T08:56:00+13:00'
+tags:
+- .net
+- reflection
+- lambda expression
+- linq
+- msil
+tumblr_url: http://blog.hazzik.ru/post/34179376585/delegatedecompiler
+---
+<p>Сегодня я хочу рассказать, о маленькой библиотеке, которую я написал недавно на коленке всего за несколько часов. Эта библиотека может декомпилировать методы в их λ-представление.</p>
+
+<p>Зачем это может понадобиться - под катом. <!-- more --></p>
+
+<h4>Intro</h4>
+
+<p>В жизни случается, что в LINQ нужно использовать вычисляемое поле, к примеру у нас есть класс <i>Employee</i> с вычисляемым полем <i>FullName</i></p>
+
+<pre><code>class Employee
+{
+    public string FullName
+    {
+        get { return FirstName + " " + LastName; }
+    }
+
+    public string LastName { get; set; }
+
+    public string FirstName { get; set; }
+}
+</code></pre>
+
+<p>И тут к вам приходит заказчик и говорит, что нам нужно добавить поиск по полному имени сотрудника. Вы недолго думаете берете и пишите следующий запрос:</p>
+
+<pre><code>var employees = (from employee in db.Employees
+                 where (employee.FirstName + " " + employee.LastName) == "Test User"
+                 select employee).ToList();
+</code></pre>
+
+<p>Да, с таким простым полем, как <i>FullName</i> так можно поступить, но что делать, если поле не такое простое? Вот к примеру, вычисляемое поле из одного из проектов, в котором я учавствовал.</p>
+
+<pre><code>public class WayPoint 
+{
+    // все остальное опущено в целях наглядности
+    public virtual bool IsValid
+    {
+        get 
+        {
+            return (Account == null) ||
+               (Role == null || Account.Role == Role) &amp;&amp;
+               (StructuralUnit == null || Account.State.StructuralUnit == StructuralUnit);
+        }
+    }
+}
+</code></pre>
+
+<p>С этим сложнее. Итак, приступим. Что же у нас есть для решения таких задач?</p>
+
+<h4>&lt;formula&gt; в NHibernate</h4>
+
+<p>Если вы используете NHibernate, то можете замапить данное поле как формулу, но этот путь не очень дружелюбен к рефакторингу, к тому же &lt;formula&gt; поддерживает только sql, и если вы пишете приложение, которое планируется использовать с разными базами данных, то здесь вам нужно быть особенно осторожными.</p>
+
+<p>Поддреживается только в NHibernate.</p>
+
+<h4><a href="http://damieng.com/blog/2009/06/24/client-side-properties-and-any-remote-linq-provider">Microsoft.Linq.Translations</a></h4>
+
+<p>Для этого необходимо переписать наш класс и запрос следующим образом:</p>
+
+<pre><code>class Employee 
+{
+    private static readonly CompiledExpression&lt;Employee,string&gt; fullNameExpression
+     = DefaultTranslationOf&lt;Employee&gt;.Property(e =&gt; e.FullName).Is(e =&gt; e.FirstName + " " + e.LastName);
+
+    public string FullName 
+    {
+        get { return fullNameExpression.Evaluate(this); }
+    }
+
+    public string LastName { get; set; }
+
+    public string FirstName { get; set; }
+}
+
+var employees = (from employee in db.Employees
+                 where employee.FullName == "Test User"
+                 select employee).WithTranslations().ToList()
+</code></pre>
+
+<p>Все хорошо, запрос выглядит красиво, а вот объявление свойства - просто ужасно. К тому же Evaluate компилирует&#160;?-выражение в момент исполнения, что, на мой взгляд не менее ужасно, чем задание вычисляемого поля.</p>
+
+<p>И, наконец, мы подошли к моему творениею - DelegateDecompiler</p>
+
+<h4>DelegateDecompiler</h4>
+
+<p>Все что нужно, это вычисляемое поля пометить атрибутом <i>[Computed]</i>, а запрос преобразовать с помощью метода <i>.Decompile()</i></p>
+
+<pre><code>class Employee 
+{
+    [Computed]
+    public string FullName 
+    {
+        get { return FirstName + " " + LastName; }
+    }
+
+    public string LastName { get; set; }
+
+    public string FirstName { get; set; }
+}
+
+var employees = (from employee in db.Employees
+                 where employee.FullName == "Test User"
+                 select employee).Decompile().ToList()
+</code></pre>
+
+<p>По-моему изящно (сам не похвалишь - никто не похвалит)</p>
+
+<p>При вызове <i>.Decompile()</i> декомпилятор найдет все свойства и методы, помеченные атрибутом <i>[Computed]</i> и развернет их. Т.е. запрос будет преобразован к виду, из первоначального примера:</p>
+
+<pre><code>var employees = (from employee in db.Employees
+                 where (employee.FirstName + " " + employee.LastName) == "Test User"
+                 select employee).ToList();
+</code></pre>
+
+<p>Библиотечка в качестве декомпилятора использует Mono.Reflection (<a href="https://github.com/jbevain/mono.reflection/">GitHub</a>, <a href="https://nuget.org/packages/Mono.Reflection">NuGet</a>) от <a href="http://evain.net">Jean-Baptiste Evain</a> - создателя <i>Mono.Cecil</i>. Сама <i>Mono.Cecil</i> не используется из-за ее громоздкости.</p>
+
+<p>PS: Естественно, то что внутри вычисляемого поля должно поддерживаться вашим LINQ-провайдером.
+PPS: Это альфа-версия очень далекая от релиза - используйте на свой страх и риск.</p>
+
+<h4>Ссылки</h4>
+
+<ul><li><a href="https://github.com/hazzik/DelegateDecompiler">Исходный код на GitHub</a></li>
+<li><a href="https://nuget.org/packages/DelegateDecompiler">Пакет в NuGet</a></li>
+<li><a href="http://habrahabr.ru/post/155437/">Оригинал статьи на habrahabr.ru</a></li>
+</ul>
