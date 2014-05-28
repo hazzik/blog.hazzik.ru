@@ -3,7 +3,7 @@ layout: post
 title: Блог переехал на Jekyll и GitHub Pages
 date: 2014-05-28 17:10:57 +1200
 comments: true
-tags: 
+tags: Blog
 ---
 Перевел блог с tumblr на Jekyll и GitHub Pages. Вроде-бы миграция прошла отлично, и все работает.
 
