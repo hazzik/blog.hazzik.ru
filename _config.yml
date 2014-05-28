@@ -23,5 +23,4 @@ github:
   source:    'http://github.com/hazzik/blog.hazzik.ru/edit/gh-pages/'
 
 gems:
-  - github-pages
   - jekyll-redirect-from
