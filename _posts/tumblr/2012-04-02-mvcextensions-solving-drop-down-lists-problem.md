@@ -7,6 +7,9 @@ tags:
 - ASP.NET MVC
 - DropDown
 tumblr_url: http://blog.hazzik.ru/post/20302159000/mvcextensions-solving-drop-down-lists-problem
+redirect_from:
+- /post/20302159000/mvcextensions-solving-drop-down-lists-problem/
+- /post/20302159000/
 ---
 <p>С самого выхода еще первой версии <a href="http://www.asp.net/mvc">ASP.NET MVC</a> три года назад я столкнулся с проблемой выпадающих списков. Наверное <a href="http://habrahabr.ru/post/106370/">каждый</a> <a href="http://pashapash.com/2010/12/dropdown-v-asp-net-mvc-chast-1/">из вас</a> <a href="http://www.google.ru/webhp#q=asp.net+mvc+dropdownlist">задавал себе вопрос</a>: &#8220;Как корректно передавать данные для отображения в выпадающие списки?&#8221; Вот и меня до недавнего времени этот вопрос волновал и очень существенно. Я буквально не мог спать;)</p>
 

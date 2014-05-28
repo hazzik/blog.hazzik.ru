@@ -8,6 +8,9 @@ tags:
 - PostgreSQL
 - Performance
 tumblr_url: http://blog.hazzik.ru/post/26845235551/nhibernate-oracle-and-postgresql-tip
+redirect_from:
+- /post/26845235551/nhibernate-oracle-and-postgresql-tip/
+- /post/26845235551/
 ---
 <p>В ADO.NET провайдерах для <a href="http://www.oracle.com/database">Oracle</a>, <a href="http://www.postgresql.org/">PostgreSQL</a> и, возможно, других есть одна неприятная особенность, которая может сказаться на производительности вашего приложения, если вы запрашиваете у сервера большие объемы данных: они не кэшируют вызовы метода <em><a href="http://msdn.microsoft.com/en-us/library/system.data.idatarecord.getordinal.aspx">IDataReader.GetOrdinal</a></em>. Как оказалось это очень критично для <a href="http://nhforge.org/">NHibernate</a>, но, к счастью, разработчики NHibernate (а точнее <a href="http://www.hibernate.org/">Hibernate</a>) эту проблему заметили и уже решили.</p>
 
