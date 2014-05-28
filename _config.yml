@@ -21,4 +21,6 @@ paginate:         5
 
 github:
   source:    'http://github.com/hazzik/blog.hazzik.ru/edit/gh-pages/'
-  
+
+gems:
+  - jekyll-redirect-from
