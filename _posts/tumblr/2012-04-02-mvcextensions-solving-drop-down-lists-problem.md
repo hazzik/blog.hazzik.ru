@@ -11,28 +11,30 @@ redirect_from:
 - /post/20302159000/mvcextensions-solving-drop-down-lists-problem/
 - /post/20302159000/
 ---
-<p>С самого выхода еще первой версии <a href="http://www.asp.net/mvc">ASP.NET MVC</a> три года назад я столкнулся с проблемой выпадающих списков. Наверное <a href="http://habrahabr.ru/post/106370/">каждый</a> <a href="http://pashapash.com/2010/12/dropdown-v-asp-net-mvc-chast-1/">из вас</a> <a href="http://www.google.ru/webhp#q=asp.net+mvc+dropdownlist">задавал себе вопрос</a>: &#8220;Как корректно передавать данные для отображения в выпадающие списки?&#8221; Вот и меня до недавнего времени этот вопрос волновал и очень существенно. Я буквально не мог спать;)</p>
+С самого выхода еще первой версии [ASP.NET MVC](http://www.asp.net/mvc) три года назад я столкнулся с проблемой выпадающих списков. Наверное [каждый](http://habrahabr.ru/post/106370/) [из вас](http://pashapash.com/2010/12/dropdown-v-asp-net-mvc-chast-1/) [задавал себе вопрос](http://www.google.ru/webhp#q=asp.net+mvc+dropdownlist): &#8220;Как корректно передавать данные для отображения в выпадающие списки?&#8221; Вот и меня до недавнего времени этот вопрос волновал и очень существенно. Я буквально не мог спать;)
 
 <!-- more -->
 
-<p>Допустим у нас есть форма, для создания фильма. И нам нужно из DropDown выбрать жанр фильма. Откровенно &#8220;профанские&#8221; решения, такие как получение возможных значений прямо на View я рассматривать не буду.</p>
+Допустим у нас есть форма, для создания фильма. И нам нужно из DropDown выбрать жанр фильма. Откровенно &#8220;профанские&#8221; решения, такие как получение возможных значений прямо на View я рассматривать не буду.
 
-<h2>Решение &#8220;в лоб&#8221;</h2>
+## Решение &#8220;в лоб&#8221;
 
-<p>Программисты, сталкивающиеся с этой проблемой очень часто идут решать ее в лоб: в модели создается дополнительное свойство Genres типа SelectList и оно заполняется в методе контроллера.</p>
+Программисты, сталкивающиеся с этой проблемой очень часто идут решать ее в лоб: в модели создается дополнительное свойство Genres типа SelectList и оно заполняется в методе контроллера.
 
-<p>Модель:</p>
+Модель:
 
-<pre><code>public class Movie {
+```csharp
+public class Movie {
     public int GenreId { get; set; }
     public SelectList Genres { get; set; }    
     //...
 } 
-</code></pre>
+```
 
-<p>Контроллер:</p>
+Контроллер:
 
-<pre><code>public class MoviesController {
+```csharp
+public class MoviesController {
     [HttpGet] public ActionResult Create() {
         var model = new Movie() { Genres = GetAllGenresFromDatabase(); }
         return View(model); 
@@ -52,32 +54,34 @@ redirect_from:
         // do something with movie.
     }
     //...
-</code></pre>
+}
+```
 
-<p>}</p>
+Но у этого решения для меня есть огромные недостатки:
 
-<p>Но у этого решения для меня есть огромные недостатки:</p>
+1.  Лишнее поле в модели
+2.  Необходимо создавать модель при отображении формы создания
+3.  Дублирование кода заполнения возможных значений. <small>Эта проблема становится особенно актуальное, если у вас в системе можно во многих местах выбирать значения из одного и того же справочника.</small>
+4.  Нет возможности использовать `Html.EditorForModel()` - ASP.NET отображает общую разметку для всех полей модели, при этом при отображении какого-либо поля модели нет доступа к другим полям.
 
-<ol><li>Лишнее поле в модели</li>
-<li>Необходимо создавать модель при отображении формы создания</li>
-<li>Дублирование кода заполнения возможных значений. <small>Эта проблема становится особенно актуальное, если у вас в системе можно во многих местах выбирать значения из одного и того же справочника.</small></li>
-<li>Нет возможности использовать <code>Html.EditorForModel()</code> - ASP.NET отображает общую разметку для всех полей модели, при этом при отображении какого-либо поля модели нет доступа к другим полям.</li>
-</ol><h2>Решение с использованием ViewBag / ViewData</h2>
+## Решение с использованием ViewBag / ViewData
 
-<p>Это решение по большей части аналогично предыдущему решению, за тем лишь исключением, что возможные значение передаются через ViewBag:</p>
+Это решение по большей части аналогично предыдущему решению, за тем лишь исключением, что возможные значение передаются через ViewBag:
 
-<p>Модель:</p>
+Модель:
 
-<pre><code>public class Movie {
+```csharp
+public class Movie {
     [UIHint("Genres")]
     public int GenreId { get; set; }
     //...
 }
-</code></pre>
+```
 
-<p>Контроллер:</p>
+Контроллер:
 
-<pre><code>public class MoviesController {
+```csharp
+public class MoviesController {
     [HttpGet] public ActionResult Create() {
         ViewBag.Genres = GetAllGenresFromDatabase();
         return View(); 
@@ -98,42 +102,46 @@ redirect_from:
     }
     //...
 }
-</code></pre>
+```
 
-<p>Плюсы, по сравнению с предыдущим решением.</p>
+Плюсы, по сравнению с предыдущим решением.
 
-<ol><li>Нет лишних полей в модели</li>
-<li>Нет необходимости создавать модель при отображении формы создания</li>
-<li>Можно использовать <code>Html.EditorForModel()</code> в связке с шаблоном (EditorTemplate). При этом для каждого справочника необходим свой шаблон</li>
-</ol><p>Минусы</p>
+1.  Нет лишних полей в модели
+2.  Нет необходимости создавать модель при отображении формы создания
+3.  Можно использовать `Html.EditorForModel()` в связке с шаблоном (EditorTemplate). При этом для каждого справочника необходим свой шаблон
 
-<ol><li>Используется dynamic или magic-strings*, что не всегда положительно сказывается на возможности рефакторинга</li>
-<li>Дублирование кода заполнения возможных значений</li>
-<li>Необходимо иметь по шаблону на каждый тип справочника</li>
-</ol><p>Недостатки</p>
+Минусы
 
-<h3>Улучшенное решение с использованием ViewBag / ViewData</h3>
+1.  Используется dynamic или magic-strings*, что не всегда положительно сказывается на возможности рефакторинга
+2.  Дублирование кода заполнения возможных значений
+3.  Необходимо иметь по шаблону на каждый тип справочника
 
-<p>Для устранения дублировани кода получения возможных значений вынесем этот код в отдельный ActionFilter.</p>
+Недостатки
 
-<p>Модель:</p>
+### Улучшенное решение с использованием ViewBag / ViewData
 
-<pre><code>та же, что в предыдущем примере
-</code></pre>
+Для устранения дублировани кода получения возможных значений вынесем этот код в отдельный ActionFilter.
 
-<p>ActionFilter:</p>
+Модель:
 
-<pre><code>public class PopulateGenresAttribute: ActionFilterAttribute {
+та же, что в предыдущем примере
+
+
+ActionFilter:
+
+```csharp
+public class PopulateGenresAttribute: ActionFilterAttribute {
     public override void OnActionExecuted(ActionExecutedContext filterContext) {
         filterContext.Controller.ViewData["Genres"] = GetAllGenresFromDatabase();
     }
     //...
 }    
-</code></pre>
+```
 
-<p>Контроллер:</p>
+Контроллер:
 
-<pre><code>public class MoviesController {
+```csharp
+public class MoviesController {
     [HttpGet, PopulateGenres] public ActionResult Create() {
         return View(); 
     }
@@ -152,61 +160,69 @@ redirect_from:
     }
     //...
 }
-</code></pre>
+```
 
-<p>Плюсы, по сравнению с предыдущим решением.</p>
+Плюсы, по сравнению с предыдущим решением.
 
-<ol><li>Устранено дублирование кода заполнения возможных значений</li>
-</ol><p>Минусы</p>
+1.  Устранено дублирование кода заполнения возможных значений
 
-<ol><li>Используется dynamic или magic-strings*, что не всегда положительно сказывается на возможности рефакторинга</li>
-<li>Необходимо иметь по шаблону на каждый тип справочника</li>
-</ol><h3>Улучшенное решение с использованием ViewBag / ViewData + <a href="http://mvcextensions.codeplex.com">MvcExtnsions</a></h3>
+Минусы
 
-<p>В MvcExensions есть замечательные <a href="http://github.com/MvcExtensions/Core/blob/master/src/MvcExtensions/ModelMetadata/HtmlSelectModelMetadataItemBuilderExtensions.cs">методы для работы с drop-down list</a>: AsDropDownList / AsListBox (первый для выпадающего списка, второй для множественного выбора). Это методы-расширения для конструктора метаданных. Данные методы устанавливают шаблон и позволяют передать в шаблон название поля ViewBag, которое хранит данные с возможными значениями. Таким образом решается проблема с необходимостю иметь по шаблону на каждый справочник.</p>
+1.  Используется dynamic или magic-strings*, что не всегда положительно сказывается на возможности рефакторинга
+2.  Необходимо иметь по шаблону на каждый тип справочника
 
-<p>Модель:</p>
+### Улучшенное решение с использованием ViewBag / ViewData + [MvcExtnsions](http://mvcextensions.codeplex.com)
 
-<pre><code>public class Movie {
+В MvcExensions есть замечательные [методы для работы с drop-down list](http://github.com/MvcExtensions/Core/blob/master/src/MvcExtensions/ModelMetadata/HtmlSelectModelMetadataItemBuilderExtensions.cs): AsDropDownList / AsListBox (первый для выпадающего списка, второй для множественного выбора). Это методы-расширения для конструктора метаданных. Данные методы устанавливают шаблон и позволяют передать в шаблон название поля ViewBag, которое хранит данные с возможными значениями. Таким образом решается проблема с необходимостю иметь по шаблону на каждый справочник.
+
+Модель:
+
+```csharp
+public class Movie {
     public int GenreId { get; set; }
 } 
-</code></pre>
+```
 
-<p>Метаданные:</p>
+Метаданные:
 
-<pre><code>public class MovieMetadata : ModelMetadataConfiguration {
+```csharp
+public class MovieMetadata : ModelMetadataConfiguration {
     public MovieMetadata {
         Configure(movie =&gt; movie.GenreId).AsDropDownList("Genres"/*шаблон*/);
     }
 }
-</code></pre>
+```
 
-<p>Контроллер:</p>
+Контроллер:
 
-<pre><code>как в предыдущем примере.
-</code></pre>
+как в предыдущем примере.
 
-<p>Плюсы, по сравнению с предыдущим решением:</p>
 
-<ol><li>Используется два универсальных шаблона (DropDownList / ListBox) для всех списков (есть возможность указать свой шаблон, если это необходимо)</li>
-</ol><p>Минусы:</p>
+Плюсы, по сравнению с предыдущим решением:
 
-<ol><li>Используется dynamic или magic-strings*, что не всегда положительно сказывается на возможности рефакторинга.</li>
-</ol><h3>Решение с использованием ChildAction</h3>
+1.  Используется два универсальных шаблона (DropDownList / ListBox) для всех списков (есть возможность указать свой шаблон, если это необходимо)
 
-<p>Если попытаться использовать child action &#8220;в лоб&#8221;, то это решение просто-напросто не будет работать: не будет работать клиенская валидация, не будут работать сценарии в случае сложных вложенных форм и т.д. В <a href="http://pashapash.com/2010/12/dropdown-v-asp-net-mvc-chast-1/">статье</a> (<a href="http://pashapash.com/2011/01/dropdown-v-asp-net-mvc-chast-2/">часть 2</a>) неизвестного автора (быстрый поиск выдал только <a href="http://habrahabr.ru/users/PashaPash/">профиль</a> на хабре) решены эти проблемы, и по-этому я буду рассматривать <em>окончательное решение автора</em>.</p>
+Минусы:
 
-<p>Модель</p>
+1.  Используется dynamic или magic-strings*, что не всегда положительно сказывается на возможности рефакторинга.
 
-<pre><code>public class Movie {
+### Решение с использованием ChildAction
+
+Если попытаться использовать child action &#8220;в лоб&#8221;, то это решение просто-напросто не будет работать: не будет работать клиенская валидация, не будут работать сценарии в случае сложных вложенных форм и т.д. В [статье](http://pashapash.com/2010/12/dropdown-v-asp-net-mvc-chast-1/) ([часть 2](http://pashapash.com/2011/01/dropdown-v-asp-net-mvc-chast-2/)) неизвестного автора (быстрый поиск выдал только [профиль](http://habrahabr.ru/users/PashaPash/) на хабре) решены эти проблемы, и по-этому я буду рассматривать _окончательное решение автора_.
+
+Модель
+
+```csharp
+public class Movie {
     [UIHint("Genres")]
     public int GenreId { get; set; }
 } 
-</code></pre>
+```
 
-<p>Контроллеры:</p>
+Контроллеры:
 
-<pre><code>public class MoviesController {
+```csharp
+public class MoviesController {
     [HttpGet] public ActionResult Create() {
         return View(); 
     }
@@ -225,7 +241,6 @@ redirect_from:
     }
 }
 
-
 public class GenresController {
     public ActionResult List() {
         int? selectedGenreId = this.ControllerContext.ParentActionViewContext.ViewData.Model as int?;
@@ -240,40 +255,45 @@ public class GenresController {
         return View("DropDown");
     }
 }
-</code></pre>
+```
 
-<p>Плюсы, по сравнению, с решениями с ViewBag / ViewData</p>
+Плюсы, по сравнению, с решениями с ViewBag / ViewData
 
-<ol><li>Не используется dynamic или magic-strings</li>
-<li>Устранено дублирование кода заполнения возможных значений</li>
-</ol><p>Минусы</p>
+1.  Не используется dynamic или magic-strings
+2.  Устранено дублирование кода заполнения возможных значений
 
-<ol><li>Дублирование обслуживающего кода</li>
-<li>Необходимо иметь по шаблону на каждый тип справочника</li>
-<li>Не поддерживается сценарий Post-Redirect-Get</li>
-</ol><h3>Решение с использованием ChildAction + MvcExtensions</h3>
+Минусы
 
-<p>Я решил, усовершенствовать последнее решение и применить опыт использования ActionFilter, и теперь, с версии <a href="http://nuget.org/packages/MvcExtensions">2.5.0-rc8000 в MvcExtensions</a> поддерживаются выпадающие списки &#8220;из коробки&#8221;. Были добавлены методы расширения, позволяющие указывать, что для отображения данного поля модели необходимо вызвать ChildAction. Также был добавлен <code>SelectListActionAttribute</code>, который занимается обслуживанием метода, предоставлюящего возможнные значения для выпадающего списка. Поддерживается Post-Redirect-Get</p>
+1.  Дублирование обслуживающего кода
+2.  Необходимо иметь по шаблону на каждый тип справочника
+3.  Не поддерживается сценарий Post-Redirect-Get
 
-<p>Модель:</p>
+### Решение с использованием ChildAction + MvcExtensions
 
-<pre><code>public class Movie {
+Я решил, усовершенствовать последнее решение и применить опыт использования ActionFilter, и теперь, с версии [2.5.0-rc8000 в MvcExtensions](http://nuget.org/packages/MvcExtensions) поддерживаются выпадающие списки &#8220;из коробки&#8221;. Были добавлены методы расширения, позволяющие указывать, что для отображения данного поля модели необходимо вызвать ChildAction. Также был добавлен `SelectListActionAttribute`, который занимается обслуживанием метода, предоставлюящего возможнные значения для выпадающего списка. Поддерживается Post-Redirect-Get
+
+Модель:
+
+```csharp
+public class Movie {
     public int GenreId { get; set; }
-} 
-</code></pre>
+}
+```
 
-<p>Метаданные:</p>
+Метаданные:
 
-<pre><code>public class MovieMetadata : ModelMetadataConfiguration {
+```csharp
+public class MovieMetadata : ModelMetadataConfiguration {
     public MovieMetadata {
         Configure(movie =&gt; movie.GenreId).RenderAction("List", "Genres");
     }
 }
-</code></pre>
+```
 
-<p>Контроллеры:</p>
+Контроллеры:
 
-<pre><code>public class MoviesController {
+```csharp
+public class MoviesController {
     [HttpGet] public ActionResult Create() {
         return View(); 
     }
@@ -298,22 +318,25 @@ public class GenresController {
         return View("DropDown", model);
     }
 }
-</code></pre>
+```
 
-<p>Плюсы, по сравнению с предыдущими решениями</p>
+Плюсы, по сравнению с предыдущими решениями
 
-<ol><li>Устранено дублирование обслужвающего кода</li>
-<li>Используется единый шаблон</li>
-<li>MultiSelect &#8220;из коробки&#8221;</li>
-<li>Поддерживается сценарий Post-Redirect-Get</li>
-</ol><h1>Вместо заключения.</h1>
+1.  Устранено дублирование обслужвающего кода
+2.  Используется единый шаблон
+3.  MultiSelect &#8220;из коробки&#8221;
+4.  Поддерживается сценарий Post-Redirect-Get
 
-<p>Для меня, как одного из разработчиков MvcExtensions варианты с использованием этой библиотеки предпочтительнее.</p>
+# Вместо заключения.
 
-<p>Пример кода для варианта с ViewBag / ViewData + MvcExtensions здесь: <a href="http://github.com/MvcExtensions/Core/tree/master/samples">http://github.com/MvcExtensions/Core/tree/master/samples</a></p>
+Для меня, как одного из разработчиков MvcExtensions варианты с использованием этой библиотеки предпочтительнее.
 
-<p>Пример кода для варианта с ChildAction + MvcExtensions здесь: <a href="http://github.com/hazzik/DropDowns">http://github.com/hazzik/DropDowns</a></p>
+Пример кода для варианта с ViewBag / ViewData + MvcExtensions здесь: [http://github.com/MvcExtensions/Core/tree/master/samples](http://github.com/MvcExtensions/Core/tree/master/samples)
 
-<hr><p>*magic-strings легко побеждаются, использованием констант, и по-этому для меня в данном контексте предпочтительней, чем dynamic</p>
+Пример кода для варианта с ChildAction + MvcExtensions здесь: [http://github.com/hazzik/DropDowns](http://github.com/hazzik/DropDowns)
 
-<p>PS: Возможности MvcExtensions для расширения старого доброго ASP.NET MVC просто безграничны.</p>
+* * *
+
+*magic-strings легко побеждаются, использованием констант, и по-этому для меня в данном контексте предпочтительней, чем dynamic
+
+PS: Возможности MvcExtensions для расширения старого доброго ASP.NET MVC просто безграничны.
