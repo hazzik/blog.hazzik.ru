@@ -2,7 +2,6 @@
 markdown:         redcarpet
 highlighter:      rouge
 
-
 # Permalinks
 permalink:        pretty
 
@@ -11,7 +10,7 @@ title:            Hazzik's blog
 tagline:          ''
 description:      ''
 url:              http://blog.hazzik.ru
-timezone:         'Pacific/Auckland'
+timezone:         'NZS-12:00'
 
 author:
   name:           'Alexander Zaytsev'
@@ -21,7 +20,7 @@ paginate:         5
 
 github:
   source:    'http://github.com/hazzik/blog.hazzik.ru/edit/gh-pages/'
-  
+
 ya_metrika_id:    13173247
 
 gems:

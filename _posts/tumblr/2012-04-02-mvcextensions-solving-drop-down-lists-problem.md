@@ -33,7 +33,7 @@ public class Movie {
 
 Контроллер:
 
-{% highlight csharp linenos %}
+```csharp
 public class MoviesController {
     [HttpGet] public ActionResult Create() {
         var model = new Movie() { Genres = GetAllGenresFromDatabase(); }
@@ -55,7 +55,7 @@ public class MoviesController {
     }
     //...
 }
-{% endhighlight %}
+```
 
 Но у этого решения для меня есть огромные недостатки:
 
