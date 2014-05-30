@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/hazzik/jekyll-tagging.git
-  revision: b905b1a5ff2966ffbd42d982d01d7be8318ca5e0
+  revision: b6afb520e13512c1e687cd555673829f4b55e2b7
   specs:
     jekyll-tagging (0.5.0)
       ruby-nuggets
