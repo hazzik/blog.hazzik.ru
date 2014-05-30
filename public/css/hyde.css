@@ -75,6 +75,10 @@ html {
   color: #fff;
 }
 
+.tag-cloud {
+  font-size: 16px;
+}
+
 /* About section */
 .sidebar-about h1 {
   color: #fff;

@@ -1,6 +1,14 @@
 GIT
+  remote: https://github.com/hazzik/jekyll-tagging.git
+  revision: b905b1a5ff2966ffbd42d982d01d7be8318ca5e0
+  specs:
+    jekyll-tagging (0.5.0)
+      ruby-nuggets
+      stringex
+
+GIT
   remote: https://github.com/hazzik/octopress-deploy.git
-  revision: 3db91b0a094d07b9cdaa5b1404d1a150f656286b
+  revision: ebe173a49fb8e2db495e8f45dc382120476162ec
   specs:
     octopress-deploy (1.0.0.rc.8)
       colorator
@@ -62,8 +70,10 @@ GEM
       ffi (>= 0.5.0)
     redcarpet (3.1.2)
     rouge (1.4.0)
+    ruby-nuggets (0.9.9)
     safe_yaml (1.0.3)
     sass (3.3.7)
+    stringex (2.5.2)
     timers (1.1.0)
     toml (0.1.1)
       parslet (~> 1.5.0)
@@ -74,6 +84,7 @@ PLATFORMS
 
 DEPENDENCIES
   jekyll-redirect-from
+  jekyll-tagging!
   octopress
   octopress-deploy!
   rouge
