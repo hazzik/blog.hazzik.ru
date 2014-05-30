@@ -6,7 +6,7 @@ layout: default
   <h1 class="post-title"><a href="{{ site.github.source }}{{ page.path }}"><i class="fa fa-edit"></i></a> {{ page.title }}</h1>
   <ul class="post-info">
     <li><i class="fa fa-calendar"></i> {{ page.date | date_to_string }}</li>
-    <li><i class="fa fa-tags"></i> {{ page.tags | join: ', ' }}</li>
+    <li><i class="fa fa-tags"></i> {{ page | tags }}</li>
     <li><i class="fa fa-comments"></i> <a href="{{ page.url }}#disqus_thread" data-disqus-identifier="{% if page.disqus_identifier %}{{ page.disqus_identifier}}{% else %}{{ page.url }}{% endif %}">0 comments</a></li>
   </ul>
   {{ content }}
