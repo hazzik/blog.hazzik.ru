@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hazzik&#39;s blog</title>
+    <description></description>
+    <link>http://blog.hazzik.ru/</link>
+    <atom:link href="http://blog.hazzik.ru/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Блог переехал на Jekyll и GitHub Pages</title>
+        <description>&lt;p&gt;Перевел блог с tumblr на Jekyll и GitHub Pages. Вроде-бы миграция прошла отлично, и все работает.&lt;/p&gt;
+
+&lt;h2&gt;Некоторые причны этого.&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Хотел писать посты в markdown. По этой же причине в прошлый раз перешел на Tumblr.&lt;/li&gt;
+&lt;li&gt;Бесплатный хостинг)&lt;/li&gt;
+&lt;li&gt;Полный контроль над блогом. Tumblr любит добавлять всякие свои виджеты. Бррр.&lt;/li&gt;
+&lt;li&gt;Блог по-умолчанию под контролем версий. Tumblr грешил с тем, что иногда верстка постов слетала и приходилось все исправлять. &lt;/li&gt;
+&lt;li&gt;Если нашли ошибку, то можете послать мне pull-request (Для этого нужно нажать на иконку с карандашом &lt;i class=&quot;fa fa-pencil&quot;&gt;&lt;/i&gt; рядом с заголовком поста).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2&gt;RSS/Atom&lt;/h2&gt;
+
+&lt;p&gt;Если вы читали меня через RSS (надеюсь, что кто-то еще читает меня и ждет, когда я тут что-нибдуь напишу), но не через &lt;a href=&quot;http://feedburner.com&quot;&gt;feedburner.com&lt;/a&gt;, то пожалуйста, обновите свои закладки на &lt;a href=&quot;http://blog.hazzik.ru/atom.xml&quot;&gt;blog.hazzik.ru/atom.xml&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;PS&lt;/h2&gt;
+
+&lt;p&gt;Надеюсь, что буду писать чаще. Честно-честно.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 28 May 2014 17:10:57 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2014/05/28/the-blog-has-been-moved-to-jekyll/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2014/05/28/the-blog-has-been-moved-to-jekyll/</guid>
+      </item>
+    
+      <item>
+        <title>Читайте меня на английском</title>
+        <description>&lt;p&gt;Привет, сегодня, наконец-то, завел себе блог &lt;a href=&quot;http://alexzaytsev.me&quot;&gt;на английском&lt;/a&gt;. Первое время буду публиковать туда переводы отсюда, затем весь новый контент буду публиковать там, а сюда, по возможности, буду постить переводы.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 04 Mar 2013 19:44:00 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2013/03/04/in-english/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2013/03/04/in-english/</guid>
+      </item>
+    
+      <item>
+        <title>Вычисляемые поля для любого LINQ-провайдера</title>
+        <description>&lt;p&gt;Сегодня я хочу рассказать, о маленькой библиотеке, которую я написал недавно на коленке всего за несколько часов. Эта библиотека может декомпилировать методы в их λ-представление.&lt;/p&gt;
+
+&lt;p&gt;Зачем это может понадобиться - под катом. &lt;!-- more --&gt;&lt;/p&gt;
+
+&lt;h4&gt;Intro&lt;/h4&gt;
+
+&lt;p&gt;В жизни случается, что в LINQ нужно использовать вычисляемое поле, к примеру у нас есть класс &lt;i&gt;Employee&lt;/i&gt; с вычисляемым полем &lt;i&gt;FullName&lt;/i&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Employee
+{
+    public string FullName
+    {
+        get { return FirstName + &quot; &quot; + LastName; }
+    }
+
+    public string LastName { get; set; }
+
+    public string FirstName { get; set; }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;И тут к вам приходит заказчик и говорит, что нам нужно добавить поиск по полному имени сотрудника. Вы недолго думаете берете и пишите следующий запрос:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var employees = (from employee in db.Employees
+                 where (employee.FirstName + &quot; &quot; + employee.LastName) == &quot;Test User&quot;
+                 select employee).ToList();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Да, с таким простым полем, как &lt;i&gt;FullName&lt;/i&gt; так можно поступить, но что делать, если поле не такое простое? Вот к примеру, вычисляемое поле из одного из проектов, в котором я учавствовал.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class WayPoint 
+{
+    // все остальное опущено в целях наглядности
+    public virtual bool IsValid
+    {
+        get 
+        {
+            return (Account == null) ||
+               (Role == null || Account.Role == Role) &amp;amp;&amp;amp;
+               (StructuralUnit == null || Account.State.StructuralUnit == StructuralUnit);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;С этим сложнее. Итак, приступим. Что же у нас есть для решения таких задач?&lt;/p&gt;
+
+&lt;h4&gt;&amp;lt;formula&amp;gt; в NHibernate&lt;/h4&gt;
+
+&lt;p&gt;Если вы используете NHibernate, то можете замапить данное поле как формулу, но этот путь не очень дружелюбен к рефакторингу, к тому же &amp;lt;formula&amp;gt; поддерживает только sql, и если вы пишете приложение, которое планируется использовать с разными базами данных, то здесь вам нужно быть особенно осторожными.&lt;/p&gt;
+
+&lt;p&gt;Поддреживается только в NHibernate.&lt;/p&gt;
+
+&lt;h4&gt;&lt;a href=&quot;http://damieng.com/blog/2009/06/24/client-side-properties-and-any-remote-linq-provider&quot;&gt;Microsoft.Linq.Translations&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;Для этого необходимо переписать наш класс и запрос следующим образом:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Employee 
+{
+    private static readonly CompiledExpression&amp;lt;Employee,string&amp;gt; fullNameExpression
+     = DefaultTranslationOf&amp;lt;Employee&amp;gt;.Property(e =&amp;gt; e.FullName).Is(e =&amp;gt; e.FirstName + &quot; &quot; + e.LastName);
+
+    public string FullName 
+    {
+        get { return fullNameExpression.Evaluate(this); }
+    }
+
+    public string LastName { get; set; }
+
+    public string FirstName { get; set; }
+}
+
+var employees = (from employee in db.Employees
+                 where employee.FullName == &quot;Test User&quot;
+                 select employee).WithTranslations().ToList()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Все хорошо, запрос выглядит красиво, а вот объявление свойства - просто ужасно. К тому же Evaluate компилирует&amp;#160;?-выражение в момент исполнения, что, на мой взгляд не менее ужасно, чем задание вычисляемого поля.&lt;/p&gt;
+
+&lt;p&gt;И, наконец, мы подошли к моему творениею - DelegateDecompiler&lt;/p&gt;
+
+&lt;h4&gt;DelegateDecompiler&lt;/h4&gt;
+
+&lt;p&gt;Все что нужно, это вычисляемое поля пометить атрибутом &lt;i&gt;[Computed]&lt;/i&gt;, а запрос преобразовать с помощью метода &lt;i&gt;.Decompile()&lt;/i&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Employee 
+{
+    [Computed]
+    public string FullName 
+    {
+        get { return FirstName + &quot; &quot; + LastName; }
+    }
+
+    public string LastName { get; set; }
+
+    public string FirstName { get; set; }
+}
+
+var employees = (from employee in db.Employees
+                 where employee.FullName == &quot;Test User&quot;
+                 select employee).Decompile().ToList()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;По-моему изящно (сам не похвалишь - никто не похвалит)&lt;/p&gt;
+
+&lt;p&gt;При вызове &lt;i&gt;.Decompile()&lt;/i&gt; декомпилятор найдет все свойства и методы, помеченные атрибутом &lt;i&gt;[Computed]&lt;/i&gt; и развернет их. Т.е. запрос будет преобразован к виду, из первоначального примера:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var employees = (from employee in db.Employees
+                 where (employee.FirstName + &quot; &quot; + employee.LastName) == &quot;Test User&quot;
+                 select employee).ToList();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Библиотечка в качестве декомпилятора использует Mono.Reflection (&lt;a href=&quot;https://github.com/jbevain/mono.reflection/&quot;&gt;GitHub&lt;/a&gt;, &lt;a href=&quot;https://nuget.org/packages/Mono.Reflection&quot;&gt;NuGet&lt;/a&gt;) от &lt;a href=&quot;http://evain.net&quot;&gt;Jean-Baptiste Evain&lt;/a&gt; - создателя &lt;i&gt;Mono.Cecil&lt;/i&gt;. Сама &lt;i&gt;Mono.Cecil&lt;/i&gt; не используется из-за ее громоздкости.&lt;/p&gt;
+
+&lt;p&gt;PS: Естественно, то что внутри вычисляемого поля должно поддерживаться вашим LINQ-провайдером.
+PPS: Это альфа-версия очень далекая от релиза - используйте на свой страх и риск.&lt;/p&gt;
+
+&lt;h4&gt;Ссылки&lt;/h4&gt;
+
+&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;https://github.com/hazzik/DelegateDecompiler&quot;&gt;Исходный код на GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://nuget.org/packages/DelegateDecompiler&quot;&gt;Пакет в NuGet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://habrahabr.ru/post/155437/&quot;&gt;Оригинал статьи на habrahabr.ru&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 24 Oct 2012 07:56:00 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2012/10/24/delegatedecompiler/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2012/10/24/delegatedecompiler/</guid>
+      </item>
+    
+      <item>
+        <title>MvcExtensions: Quick Start Project Template</title>
+        <description>&lt;p&gt;Очень часто, когда кто-то пытается начать использовать &lt;a href=&quot;http://mvcextensions.github.com&quot;&gt;MvcExtensions&lt;/a&gt; у него появляются вопросы: с чего начать и как это использовать. Чтобы этих вопрос стало меньше создал проект &lt;a href=&quot;https://github.com/BrandyFx/ProjectTemplate&quot;&gt;ProjectTemplate&lt;/a&gt;. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h1&gt;Что внутри?&lt;/h1&gt;
+
+&lt;ul&gt;&lt;li&gt;В качестве основного фреймворка выбран &lt;a href=&quot;http://asp.net/mvc&quot;&gt;ASP.NET MVC&lt;/a&gt; вместе с &lt;a href=&quot;http://mvcextensions.github.com&quot;&gt;MvcExtensions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.castleproject.org/projects/windsor&quot;&gt;Castle.Windsor&lt;/a&gt; используется как IoC контейнер&lt;/li&gt;
+&lt;li&gt;Для клиентской части используется &lt;a href=&quot;http://jquery.com&quot;&gt;jQuery&lt;/a&gt;, &lt;a href=&quot;http://jqueryui.com&quot;&gt;jQuery UI&lt;/a&gt;, &lt;a href=&quot;http://modernizr.com&quot;&gt;Modernizr&lt;/a&gt; и &lt;a href=&quot;http://twitter.github.com/bootstrap/&quot;&gt;Twitter Bootstrap&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Скрипты и CSS сжимаются с помощью &lt;a href=&quot;http://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization&quot;&gt;Microsoft.Web.Optimization&lt;/a&gt; + BundleTransformer (&lt;a href=&quot;http://www.nuget.org/packages/BundleTransformer.Less&quot;&gt;LESS&lt;/a&gt; и &lt;a href=&quot;http://www.nuget.org/packages/BundleTransformer.Yui&quot;&gt;YUI&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Для логирования ошибок используется &lt;a href=&quot;http://code.google.com/p/elmah/&quot;&gt;ELMAH&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Для сборки проекта используется &lt;a href=&quot;https://github.com/psake&quot;&gt;psake&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Все это чудо настроено и просто работает&lt;/p&gt;
+
+&lt;h1&gt;Как использовать?&lt;/h1&gt;
+
+&lt;ol&gt;&lt;li&gt;Скачать (для &lt;a href=&quot;https://github.com/BrandyFx/ProjectTemplate/zipball/master&quot;&gt;MVC 4&lt;/a&gt;, &lt;a href=&quot;https://github.com/BrandyFx/ProjectTemplate/zipball/mvc3&quot;&gt;MVC 3&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Распаковать*&lt;/li&gt;
+&lt;li&gt;Открыть проект и добавить вашу логику&lt;/li&gt;
+&lt;li&gt;???&lt;/li&gt;
+&lt;li&gt;RROFIT!&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;*После распаковки я рекомендую создать git репозиторий и закоммитить туда первоначальную структуру&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; &amp;gt; git init
+ &amp;gt; git add .
+ &amp;gt; git commit -m &#39;Initial project strucure&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1&gt;PS&lt;/h1&gt;
+
+&lt;p&gt;Жду ваших предложений по развитию проекта.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 13 Sep 2012 10:23:00 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2012/09/13/mvcextensions-quick-start-project-template/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2012/09/13/mvcextensions-quick-start-project-template/</guid>
+      </item>
+    
+      <item>
+        <title>Как расширять и актуализировать знания</title>
+        <description>&lt;p&gt;Очень часто меня спрашивают (как знакомые, так и на собеседованиях), как я актуализирую свои знания. Рецепт очень прост. &lt;!-- more --&gt;&lt;/p&gt;
+
+&lt;ol&gt;&lt;li&gt;&lt;p&gt;Читайте блоги. В блогах всегда много новой информации, оттуда можно почерпнуть много новых идей и информации, которые еще не успели стать меинстримом. В моем списке подписок больше 100 блогов.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Ведите блог. Так вы сможете найти единомышленников, а вместе легче развиваться.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Участвуйте в конференциях. Не обязательно быть докладчиком, можно быть внимательным слушателем и не стесняйтесь участвовать в кулуарных обсуждениях.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Станьте активным участником тематических групп, к примеру &lt;a href=&quot;http://groups.google.com/group/dotnetconf&quot;&gt;DotNetConf&lt;/a&gt;, и сервисов ВиО (вопросы и ответы), таких как &lt;a href=&quot;http://StackOverflow.com&quot;&gt;StackOverflow.com&lt;/a&gt;. Отвечая на интересные вопросы вы можете узнать для себя что-то новое.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Ищите новые интересные компоненты, библиотеки и фреймворки. Я регулярно просматриваю что нового в &lt;a href=&quot;http://nuget.org/packages?sortOrder=package-created&quot;&gt;NuGet&lt;/a&gt; или что происходит на &lt;a href=&quot;https://github.com/languages/C%23&quot;&gt;GitHub&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Участвуйте в Open Source проектах. Не обязательно быть коммитером, достаточно просто быть в сообществе. Изучайте код, сообщайте об ошибках, пишите в листы рассылки и читайте их&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Читайте книги.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Tue, 24 Jul 2012 23:37:00 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2012/07/24/how-to-collect-knowledge/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2012/07/24/how-to-collect-knowledge/</guid>
+      </item>
+    
+      <item>
+        <title>Чего вам не хватает в MvcExtensions?</title>
+        <description>&lt;p&gt;Скорее всего вы знаете, что кроме &lt;a href=&quot;http://nhforge.org&quot;&gt;NHibernate&lt;/a&gt; я еще занимаюсь проектом &lt;a href=&quot;http://mvcextensions.github.com&quot;&gt;MvcExtensions&lt;/a&gt;, недавно была выпущена &lt;a href=&quot;http://nuget.org/packages/MvcExtensions/2.5.0&quot;&gt;версия 2.5&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Вот примерный план на версию 3.0&lt;/p&gt;
+
+&lt;ul&gt;&lt;li&gt;Build with psake&lt;/li&gt;
+&lt;li&gt;Integration with WebActivator - this means that we will remove Bootstrapper tasks&lt;/li&gt;
+&lt;li&gt;Integration with native MVC IoC adapters&lt;/li&gt;
+&lt;li&gt;Conventional internationalization and localization&lt;/li&gt;
+&lt;li&gt;Generic model binders&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;План лежит &lt;a href=&quot;https://github.com/MvcExtensions/Core/wiki/Roadmap&quot;&gt;тут&lt;/a&gt; и постепенно будет пополняться и со временем выполнятся. Список уже реализованных изменений &lt;a href=&quot;https://github.com/MvcExtensions/Core/wiki/Changes-From-2.5-to-3.0&quot;&gt;тут&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Я хочу узнать у вас, как у пользователей MvcExtensions, чего не хватает именно ВАМ. Пишите в комментариях.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 20 Jul 2012 07:02:00 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2012/07/20/mvcextensions-roadmap/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2012/07/20/mvcextensions-roadmap/</guid>
+      </item>
+    
+      <item>
+        <title>NHibernate: маленькая хитрость при работе с Oracle или PostgreSQL</title>
+        <description>&lt;p&gt;В ADO.NET провайдерах для &lt;a href=&quot;http://www.oracle.com/database&quot;&gt;Oracle&lt;/a&gt;, &lt;a href=&quot;http://www.postgresql.org/&quot;&gt;PostgreSQL&lt;/a&gt; и, возможно, других есть одна неприятная особенность, которая может сказаться на производительности вашего приложения, если вы запрашиваете у сервера большие объемы данных: они не кэшируют вызовы метода &lt;em&gt;&lt;a href=&quot;http://msdn.microsoft.com/en-us/library/system.data.idatarecord.getordinal.aspx&quot;&gt;IDataReader.GetOrdinal&lt;/a&gt;&lt;/em&gt;. Как оказалось это очень критично для &lt;a href=&quot;http://nhforge.org/&quot;&gt;NHibernate&lt;/a&gt;, но, к счастью, разработчики NHibernate (а точнее &lt;a href=&quot;http://www.hibernate.org/&quot;&gt;Hibernate&lt;/a&gt;) эту проблему заметили и уже решили.&lt;/p&gt;
+
+&lt;p&gt;Но эта фича осталась незамеченной и почти не задокументированной.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;Для того, чтобы в NHibernate включить кэширование вызовов &lt;em&gt;IDataReader.GetOrdinal&lt;/em&gt; необходимо в hibernate.cfg выставить опцию &amp;#8220;adonet.wrap_result_sets&amp;#8221; в значение &amp;#8220;true&amp;#8221;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&amp;gt;
+&amp;lt;hibernate-configuration xmlns=&quot;urn:nhibernate-configuration-2.2&quot;&amp;gt;
+    &amp;lt;!-- other options --&amp;gt;
+    &amp;lt;session-factory name=&quot;MySessionFactory&quot;&amp;gt;
+        &amp;lt;!-- other session factory options --&amp;gt;
+        &amp;lt;property name=&quot;adonet.wrap_result_sets&quot;&amp;gt;true&amp;lt;/property&amp;gt;
+    &amp;lt;/session-factory&amp;gt;
+&amp;lt;/hibernate-configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;C помощью FluentNHibernate это делается так:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var config = Fluently.Configure()
+    .ExposeConfiguration(c =&amp;gt; c.SetProperty(NHibernate.Cfg.Environment.WrapResultSets, &quot;true&quot;))
+    .Database(db)
+    /* other configuration */
+    .BuildConfiguration();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Метод &lt;em&gt;ExposeConfiguration&lt;/em&gt; добавляет действия, которые будут вызваны над объектом &lt;em&gt;NHibernate.Cfg.Configuration&lt;/em&gt; при вызове метода &lt;em&gt;BuildConfiguration&lt;/em&gt;. Таким образом код выше будет аналогичен следующему:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var config = Fluently.Configure()
+    .Database(db)
+    /* other configuration */
+    .BuildConfiguration();
+
+config.SetProperty(NHibernate.Cfg.Environment.WrapResultSets, &quot;true&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5&gt;Ссылки по теме&lt;/h5&gt;
+
+&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;https://nhibernate.jira.com/browse/NH-3207&quot;&gt;https://nhibernate.jira.com/browse/NH-3207&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://ramblingabout.wordpress.com/2009/01/07/optimizing-oracle-and-hibernate-performance/&quot;&gt;http://ramblingabout.wordpress.com/2009/01/07/optimizing-oracle-and-hibernate-performance/&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt; &lt;a href=&quot;http://martijndashorst.com/blog/2006/11/28/hibernate-31-something-performance-problems-contd/&quot;&gt;http://martijndashorst.com/blog/2006/11/28/hibernate-31-something-performance-problems-contd/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 10 Jul 2012 06:43:00 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2012/07/10/nhibernate-oracle-and-postgresql-tip/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2012/07/10/nhibernate-oracle-and-postgresql-tip/</guid>
+      </item>
+    
+      <item>
+        <title>NHibernate: как хранить иерархические сущности (деревья) в базе</title>
+        <description>&lt;p&gt;Многие из вас, скорее всего, сталкивались с простой на первый взгляд задачей: сохранение иерархических данных в базу и последующая работа с ними. Кажется, что нет ничего проще: создадим в таблице колонку PARENT_ID и будем записывать туда, собственно, идентификатор нашей вышестоящей сущности.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    class Tree {
+        int Id;
+        Tree Parent;
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Но, это только на первый взгляд.&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;Все хорошо до тех пор, пока вы будете работать на одном уровне иерархии: родитель и его дети. Но самое интересно начинается, когда вам необходимо расширить уровни, к примеру, нужно проверить, что какая-то сущность стоит выше другой сущности на любом из уровней.&lt;/p&gt;
+
+&lt;p&gt;C такой задачей ни одна ORM уже не справится: в лучшем случае вы получите &lt;a href=&quot;http://nhprof.com/Learn/Alerts/SelectNPlusOne&quot;&gt;SELECT N+1&lt;/a&gt;. Для решения этой проблемы вам придется написать кастомный &lt;em&gt;зависящий от конкретной базы&lt;/em&gt; запрос: рекурсивные запрос с WITH в Microsoft Sql Server; запрос с CONNECT BY PRIOR в Oracle; либо специальную хранимую процедуру.&lt;/p&gt;
+
+&lt;p&gt;В статье &amp;#8220;&lt;a href=&quot;http://nhibernate.hibernatingrhinos.com/16/how-to-map-a-tree-in-nhibernate&quot;&gt;How to map a tree in NHibernate&lt;/a&gt;&quot; &lt;a href=&quot;http://lostechies.com/gabrielschenker/author/gabrielschenker/&quot;&gt;Gabriel Schenker&lt;/a&gt; предлагает альтернативный вариант: необходимо добавить таблицу, в которой для каждой сущности мы будем хранить ссылки на всех ее предков и всех ее потомков. Потомки будут отображаться на коллекцию &lt;em&gt;Descendants&lt;/em&gt;, а предки на коллекцию &lt;em&gt;Ancestors&lt;/em&gt;. Обе коллекции many-to-many:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    class Tree {
+        int Id;
+        Tree Parent;
+        IEnumerable&amp;lt;Tree&amp;gt; Children;
+        IEnumerable&amp;lt;Tree&amp;gt; Ancestors;
+        IEnumerable&amp;lt;Tree&amp;gt; Descendant;
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;С такой структурой очень легко обращаться.&lt;/p&gt;
+
+&lt;p&gt;Но, плюсы не бывают без минусов. Из минусов могу отметить то, что вам необходимо следить за состоянием таблицы иерархических связей: это можно делать из кода, либо с помощью триггера\запроса\хранимой процедуры. К счастью, если это делать в коде, то этот код нужно написать лишь раз и использовать его везде, где необходимо, что я собственно и &lt;a href=&quot;https://github.com/hazzik/Grapes&quot;&gt;сделал&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1&gt;Brandy.Grapes&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/hazzik/Grapes&quot;&gt;Brandy.Grapes&lt;/a&gt; - это небольшой (всего 3) набор библиотек, который позволяет легко и непринужденно работать с сохраняемыми иерархическими сущностями в &lt;a href=&quot;http://nhforge.org&quot;&gt;NHibernate&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ul&gt;&lt;li&gt;&lt;p&gt;Необходимо установить библиотеку через &lt;a href=&quot;http://nuget.org&quot;&gt;nuget&lt;/a&gt; (поддерживается NHibernate By Code и FluentNHibernate):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; install-package Brandy.Grapes.NHibernate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;или&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; install-pacakge Brandy.Grapes.FluentNhibernate
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Унаследовать вашу сущность от &lt;em&gt;TreeEntry`1&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MySuperTree : TreeEntry&amp;lt;MySuperTree&amp;gt; {
+    public virtual int Id { get; set; }
+
+    public virtual string Name { get; set; }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Наконец, написать маппинг, к примеру, для FluentNHibernate:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;using Brandy.Grapes.FluentNHibernate;
+public class MySuperTreeMap : ClassMap {
+    public MySuperTreeMap() {
+        Id(x =&amp;gt; x.Id);
+        Map(x =&amp;gt; x.Name);
+
+        this.MapTree(&quot;MySuperTreeHierarchy&quot;); // вся магия происходит здесь
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Наслаждаться: теперь &lt;em&gt;Brandy.Grapes&lt;/em&gt; будет отслеживать изменения в иерархии и корректно сохранять их в базу.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Как справедливо заметил Денис Боровнев, при изменении иерархии необходимо из базы подгрузить всю иерархию для данного элемента, чтобы правильно обновить связи. Если у вас в проекте иерархические сущности изменяются достаточно часто, то можно отключить изменение иерархии из кода и обновлять связи через базу. Существует несколько способов:&lt;/p&gt;
+
+&lt;ul&gt;&lt;li&gt;&lt;p&gt;Вызывать хранимую процедуру (по триггеру, или из кода), для обновления иерархических связей:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-- пример для Microsoft Sql Server
+CREATE PROCEDURE [dbo].[FillHierarchy] (@table_name nvarchar(MAX), @hierarchy_name nvarchar(MAX))
+AS
+BEGIN
+    DECLARE @sql nvarchar(MAX), @id_column_name nvarchar(MAX)
+    SET @id_column_name = &#39;[&#39; + @table_name + &#39;_ID]&#39;
+    SET @table_name = &#39;[&#39; + @table_name + &#39;]&#39;
+    SET @hierarchy_name = &#39;[&#39; + @hierarchy_name + &#39;]&#39;
+
+    SET @sql = &#39;&#39;
+    SET @sql = @sql + &#39;WITH Hierachy(CHILD_ID, PARENT_ID) AS ( &#39;
+    SET @sql = @sql + &#39;SELECT &#39; + @id_column_name + &#39;, [PARENT_ID] FROM &#39; + @table_name + &#39; e &#39;
+    SET @sql = @sql + &#39;UNION ALL &#39;
+    SET @sql = @sql + &#39;SELECT e.&#39; + @id_column_name + &#39;, e.[PARENT_ID] FROM &#39; + @table_name + &#39; e &#39;
+    SET @sql = @sql + &#39;INNER JOIN Hierachy eh ON e.&#39; + @id_column_name + &#39; = eh.[PARENT_ID]) &#39;
+    SET @sql = @sql + &#39;INSERT INTO &#39; + @hierarchy_name + &#39; ([CHILD_ID], [PARENT_ID]) ( &#39;
+    SET @sql = @sql + &#39;SELECT [CHILD_ID], [PARENT_ID] FROM Hierachy WHERE [PARENT_ID] IS NOT NULL &#39;
+    SET @sql = @sql + &#39;) &#39;
+
+    EXECUTE (@sql)
+END
+GO
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Для каждой иерархии создать &lt;em&gt;View&lt;/em&gt; (тот же запрос, что и в хранимой процедуре) и отобразить связи &lt;em&gt;Ancestors&lt;/em&gt; и &lt;em&gt;Descendants&lt;/em&gt; на эту &lt;em&gt;View&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-- Пример для Microsoft Sql Server
+CREATE VIEW [MySuperTreeHierarchy]
+AS
+    WITH Hierachy (CHILD_ID, PARENT_ID) 
+    AS 
+    (
+        SELECT [MySuperTree_ID], [PARENT_ID] FROM [MySuperTree] AS e
+        UNION ALL
+        SELECT e.[MySuperTree_ID], e.[PARENT_ID] FROM [MySuperTree] AS e 
+            INNER JOIN Hierachy AS eh ON e.[MySuperTree_ID] = eh.[PARENT_ID]
+    )
+
+    SELECT [CHILD_ID], [PARENT_ID] FROM Hierachy WHERE [PARENT_ID] IS NOT NULL
+GO
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Оба этих подхода обладают большей гибкостью и надежностью, чем иерархические запросы на чистом SQL из кода.&lt;/p&gt;
+
+&lt;p&gt;PS: интерфейс абстрактного класса &lt;em&gt;TreeEntry`1&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    public abstract class TreeEntry&amp;lt;T&amp;gt; where T : TreeEntry {
+        public virtual T Parent { get; set; }
+
+        public virtual IEnumerable&amp;lt;T&amp;gt; Children { get; }
+
+        public virtual IEnumerable&amp;lt;T&amp;gt; Ancestors { get; }
+
+        public virtual IEnumerable&amp;lt;T&amp;gt; Descendants { get; }
+
+        public virtual void AddChild(T child);
+
+        public virtual void RemoveChild(T child);
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;PPS: для EF такое сделать также возможно, но т.к. &lt;em&gt;EF&lt;/em&gt; не поддерживает скрытие коллекций за интерфейсом IEnumerable`1, я не стал выкладывать реализацию для EF в открытый доступ.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 05 Jul 2012 09:06:00 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2012/07/05/how-to-deal-with-trees-in-nhibernate/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2012/07/05/how-to-deal-with-trees-in-nhibernate/</guid>
+      </item>
+    
+      <item>
+        <title>ASP.NET MVC - как построить по-настоящему гибкое веб-приложение (видео и слайды с .NETconf)</title>
+        <description>&lt;p&gt;Внезапно осознал, что у меня в блоге нет материалов с моего доклада на &lt;a href=&quot;http://www.dotnetconf.ru/&quot;&gt;.NETconf&lt;/a&gt;. Срочно исправляю эту оплошность.&lt;/p&gt;
+
+&lt;p&gt;&lt;!-- more --&gt;&lt;/p&gt;
+
+&lt;div style=&quot;float:left; width:500px; margin:5px;&quot;&gt;
+&lt;iframe src=&quot;http://player.vimeo.com/video/22080198?title=0&amp;amp;byline=0&amp;amp;portrait=0&amp;amp;color=59a5d1&quot; width=&quot;500&quot; height=&quot;350&quot; frameborder=&quot;0&quot; webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;div style=&quot;float:left; width:420px; margin:5px;&quot; id=&quot;__ss_7557204&quot;&gt;
+ &lt;iframe src=&quot;http://www.slideshare.net/slideshow/embed_code/34835075&quot; width=&quot;476&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br style=&quot;clear:both&quot;/&gt;&lt;/p&gt;
+
+&lt;h3&gt;Ссылки&lt;/h3&gt;
+
+&lt;ul&gt;&lt;li&gt;&lt;p&gt;Страница доклада на .NETConf: &lt;a href=&quot;http://www.dotnetconf.ru/Materialy/Asp_net_mvc_kak_postroit_gibkoe_web_prilozenie&quot;&gt;http://www.dotnetconf.ru/Materialy/Asp_net_mvc_kak_postroit_gibkoe_web_prilozenie&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Слайды: &lt;a href=&quot;https://dl.dropbox.com/u/11463325/AgileMVCApplication.pptx&quot;&gt;https://dl.dropbox.com/u/11463325/AgileMVCApplication.pptx&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 08 Jun 2012 20:11:00 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2012/06/08/asp-net-mvc-high-extensible-application/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2012/06/08/asp-net-mvc-high-extensible-application/</guid>
+      </item>
+    
+      <item>
+        <title>EF Bootstrapping</title>
+        <description>&lt;p&gt;Привет всем любителям EF Code First.&lt;/p&gt;
+
+&lt;p&gt;Вчера на коленке написал конфигуратор для EF CF во fluent- стиле. Использование выглядит так:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var factory = Configure.WithContext&amp;lt;MyDbContext&amp;gt;(&quot;connectionstring&quot;) // использовать контекст типа MyDbContext и строку подключения connectionstring
+     .AddMappingsFromAssemblyOf&amp;lt;XXX&amp;gt;()  // здесь есть перегрузки, принимающие Type и Assembly. В подключенной сборке находит все реализации EntityTypeConfiguration`1 и ComplexTypeConfiguration`1
+     .LazyLoadingEnabled(true) // пример конфигурации контекста
+     .BuildDbContextFactory(); // возвращается реализация IDbContextFactory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;Назначение - использовать generic context и автонахождение маппингов.&lt;/p&gt;
+
+&lt;h1&gt;Список методов&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;public static class Configure
+{
+    public static DbContextFactoryConfiguration WithContext&amp;lt;TContext&amp;gt;(string connectionString) where TContext : DbContext;
+
+    public static DbContextFactoryConfiguration WithContext(string connectionString);
+
+    public static DbContextFactoryConfiguration WithContext(Type contextType, string connectionString);
+}
+
+public class DbContextFactoryConfiguration
+{
+    public DbContextFactoryConfiguration AddMappingsFromAssembly(Assembly assembly);
+
+    public DbContextFactoryConfiguration AddMappingsFromAssemblyOf(Type type);
+
+    public DbContextFactoryConfiguration AddMappingsFromAssemblyOf&amp;lt;T&amp;gt;();
+
+    public DbContextFactoryConfiguration AutoDetectChangesEnabled(bool value);
+
+    public DbContextFactoryConfiguration LazyLoadingEnabled(bool value);
+
+    public DbContextFactoryConfiguration ProxyCreationEnabled(bool value);
+
+    public DbContextFactoryConfiguration ValidateOnSaveEnabled(bool value);
+
+    public IDbContextFactory BuildDbContextFactory();
+}
+
+public interface IDbContextFactory : System.Data.Entity.IDbContextFactory&amp;lt;DbContext&amp;gt;
+{
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1&gt;Вопросы&lt;/h1&gt;
+
+&lt;ul&gt;&lt;li&gt;это будет востребованно? &lt;/li&gt;
+&lt;li&gt;стоит развивать дальше?&lt;/li&gt;
+&lt;li&gt;какие конфигурационные параметры я пропустил?&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;что еще нужно добавить?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;как вы конфигурируете контекст в EF?&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h1&gt;Обсуждение&lt;/h1&gt;
+
+&lt;p&gt;В гуглгруппе DotNetConf: &lt;a href=&quot;https://groups.google.com/d/topic/dotnetconf/gx4PqT6xhtM/discussion&quot;&gt;https://groups.google.com/d/topic/dotnetconf/gx4PqT6xhtM/discussion&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1&gt;UPD&lt;/h1&gt;
+
+&lt;p&gt;Разместил код на GitHub: &lt;a href=&quot;https://github.com/hazzik/EFBootstrapper&quot;&gt;https://github.com/hazzik/EFBootstrapper&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 03 May 2012 20:46:00 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2012/05/03/ef-bootstrapping/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2012/05/03/ef-bootstrapping/</guid>
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      NHibernate: как хранить иерархические сущности (деревья) в базе &middot; Hazzik's blog
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="tag-cloud">
+      <a href="/tag/dot-net" class="set-4">.NET</a> <a href="/tag/dot-net-3-dot-5" class="set-1">.NET 3.5</a> <a href="/tag/dot-netconf" class="set-1">.netconf</a> <a href="/tag/blog" class="set-1">Blog</a> <a href="/tag/db" class="set-2">DB</a> <a href="/tag/ddd" class="set-1">DDD</a> <a href="/tag/dropdown" class="set-1">DropDown</a> <a href="/tag/entityframework" class="set-1">EntityFramework</a> <a href="/tag/git" class="set-1">Git</a> <a href="/tag/headjs" class="set-1">HeadJS</a> <a href="/tag/hollywar" class="set-1">HollyWar</a> <a href="/tag/javasript" class="set-1">JavaSript</a> <a href="/tag/orm" class="set-1">ORM</a> <a href="/tag/oracle" class="set-1">Oracle</a> <a href="/tag/phpunit" class="set-1">PHPUnit</a> <a href="/tag/performance" class="set-1">Performance</a> <a href="/tag/postgresql" class="set-1">PostgreSQL</a> <a href="/tag/requirejs" class="set-1">RequireJS</a> <a href="/tag/resources" class="set-1">Resources</a> <a href="/tag/seo" class="set-1">SEO</a> <a href="/tag/sockets" class="set-1">Sockets</a> <a href="/tag/subversion" class="set-1">Subversion</a> <a href="/tag/tree-like-structures" class="set-1">Tree-like structures</a> <a href="/tag/version-control" class="set-1">Version Control</a> <a href="/tag/asp-dot-net" class="set-2">asp.net</a> <a href="/tag/asp-dot-net-mvc" class="set-5">asp.net mvc</a> <a href="/tag/bootstrapping" class="set-1">bootstrapping</a> <a href="/tag/business-rules" class="set-1">business rules</a> <a href="/tag/datepicker" class="set-1">datepicker</a> <a href="/tag/dotnetconf" class="set-1">dotnetconf</a> <a href="/tag/google-sitemap" class="set-1">google sitemap</a> <a href="/tag/jquery-ui" class="set-1">jquery-ui</a> <a href="/tag/lambda-expression" class="set-1">lambda expression</a> <a href="/tag/linq" class="set-1">linq</a> <a href="/tag/llblgen" class="set-1">llblgen</a> <a href="/tag/msil" class="set-1">msil</a> <a href="/tag/mvc" class="set-1">mvc</a> <a href="/tag/mvcextensions" class="set-4">mvcextensions</a> <a href="/tag/network" class="set-1">network</a> <a href="/tag/nhibernate" class="set-3">nhibernate</a> <a href="/tag/phalanger" class="set-1">phalanger</a> <a href="/tag/php" class="set-1">php</a> <a href="/tag/questions" class="set-1">questions</a> <a href="/tag/reflection" class="set-1">reflection</a> <a href="/tag/silverlight" class="set-1">silverlight</a> <a href="/tag/sitemap-dot-xml" class="set-1">sitemap.xml</a> <a href="/tag/xunit" class="set-1">xUnit</a> <a href="/tag/asinkhronnyi-vvod-vyvod" class="set-1">Асинхронный ввод-вывод</a> <a href="/tag/voprosy" class="set-2">Вопросы</a> <a href="/tag/khranimyie-protsiedury" class="set-1">Хранимые процедуры</a> <a href="/tag/poiskovaia-optimizatsiia" class="set-1">поисковая оптимизация</a>
+    </div>
+    <div class="sidebar-about">
+
+      <h1><a href="/">Hazzik's blog</a></h1>
+      <p class="lead"><a href="/"></a></p>
+
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item">
+        <a href="/">Главная</a>
+      </li>
+
+      
+
+      
+      
+            <li class="sidebar-nav-item">
+              <a href="/about/">Обо мне</a>
+            </li>
+      
+    </ul>
+    <ul class="sidebar-social">
+      <li class="sidebar-social-item"><a href="http://twitter.com/hazzik"><i class="fa fa-twitter"></i></a></li>
+      &middot;
+      <li class="sidebar-social-item"><a href="http://github.com/hazzik"><i class="fa fa-github"></i></a></li>
+      &middot;
+      <li class="sidebar-social-item"><a href="http://linkedin.com/in/hazzik"><i class="fa fa-linkedin"></i></a></li>
+    </ul>
+
+    <p>&copy; 2014. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title"><a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-07-05-how-to-deal-with-trees-in-nhibernate.html"><i class="fa fa-edit"></i></a> NHibernate: как хранить иерархические сущности (деревья) в базе</h1>
+  <ul class="post-info">
+    <li><i class="fa fa-calendar"></i> 05 Jul 2012</li>
+    <li><i class="fa fa-tags"></i> <a href="/tag/nhibernate" rel="tag">NHibernate</a>, <a href="/tag/tree-like-structures" rel="tag">Tree-like structures</a></li>
+    <li><i class="fa fa-comments"></i> <a href="/2012/07/05/how-to-deal-with-trees-in-nhibernate/#disqus_thread" data-disqus-identifier="/2012/07/05/how-to-deal-with-trees-in-nhibernate/">0 comments</a></li>
+  </ul>
+  <p>Многие из вас, скорее всего, сталкивались с простой на первый взгляд задачей: сохранение иерархических данных в базу и последующая работа с ними. Кажется, что нет ничего проще: создадим в таблице колонку PARENT_ID и будем записывать туда, собственно, идентификатор нашей вышестоящей сущности.</p>
+
+<pre><code>    class Tree {
+        int Id;
+        Tree Parent;
+    }
+</code></pre>
+
+<p>Но, это только на первый взгляд.</p>
+
+<!-- more -->
+
+<p>Все хорошо до тех пор, пока вы будете работать на одном уровне иерархии: родитель и его дети. Но самое интересно начинается, когда вам необходимо расширить уровни, к примеру, нужно проверить, что какая-то сущность стоит выше другой сущности на любом из уровней.</p>
+
+<p>C такой задачей ни одна ORM уже не справится: в лучшем случае вы получите <a href="http://nhprof.com/Learn/Alerts/SelectNPlusOne">SELECT N+1</a>. Для решения этой проблемы вам придется написать кастомный <em>зависящий от конкретной базы</em> запрос: рекурсивные запрос с WITH в Microsoft Sql Server; запрос с CONNECT BY PRIOR в Oracle; либо специальную хранимую процедуру.</p>
+
+<p>В статье &#8220;<a href="http://nhibernate.hibernatingrhinos.com/16/how-to-map-a-tree-in-nhibernate">How to map a tree in NHibernate</a>" <a href="http://lostechies.com/gabrielschenker/author/gabrielschenker/">Gabriel Schenker</a> предлагает альтернативный вариант: необходимо добавить таблицу, в которой для каждой сущности мы будем хранить ссылки на всех ее предков и всех ее потомков. Потомки будут отображаться на коллекцию <em>Descendants</em>, а предки на коллекцию <em>Ancestors</em>. Обе коллекции many-to-many:</p>
+
+<pre><code>    class Tree {
+        int Id;
+        Tree Parent;
+        IEnumerable&lt;Tree&gt; Children;
+        IEnumerable&lt;Tree&gt; Ancestors;
+        IEnumerable&lt;Tree&gt; Descendant;
+    }
+</code></pre>
+
+<p>С такой структурой очень легко обращаться.</p>
+
+<p>Но, плюсы не бывают без минусов. Из минусов могу отметить то, что вам необходимо следить за состоянием таблицы иерархических связей: это можно делать из кода, либо с помощью триггера\запроса\хранимой процедуры. К счастью, если это делать в коде, то этот код нужно написать лишь раз и использовать его везде, где необходимо, что я собственно и <a href="https://github.com/hazzik/Grapes">сделал</a>.</p>
+
+<h1>Brandy.Grapes</h1>
+
+<p><a href="https://github.com/hazzik/Grapes">Brandy.Grapes</a> - это небольшой (всего 3) набор библиотек, который позволяет легко и непринужденно работать с сохраняемыми иерархическими сущностями в <a href="http://nhforge.org">NHibernate</a>.</p>
+
+<ul><li><p>Необходимо установить библиотеку через <a href="http://nuget.org">nuget</a> (поддерживается NHibernate By Code и FluentNHibernate):</p>
+
+<pre><code>&gt; install-package Brandy.Grapes.NHibernate
+</code></pre>
+
+<p>или</p>
+
+<pre><code>&gt; install-pacakge Brandy.Grapes.FluentNhibernate
+</code></pre></li>
+<li><p>Унаследовать вашу сущность от <em>TreeEntry`1</em></p>
+
+<pre><code>public class MySuperTree : TreeEntry&lt;MySuperTree&gt; {
+    public virtual int Id { get; set; }
+
+    public virtual string Name { get; set; }
+}
+</code></pre></li>
+<li><p>Наконец, написать маппинг, к примеру, для FluentNHibernate:</p>
+
+<pre><code>using Brandy.Grapes.FluentNHibernate;
+public class MySuperTreeMap : ClassMap {
+    public MySuperTreeMap() {
+        Id(x =&gt; x.Id);
+        Map(x =&gt; x.Name);
+
+        this.MapTree("MySuperTreeHierarchy"); // вся магия происходит здесь
+    }
+}
+</code></pre></li>
+<li><p>Наслаждаться: теперь <em>Brandy.Grapes</em> будет отслеживать изменения в иерархии и корректно сохранять их в базу.</p></li>
+</ul><p>Как справедливо заметил Денис Боровнев, при изменении иерархии необходимо из базы подгрузить всю иерархию для данного элемента, чтобы правильно обновить связи. Если у вас в проекте иерархические сущности изменяются достаточно часто, то можно отключить изменение иерархии из кода и обновлять связи через базу. Существует несколько способов:</p>
+
+<ul><li><p>Вызывать хранимую процедуру (по триггеру, или из кода), для обновления иерархических связей:</p>
+
+<pre><code>-- пример для Microsoft Sql Server
+CREATE PROCEDURE [dbo].[FillHierarchy] (@table_name nvarchar(MAX), @hierarchy_name nvarchar(MAX))
+AS
+BEGIN
+    DECLARE @sql nvarchar(MAX), @id_column_name nvarchar(MAX)
+    SET @id_column_name = '[' + @table_name + '_ID]'
+    SET @table_name = '[' + @table_name + ']'
+    SET @hierarchy_name = '[' + @hierarchy_name + ']'
+
+    SET @sql = ''
+    SET @sql = @sql + 'WITH Hierachy(CHILD_ID, PARENT_ID) AS ( '
+    SET @sql = @sql + 'SELECT ' + @id_column_name + ', [PARENT_ID] FROM ' + @table_name + ' e '
+    SET @sql = @sql + 'UNION ALL '
+    SET @sql = @sql + 'SELECT e.' + @id_column_name + ', e.[PARENT_ID] FROM ' + @table_name + ' e '
+    SET @sql = @sql + 'INNER JOIN Hierachy eh ON e.' + @id_column_name + ' = eh.[PARENT_ID]) '
+    SET @sql = @sql + 'INSERT INTO ' + @hierarchy_name + ' ([CHILD_ID], [PARENT_ID]) ( '
+    SET @sql = @sql + 'SELECT [CHILD_ID], [PARENT_ID] FROM Hierachy WHERE [PARENT_ID] IS NOT NULL '
+    SET @sql = @sql + ') '
+
+    EXECUTE (@sql)
+END
+GO
+</code></pre></li>
+<li><p>Для каждой иерархии создать <em>View</em> (тот же запрос, что и в хранимой процедуре) и отобразить связи <em>Ancestors</em> и <em>Descendants</em> на эту <em>View</em>:</p>
+
+<pre><code>-- Пример для Microsoft Sql Server
+CREATE VIEW [MySuperTreeHierarchy]
+AS
+    WITH Hierachy (CHILD_ID, PARENT_ID) 
+    AS 
+    (
+        SELECT [MySuperTree_ID], [PARENT_ID] FROM [MySuperTree] AS e
+        UNION ALL
+        SELECT e.[MySuperTree_ID], e.[PARENT_ID] FROM [MySuperTree] AS e 
+            INNER JOIN Hierachy AS eh ON e.[MySuperTree_ID] = eh.[PARENT_ID]
+    )
+
+    SELECT [CHILD_ID], [PARENT_ID] FROM Hierachy WHERE [PARENT_ID] IS NOT NULL
+GO
+</code></pre></li>
+</ul><p>Оба этих подхода обладают большей гибкостью и надежностью, чем иерархические запросы на чистом SQL из кода.</p>
+
+<p>PS: интерфейс абстрактного класса <em>TreeEntry`1</em>:</p>
+
+<pre><code>    public abstract class TreeEntry&lt;T&gt; where T : TreeEntry {
+        public virtual T Parent { get; set; }
+
+        public virtual IEnumerable&lt;T&gt; Children { get; }
+
+        public virtual IEnumerable&lt;T&gt; Ancestors { get; }
+
+        public virtual IEnumerable&lt;T&gt; Descendants { get; }
+
+        public virtual void AddChild(T child);
+
+        public virtual void RemoveChild(T child);
+    }
+</code></pre>
+
+<p>PPS: для EF такое сделать также возможно, но т.к. <em>EF</em> не поддерживает скрытие коллекций за интерфейсом IEnumerable`1, я не стал выкладывать реализацию для EF в открытый доступ.</p>
+
+</div>
+
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'blog-hazzik-ru'; // required: replace example with your forum shortname
+	var disqus_identifier = '/2012/07/05/how-to-deal-with-trees-in-nhibernate/';
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/05/28/the-blog-has-been-moved-to-jekyll/">
+            Блог переехал на Jekyll и GitHub Pages
+            <small>28 May 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2013/03/04/in-english/">
+            Читайте меня на английском
+            <small>04 Mar 2013</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2012/10/24/delegatedecompiler/">
+            Вычисляемые поля для любого LINQ-провайдера
+            <small>24 Oct 2012</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'blog-hazzik-ru'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+<!-- Yandex.Metrika counter -->
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript"></script>
+<script type="text/javascript">
+try { var yaCounter13173247 = new Ya.Metrika({id:13173247,
+          webvisor:true,
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true});
+} catch(e) { }
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/13173247" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+  </body>
+</html>
