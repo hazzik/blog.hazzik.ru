@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Hazzik's blog &middot; 
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="tag-cloud">
+      <a href="/tag/dot-net" class="set-4">.NET</a> <a href="/tag/dot-net-3-dot-5" class="set-1">.NET 3.5</a> <a href="/tag/dot-netconf" class="set-1">.netconf</a> <a href="/tag/blog" class="set-1">Blog</a> <a href="/tag/db" class="set-2">DB</a> <a href="/tag/ddd" class="set-1">DDD</a> <a href="/tag/dropdown" class="set-1">DropDown</a> <a href="/tag/entityframework" class="set-1">EntityFramework</a> <a href="/tag/git" class="set-1">Git</a> <a href="/tag/headjs" class="set-1">HeadJS</a> <a href="/tag/hollywar" class="set-1">HollyWar</a> <a href="/tag/javasript" class="set-1">JavaSript</a> <a href="/tag/orm" class="set-1">ORM</a> <a href="/tag/oracle" class="set-1">Oracle</a> <a href="/tag/phpunit" class="set-1">PHPUnit</a> <a href="/tag/performance" class="set-1">Performance</a> <a href="/tag/postgresql" class="set-1">PostgreSQL</a> <a href="/tag/requirejs" class="set-1">RequireJS</a> <a href="/tag/resources" class="set-1">Resources</a> <a href="/tag/seo" class="set-1">SEO</a> <a href="/tag/sockets" class="set-1">Sockets</a> <a href="/tag/subversion" class="set-1">Subversion</a> <a href="/tag/tree-like-structures" class="set-1">Tree-like structures</a> <a href="/tag/version-control" class="set-1">Version Control</a> <a href="/tag/asp-dot-net" class="set-2">asp.net</a> <a href="/tag/asp-dot-net-mvc" class="set-5">asp.net mvc</a> <a href="/tag/bootstrapping" class="set-1">bootstrapping</a> <a href="/tag/business-rules" class="set-1">business rules</a> <a href="/tag/datepicker" class="set-1">datepicker</a> <a href="/tag/dotnetconf" class="set-1">dotnetconf</a> <a href="/tag/google-sitemap" class="set-1">google sitemap</a> <a href="/tag/jquery-ui" class="set-1">jquery-ui</a> <a href="/tag/lambda-expression" class="set-1">lambda expression</a> <a href="/tag/linq" class="set-1">linq</a> <a href="/tag/llblgen" class="set-1">llblgen</a> <a href="/tag/msil" class="set-1">msil</a> <a href="/tag/mvc" class="set-1">mvc</a> <a href="/tag/mvcextensions" class="set-4">mvcextensions</a> <a href="/tag/network" class="set-1">network</a> <a href="/tag/nhibernate" class="set-3">nhibernate</a> <a href="/tag/phalanger" class="set-1">phalanger</a> <a href="/tag/php" class="set-1">php</a> <a href="/tag/questions" class="set-1">questions</a> <a href="/tag/reflection" class="set-1">reflection</a> <a href="/tag/silverlight" class="set-1">silverlight</a> <a href="/tag/sitemap-dot-xml" class="set-1">sitemap.xml</a> <a href="/tag/xunit" class="set-1">xUnit</a> <a href="/tag/asinkhronnyi-vvod-vyvod" class="set-1">Асинхронный ввод-вывод</a> <a href="/tag/voprosy" class="set-2">Вопросы</a> <a href="/tag/khranimyie-protsiedury" class="set-1">Хранимые процедуры</a> <a href="/tag/poiskovaia-optimizatsiia" class="set-1">поисковая оптимизация</a>
+    </div>
+    <div class="sidebar-about">
+
+      <h1><a href="/">Hazzik's blog</a></h1>
+      <p class="lead"><a href="/"></a></p>
+
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item active">
+        <a href="/">Главная</a>
+      </li>
+
+      
+
+      
+      
+            <li class="sidebar-nav-item">
+              <a href="/about/">Обо мне</a>
+            </li>
+      
+    </ul>
+    <ul class="sidebar-social">
+      <li class="sidebar-social-item"><a href="http://twitter.com/hazzik"><i class="fa fa-twitter"></i></a></li>
+      &middot;
+      <li class="sidebar-social-item"><a href="http://github.com/hazzik"><i class="fa fa-github"></i></a></li>
+      &middot;
+      <li class="sidebar-social-item"><a href="http://linkedin.com/in/hazzik"><i class="fa fa-linkedin"></i></a></li>
+    </ul>
+
+    <p>&copy; 2014. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-05-01-nhibernate-3-3.html"><i class="fa fa-edit"></i></a>
+      <a href="/2012/05/01/nhibernate-3-3/">
+        NHibernate 3.3
+      </a>
+    </h1>
+    <ul class="post-info">
+      <li><i class="fa fa-calendar"></i> 01 May 2012</li>
+      <li><i class="fa fa-tags"></i> <a href="/tag/nhibernate" rel="tag">NHibernate</a> </li>
+      <li><i class="fa fa-comments"></i> <a href="/2012/05/01/nhibernate-3-3/#disqus_thread" data-disqus-identifier="/2012/05/01/nhibernate-3-3/">0 комментариев</a></li>
+    </ul>
+    <p>Пост для тех, кто пропустил релиз. В позапрошлую субботу (21 апреля 2012) вышел долгожданный (по-крайней мере для меня) релиз <a href="http://nhforge.org/">NHibernate</a> 3.3.0.GA.</p>
+
+<p>Скачать можно с <a href="http://sourceforge.net/projects/nhibernate/?source=directory">SF</a> или из <a href="http://nuget.org/packages/nhibernate">NuGet</a></p>
+
+<p>Список изменений на английском, можно почитать <a href="https://github.com/nhibernate/nhibernate-core/blob/3.3.0GA/releasenotes.txt">тут</a>.</p>
+
+<p>PS: я теперь в NH-core team ;)</p>
+
+<p>PPS: не забывайте обо всех багах сообщать в <a href="https://nhibernate.jira.com/browse/NH">баг-трекер</a>.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-04-11-nvarchar.html"><i class="fa fa-edit"></i></a>
+      <a href="/2012/04/11/nvarchar/">
+        nvarchar(?)
+      </a>
+    </h1>
+    <ul class="post-info">
+      <li><i class="fa fa-calendar"></i> 11 Apr 2012</li>
+      <li><i class="fa fa-tags"></i> <a href="/tag/db" rel="tag">db</a>, <a href="/tag/voprosy" rel="tag">Вопросы</a> </li>
+      <li><i class="fa fa-comments"></i> <a href="/2012/04/11/nvarchar/#disqus_thread" data-disqus-identifier="/2012/04/11/nvarchar/">0 комментариев</a></li>
+    </ul>
+    <p>Всегда, когда работаю с базой данных и вижу вот такое:</p>
+
+<pre><code>CREATE TABLE [dbo].[Users] (
+    [UserId] int IDENTITY NOT NULL,
+    [EMail] nvarchar(215) NOT NULL,
+)
+</code></pre>
+
+<p>задаю себе одни и те же вопросы:</p>
+
+<ul><li>чем руководствовался автор, когда выбирал максимальную длину строки?</li>
+<li>Почему именно 215, а не 214 или 216?</li>
+</ul><p>У меня нет ответа на эти вопросы. Может быть вы знаете?</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-04-02-mvcextensions-jqueryui-datepicker-unobtrusive.html"><i class="fa fa-edit"></i></a>
+      <a href="/2012/04/02/mvcextensions-jqueryui-datepicker-unobtrusive/">
+        MvcExtensions - как подключить jquery-ui date picker в ASP.NET MVC. Unobtrusive way.
+      </a>
+    </h1>
+    <ul class="post-info">
+      <li><i class="fa fa-calendar"></i> 02 Apr 2012</li>
+      <li><i class="fa fa-tags"></i> <a href="/tag/jquery-ui" rel="tag">jquery-ui</a>, <a href="/tag/mvcextensions" rel="tag">mvcextensions</a>, <a href="/tag/datepicker" rel="tag">datepicker</a>, <a href="/tag/asp-dot-net-mvc" rel="tag">asp.net mvc</a> </li>
+      <li><i class="fa fa-comments"></i> <a href="/2012/04/02/mvcextensions-jqueryui-datepicker-unobtrusive/#disqus_thread" data-disqus-identifier="/2012/04/02/mvcextensions-jqueryui-datepicker-unobtrusive/">0 комментариев</a></li>
+    </ul>
+    <p>В <a href="http://metrika.yandex.ru">Яндекс.Метрика</a> подсмотрел, что по такому поисковому запросу приходят в мой блог и решил написать статью об этом. Задача довольно простая - позволить пользователю выбирать дату из красивого календаря, такого как <a href="http://jqueryui.com/demos/datepicker/">jQuery UI Datepicker</a></p>
+
+<h3>Решение &#8220;в лоб&#8221;.</h3>
+
+<p>Как известно, <a href="http://asp.net/mvc">ASP.NET MVC</a> поддерживает шаблоны для редакторов полей. Первый вариант - использовать такой шаблон &#8220;в лоб&#8221;. <!-- more --> Создадим файл с названием &#8220;DateTime.cshtml&#8221; и положим его в &#8220;/Views/Shared/EditorTemplates/&#8221;. Содержание файла будет таким:</p>
+
+<pre><code>@model DateTime?
+@Html.TextBox("") @* "" - мы говорим, что для названия поля будет использоваться название модели *@
+&lt;script type="text/javascript"&gt;
+    (function($) {
+        $(function() {
+            var settings = {
+                //здесь стандартные настройки для datepicker
+            };
+            $('#@Html.IdForModel()').datepicker(settings);
+        });            
+    })(jQuery);
+&lt;/script&gt;
+</code></pre>
+
+<p>Теперь, каждый раз, когда вы будете писать <code>@Html.EditorFor(x =&gt; x.FieldOfDateTimeType)</code> будет использоваться данный шаблон.</p>
+
+<p>У этого решения есть недостатки:</p>
+
+<ol><li>Решение не гибкое - не позволяет использовать разные настройки для разных редакторов. Для того, чтобы использовать другие настройки календаря необходимо создать <em>отдельный</em> шаблон.</li>
+<li>Каждый раз, при отрисовке календарика в разметку будет добавляться дополнительный <script>, что будет сказываться на производительности.</script></li>
+</ol><h3>Делаем жизнь проще.</h3>
+
+<p>Очевидно, что дублирующийся в конечном HTML скрипт нужно куда-то вынести. Вынесем его в базовый слой, или в отдельный файл. Для этого, нам необходимо модифицировать наш sizzle-селектор для того, чтобы он находил <em>все</em> календарики. Для этого пометим наш календарик с помощью аттрибута <code>role="datepicker"</code> и для поддержки html5 присвоим ему тип - &#8220;date&#8221;:</p>
+
+<p>DateTime.cshtml:</p>
+
+<pre><code>@model DateTime?
+@Html.TextBox("", null, new { role = "datepicker", type = "date" }) 
+</code></pre>
+
+<p>_Layout.cshtml:</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;
+    (function($) {
+        $(function() {
+            var settings = {
+                //здесь стандартные настройки для datepicker
+            };
+            $('input[role=datepicker], input[type=date]').datepicker(settings);
+        });            
+    })(jQuery);
+&lt;/script&gt;
+</code></pre>
+
+<p>Данное решение более элегантно, чем решение в лоб, но при этом остается почти таким же не гибким.</p>
+
+<h3>Решение с использованием <a href="http://mvcextensions.codeplex.com/">MvcExtensions</a> + unobtrusive javascript.</h3>
+
+<p>Предыдущее решение уже unobtrusive, но пока не позволяет передавать дополнительные параметры в календарик. Для этого к нам на помощь придут наши друзья <a href="http://github.com/MvcExtensions/Core/blob/master/src/MvcExtensions/ModelMetadata/IModelMetadataAdditionalSetting.cs"><code>IModelMetadataAdditionalSetting</code></a>s. Для их использования мы создадим метод расширения <code>AsDatePicker</code>:</p>
+
+<pre><code>public static class ModelMetadataItemBuilderDatePickerExtensions {
+    public static ModelMetadataItemBuilder&lt;T&gt; AsDatepicker&lt;T&gt;(this ModelMetadataItemBuilder&lt;T&gt; self, 
+        DateTime? minDate = null, DateTime? maxDate = null) {
+        self.Template("DateTime");
+
+        var setting = self.Item.GetAdditionalSettingOrCreateNew&lt;DatePickerSettings&gt;();
+        setting.MinDate = minDate;
+        setting.MaxDate = maxDate;
+
+        return self;
+    }
+}
+</code></pre>
+
+<p>Здесь всё просто: выставляется шаблон и создаются настройки для календарика. В шаблоне мы будет отрисовывать это следующим образом:</p>
+
+<pre><code>@{var settings = ViewData.ModelMetadata.GetAdditionalSettingOrCreateNew&lt;DatePickerSettings&gt;(); }
+@Html.TextBoxFor(_ =&gt; _, settings.ToHtmlAttributes() /*html attributes*/)
+</code></pre>
+
+<p>Здесь настройки сериализуются в data-* аттрибуты у элемента <code>&lt;input /&gt;</code>. При этом, будет соблюдена конвенция, что знак подчеркивания будет преобразован в дефис.</p>
+
+<p>Класс <code>DatePickerSettings</code>:</p>
+
+<pre><code>public class DatePickerSettings : IModelMetadataAdditionalSetting {
+    public DateTime? MinDate { get; set; }
+    public DateTime? MaxDate { get; set; }
+
+    public object ToHtmlAttributes() {
+        return new
+                   {
+                       role = "datepicker",
+                       type = "date",
+                       data_min_date = MinDate,
+                       data_max_date = MaxDate,
+                   };
+    }
+}
+</code></pre>
+
+<p><a href="http://jqueryui.com">jQuery-UI</a> для настроек использует camelCase нотацию, а, jQuery, к счастью, автоматически преобразуте дефисы в data-* аттрибутах в такую нотацию. Таким образом нам нужно просто для каждого <code>&lt;input&gt;</code> взять его data-* аттрибуты и просто передать в качестве настроек в datapicker. Это будет сделано скриптом в <code>_Layout.cshtml</code>:</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;
+    (function($) {
+        $(function() {
+            $('[role=datepicker]', input[type=date]').each(function () {
+                var self = $(this);
+                self.datepicker(self.data());
+            });
+        });            
+    })(jQuery);
+&lt;/script&gt;
+</code></pre>
+
+<p>В метаданных это будет использоваться так:</p>
+
+<pre><code>public class MyModelMetadata: ModelMetadataConfiguration&lt;MyModel&gt; {
+    public MyModelMetadata() {
+        Configure(m =&gt; m.FieldOfDateTimeType)
+            .AsDatepicker(minDate: DateTime.Today, maxDate: DateTime.Today.AddDays(10));
+    }
+}
+</code></pre>
+
+<h3>Вместо заключения</h3>
+
+<p>Данное решение обладает абсолютной гибкостью и позволяет управлять любыми свойствами для каждого из ваших календарей (и не только календарей) через метаданные формы.</p>
+
+<hr><p>По материалам <a href="http://www.dotnetconf.ru/Materialy/Primenenie_metadannih_ViewModel_dlya_konfigurirovania_kompleksnih_javascript_controlov">доклада &#8220;Metadata + JavaScript = ♥&#8221;</a> Рахматиллаева Тимура на dotnetconf.</p>
+
+<h3>UPDATE: Добавил примеры к статье.</h3>
+
+<ul><li>Примеры доступны здесь: <a href="http://hazzik-samples.apphb.com/DatePicker">http://hazzik-samples.apphb.com/DatePicker</a></li>
+<li>Исходиники примеров здесь: <a href="https://github.com/hazzik/Samples-From-My-Blog">https://github.com/hazzik/Samples-From-My-Blog</a></li>
+</ul>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-04-02-mvcextensions-solving-drop-down-lists-problem.md"><i class="fa fa-edit"></i></a>
+      <a href="/2012/04/02/mvcextensions-solving-drop-down-lists-problem/">
+        MvcExtensions - решение проблемы DropDown Lists
+      </a>
+    </h1>
+    <ul class="post-info">
+      <li><i class="fa fa-calendar"></i> 02 Apr 2012</li>
+      <li><i class="fa fa-tags"></i> <a href="/tag/mvcextensions" rel="tag">MvcExtensions</a>, <a href="/tag/asp-dot-net-mvc" rel="tag">ASP.NET MVC</a>, <a href="/tag/dropdown" rel="tag">DropDown</a> </li>
+      <li><i class="fa fa-comments"></i> <a href="/2012/04/02/mvcextensions-solving-drop-down-lists-problem/#disqus_thread" data-disqus-identifier="/2012/04/02/mvcextensions-solving-drop-down-lists-problem/">0 комментариев</a></li>
+    </ul>
+    <p>С самого выхода еще первой версии <a href="http://www.asp.net/mvc">ASP.NET MVC</a> три года назад я столкнулся с проблемой выпадающих списков. Наверное <a href="http://habrahabr.ru/post/106370/">каждый</a> <a href="http://pashapash.com/2010/12/dropdown-v-asp-net-mvc-chast-1/">из вас</a> <a href="http://www.google.ru/webhp#q=asp.net+mvc+dropdownlist">задавал себе вопрос</a>: &#8220;Как корректно передавать данные для отображения в выпадающие списки?&#8221; Вот и меня до недавнего времени этот вопрос волновал и очень существенно. Я буквально не мог спать;)</p>
+
+<!-- more -->
+
+<p>Допустим у нас есть форма, для создания фильма. И нам нужно из DropDown выбрать жанр фильма. Откровенно &#8220;профанские&#8221; решения, такие как получение возможных значений прямо на View я рассматривать не буду.</p>
+
+<h2>Решение &#8220;в лоб&#8221;</h2>
+
+<p>Программисты, сталкивающиеся с этой проблемой очень часто идут решать ее в лоб: в модели создается дополнительное свойство Genres типа SelectList и оно заполняется в методе контроллера.</p>
+
+<p>Модель:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">Movie</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">GenreId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="n">SelectList</span> <span class="n">Genres</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>    
+    <span class="c1">//...
+</span><span class="p">}</span> 
+</code></pre></div>
+<p>Контроллер:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">MoviesController</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">var</span> <span class="n">model</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Movie</span><span class="p">()</span> <span class="p">{</span> <span class="n">Genres</span> <span class="p">=</span> <span class="nf">GetAllGenresFromDatabase</span><span class="p">();</span> <span class="p">}</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">model</span><span class="p">);</span> 
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">(</span><span class="n">Movie</span> <span class="n">form</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do something with movie.
+</span>    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">var</span> <span class="n">model</span> <span class="p">=</span> <span class="nf">GetMovieFromDatabase</span><span class="p">();</span>
+        <span class="n">model</span><span class="p">.</span><span class="n">Genres</span> <span class="p">=</span> <span class="nf">GetAllGenresFromDatabase</span><span class="p">();</span> 
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">model</span><span class="p">);</span> 
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="n">EditMovie</span> <span class="n">form</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do something with movie.
+</span>    <span class="p">}</span>
+    <span class="c1">//...
+</span><span class="p">}</span>
+</code></pre></div>
+<p>Но у этого решения для меня есть огромные недостатки:</p>
+
+<ol>
+<li> Лишнее поле в модели</li>
+<li> Необходимо создавать модель при отображении формы создания</li>
+<li> Дублирование кода заполнения возможных значений. <small>Эта проблема становится особенно актуальное, если у вас в системе можно во многих местах выбирать значения из одного и того же справочника.</small></li>
+<li> Нет возможности использовать <code>Html.EditorForModel()</code> - ASP.NET отображает общую разметку для всех полей модели, при этом при отображении какого-либо поля модели нет доступа к другим полям.</li>
+</ol>
+
+<h2>Решение с использованием ViewBag / ViewData</h2>
+
+<p>Это решение по большей части аналогично предыдущему решению, за тем лишь исключением, что возможные значение передаются через ViewBag:</p>
+
+<p>Модель:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">Movie</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nf">UIHint</span><span class="p">(</span><span class="s">"Genres"</span><span class="p">)]</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">GenreId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="c1">//...
+</span><span class="p">}</span>
+</code></pre></div>
+<p>Контроллер:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">MoviesController</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">ViewBag</span><span class="p">.</span><span class="n">Genres</span> <span class="p">=</span> <span class="nf">GetAllGenresFromDatabase</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">();</span> 
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">(</span><span class="n">Movie</span> <span class="n">form</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do something with movie.
+</span>    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">var</span> <span class="n">model</span> <span class="p">=</span> <span class="nf">GetMovieFromDatabase</span><span class="p">();</span>
+        <span class="n">ViewBag</span><span class="p">.</span><span class="n">Genres</span> <span class="p">=</span> <span class="nf">GetAllGenresFromDatabase</span><span class="p">();</span> 
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">model</span><span class="p">);</span> 
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="n">EditMovie</span> <span class="n">form</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do something with movie.
+</span>    <span class="p">}</span>
+    <span class="c1">//...
+</span><span class="p">}</span>
+</code></pre></div>
+<p>Плюсы, по сравнению с предыдущим решением.</p>
+
+<ol>
+<li> Нет лишних полей в модели</li>
+<li> Нет необходимости создавать модель при отображении формы создания</li>
+<li> Можно использовать <code>Html.EditorForModel()</code> в связке с шаблоном (EditorTemplate). При этом для каждого справочника необходим свой шаблон</li>
+</ol>
+
+<p>Минусы</p>
+
+<ol>
+<li> Используется dynamic или magic-strings*, что не всегда положительно сказывается на возможности рефакторинга</li>
+<li> Дублирование кода заполнения возможных значений</li>
+<li> Необходимо иметь по шаблону на каждый тип справочника</li>
+</ol>
+
+<p>Недостатки</p>
+
+<h3>Улучшенное решение с использованием ViewBag / ViewData</h3>
+
+<p>Для устранения дублировани кода получения возможных значений вынесем этот код в отдельный ActionFilter.</p>
+
+<p>Модель:</p>
+
+<p>та же, что в предыдущем примере</p>
+
+<p>ActionFilter:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">PopulateGenresAttribute</span><span class="p">:</span> <span class="n">ActionFilterAttribute</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">OnActionExecuted</span><span class="p">(</span><span class="n">ActionExecutedContext</span> <span class="n">filterContext</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">filterContext</span><span class="p">.</span><span class="n">Controller</span><span class="p">.</span><span class="n">ViewData</span><span class="p">[</span><span class="s">"Genres"</span><span class="p">]</span> <span class="p">=</span> <span class="nf">GetAllGenresFromDatabase</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="c1">//...
+</span><span class="p">}</span>    
+</code></pre></div>
+<p>Контроллер:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">MoviesController</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">,</span> <span class="n">PopulateGenres</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">();</span> 
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">(</span><span class="n">Movie</span> <span class="n">form</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do something with movie.
+</span>    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">,</span> <span class="n">PopulateGenres</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">var</span> <span class="n">model</span> <span class="p">=</span> <span class="nf">GetMovieFromDatabase</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">model</span><span class="p">);</span> 
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="n">EditMovie</span> <span class="n">form</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do something with movie.
+</span>    <span class="p">}</span>
+    <span class="c1">//...
+</span><span class="p">}</span>
+</code></pre></div>
+<p>Плюсы, по сравнению с предыдущим решением.</p>
+
+<ol>
+<li> Устранено дублирование кода заполнения возможных значений</li>
+</ol>
+
+<p>Минусы</p>
+
+<ol>
+<li> Используется dynamic или magic-strings*, что не всегда положительно сказывается на возможности рефакторинга</li>
+<li> Необходимо иметь по шаблону на каждый тип справочника</li>
+</ol>
+
+<h3>Улучшенное решение с использованием ViewBag / ViewData + <a href="http://mvcextensions.codeplex.com">MvcExtnsions</a></h3>
+
+<p>В MvcExensions есть замечательные <a href="http://github.com/MvcExtensions/Core/blob/master/src/MvcExtensions/ModelMetadata/HtmlSelectModelMetadataItemBuilderExtensions.cs">методы для работы с drop-down list</a>: AsDropDownList / AsListBox (первый для выпадающего списка, второй для множественного выбора). Это методы-расширения для конструктора метаданных. Данные методы устанавливают шаблон и позволяют передать в шаблон название поля ViewBag, которое хранит данные с возможными значениями. Таким образом решается проблема с необходимостю иметь по шаблону на каждый справочник.</p>
+
+<p>Модель:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">Movie</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">GenreId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span> 
+</code></pre></div>
+<p>Метаданные:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">MovieMetadata</span> <span class="p">:</span> <span class="n">ModelMetadataConfiguration</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="n">MovieMetadata</span> <span class="p">{</span>
+        <span class="nf">Configure</span><span class="p">(</span><span class="n">movie</span> <span class="p">=&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">movie</span><span class="p">.</span><span class="n">GenreId</span><span class="p">).</span><span class="nf">AsDropDownList</span><span class="p">(</span><span class="s">"Genres"</span><span class="cm">/*шаблон*/</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Контроллер:</p>
+
+<p>как в предыдущем примере.</p>
+
+<p>Плюсы, по сравнению с предыдущим решением:</p>
+
+<ol>
+<li> Используется два универсальных шаблона (DropDownList / ListBox) для всех списков (есть возможность указать свой шаблон, если это необходимо)</li>
+</ol>
+
+<p>Минусы:</p>
+
+<ol>
+<li> Используется dynamic или magic-strings*, что не всегда положительно сказывается на возможности рефакторинга.</li>
+</ol>
+
+<h3>Решение с использованием ChildAction</h3>
+
+<p>Если попытаться использовать child action &#8220;в лоб&#8221;, то это решение просто-напросто не будет работать: не будет работать клиенская валидация, не будут работать сценарии в случае сложных вложенных форм и т.д. В <a href="http://pashapash.com/2010/12/dropdown-v-asp-net-mvc-chast-1/">статье</a> (<a href="http://pashapash.com/2011/01/dropdown-v-asp-net-mvc-chast-2/">часть 2</a>) неизвестного автора (быстрый поиск выдал только <a href="http://habrahabr.ru/users/PashaPash/">профиль</a> на хабре) решены эти проблемы, и по-этому я буду рассматривать <em>окончательное решение автора</em>.</p>
+
+<p>Модель</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">Movie</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nf">UIHint</span><span class="p">(</span><span class="s">"Genres"</span><span class="p">)]</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">GenreId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span> 
+</code></pre></div>
+<p>Контроллеры:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">MoviesController</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">();</span> 
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">(</span><span class="n">Movie</span> <span class="n">form</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do something with movie.
+</span>    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">var</span> <span class="n">model</span> <span class="p">=</span> <span class="nf">GetMovieFromDatabase</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">model</span><span class="p">);</span> 
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="n">EditMovie</span> <span class="n">form</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do something with movie.
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GenresController</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">List</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kt">int</span><span class="p">?</span> <span class="n">selectedGenreId</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">ControllerContext</span><span class="p">.</span><span class="n">ParentActionViewContext</span><span class="p">.</span><span class="n">ViewData</span><span class="p">.</span><span class="n">Model</span> <span class="k">as</span> <span class="kt">int</span><span class="p">?;</span>
+
+        <span class="n">var</span> <span class="n">genres</span> <span class="p">=</span> <span class="nf">GetGenresFormDatabase</span><span class="p">();</span>
+
+        <span class="n">var</span> <span class="n">model</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">SelectList</span><span class="p">(</span><span class="n">genres</span><span class="p">,</span> <span class="s">"Id"</span><span class="p">,</span> <span class="s">"DisplayName"</span><span class="p">,</span> <span class="n">selectedGenreId</span><span class="p">);</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="n">ViewData</span><span class="p">.</span><span class="n">Model</span> <span class="p">=</span> <span class="n">model</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="n">ViewData</span><span class="p">.</span><span class="n">ModelMetadata</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">ControllerContext</span><span class="p">.</span><span class="n">ParentActionViewContext</span><span class="p">.</span><span class="n">ViewData</span><span class="p">.</span><span class="n">ModelMetadata</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="s">"DropDown"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Плюсы, по сравнению, с решениями с ViewBag / ViewData</p>
+
+<ol>
+<li> Не используется dynamic или magic-strings</li>
+<li> Устранено дублирование кода заполнения возможных значений</li>
+</ol>
+
+<p>Минусы</p>
+
+<ol>
+<li> Дублирование обслуживающего кода</li>
+<li> Необходимо иметь по шаблону на каждый тип справочника</li>
+<li> Не поддерживается сценарий Post-Redirect-Get</li>
+</ol>
+
+<h3>Решение с использованием ChildAction + MvcExtensions</h3>
+
+<p>Я решил, усовершенствовать последнее решение и применить опыт использования ActionFilter, и теперь, с версии <a href="http://nuget.org/packages/MvcExtensions">2.5.0-rc8000 в MvcExtensions</a> поддерживаются выпадающие списки &#8220;из коробки&#8221;. Были добавлены методы расширения, позволяющие указывать, что для отображения данного поля модели необходимо вызвать ChildAction. Также был добавлен <code>SelectListActionAttribute</code>, который занимается обслуживанием метода, предоставлюящего возможнные значения для выпадающего списка. Поддерживается Post-Redirect-Get</p>
+
+<p>Модель:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">Movie</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">GenreId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Метаданные:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">MovieMetadata</span> <span class="p">:</span> <span class="n">ModelMetadataConfiguration</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="n">MovieMetadata</span> <span class="p">{</span>
+        <span class="nf">Configure</span><span class="p">(</span><span class="n">movie</span> <span class="p">=&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">movie</span><span class="p">.</span><span class="n">GenreId</span><span class="p">).</span><span class="nf">RenderAction</span><span class="p">(</span><span class="s">"List"</span><span class="p">,</span> <span class="s">"Genres"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Контроллеры:</p>
+<div class="highlight"><pre><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">MoviesController</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">();</span> 
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Create</span><span class="p">(</span><span class="n">Movie</span> <span class="n">form</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do something with movie.
+</span>    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">var</span> <span class="n">model</span> <span class="p">=</span> <span class="nf">GetMovieFromDatabase</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="n">model</span><span class="p">);</span> 
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpPost</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">Edit</span><span class="p">(</span><span class="n">EditMovie</span> <span class="n">form</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do something with movie.
+</span>    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GenresController</span> <span class="p">{</span>
+    <span class="p">[</span><span class="n">ChildActionOnly</span><span class="p">,</span> <span class="n">SelectListAction</span><span class="p">]</span> <span class="k">public</span> <span class="n">ActionResult</span> <span class="nf">List</span><span class="p">(</span><span class="kt">int</span> <span class="n">selected</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">var</span> <span class="n">model</span> <span class="p">=</span> <span class="nf">GetGenresFormDatabase</span><span class="p">(</span><span class="n">selected</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">View</span><span class="p">(</span><span class="s">"DropDown"</span><span class="p">,</span> <span class="n">model</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Плюсы, по сравнению с предыдущими решениями</p>
+
+<ol>
+<li> Устранено дублирование обслужвающего кода</li>
+<li> Используется единый шаблон</li>
+<li> MultiSelect &#8220;из коробки&#8221;</li>
+<li> Поддерживается сценарий Post-Redirect-Get</li>
+</ol>
+
+<h1>Вместо заключения.</h1>
+
+<p>Для меня, как одного из разработчиков MvcExtensions варианты с использованием этой библиотеки предпочтительнее.</p>
+
+<p>Пример кода для варианта с ViewBag / ViewData + MvcExtensions здесь: <a href="http://github.com/MvcExtensions/Core/tree/master/samples">http://github.com/MvcExtensions/Core/tree/master/samples</a></p>
+
+<p>Пример кода для варианта с ChildAction + MvcExtensions здесь: <a href="http://github.com/hazzik/DropDowns">http://github.com/hazzik/DropDowns</a></p>
+
+<hr>
+
+<p>*magic-strings легко побеждаются, использованием констант, и по-этому для меня в данном контексте предпочтительней, чем dynamic</p>
+
+<p>PS: Возможности MvcExtensions для расширения старого доброго ASP.NET MVC просто безграничны.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-03-18-share-or-individual-developer-database.html"><i class="fa fa-edit"></i></a>
+      <a href="/2012/03/18/share-or-individual-developer-database/">
+        Общая или личная база данных при разработке?
+      </a>
+    </h1>
+    <ul class="post-info">
+      <li><i class="fa fa-calendar"></i> 18 Mar 2012</li>
+      <li><i class="fa fa-tags"></i> <a href="/tag/db" rel="tag">DB</a>, <a href="/tag/voprosy" rel="tag">Вопросы</a> </li>
+      <li><i class="fa fa-comments"></i> <a href="/2012/03/18/share-or-individual-developer-database/#disqus_thread" data-disqus-identifier="/2012/03/18/share-or-individual-developer-database/">0 комментариев</a></li>
+    </ul>
+    <p>В этой статье я хочу рассказать о практиках работы разработчиков с базами данных в момент разработки продукта. Все из этих практик были опробованны мной <em>лично</em> и текст здесь основан на моем <em>личном</em> опыте.</p>
+
+<p>Можно использовать единую для всех и индивидуальную базу данных для каждого разработчика. Оба подхода имеют как достоинства, так и недостатки.</p>
+
+<!-- more -->
+
+<h4>Общая база данных.</h4>
+
+<p>Обычно разработчик, изменивший схему БД, кричит на весь офис: &#8220;обновитесь, я изменил базу!&#8221;</p>
+
+<p>При этом подходе изменение в базе <strong>сразу же</strong> отображаются у всех разработчиков, это является как достоинством, так и недостатком.</p>
+
+<p>Если ваша ORM или система для управления схемой базы данных использует бинарный формат для хранения своего проекта, то вам необходимо соблюдать осторожность: необходимо предупредить всех, что вы собираетесь обновить схему данных, ждать своей очереди на обновление схемы, что на начальном этапе разработки, когда схема данных еще не устоялась может существенно замедлить разработку.</p>
+
+<p>Также очень часто разработка может остановиться, если вы уже <em>значительно</em> изменили базу данных, но еще не можете закоммитить изменения, т.к. код который работает с ней еще не написан.</p>
+
+<p>У всех пользователей будет использоваться единая строка подключения к базе, и, в связи с этим, продуктовая боевая база будет называться, <em>скорее всего</em>, так же.</p>
+
+<p>Всем разработчикам нет необходимости думать о том, как обновлять базу данных. С одной стороны это достоинство, но с другой очень часто и недостаток - в команде нет общего видения, какие шаги необходимо предпринять для обновления боевой базы и очень часто боевая и база разработчиков находятся в <em>разном состоянии</em>.</p>
+
+<p>В моей практике очень часто случались ситуации &#8220;ой забыл&#8221;:</p>
+
+<ul><li>"поигрался" с базой данных и не откатил свои изменения;</li>
+<li>забыл закоммитить скрипт обновелния в репозиторий; </li>
+<li>закоммитил не тот, который выполнял на самом деле; </li>
+<li>из-за гонок скрипт просто не выполняется на живой базе.</li>
+</ul><p>На одном из предыдущих мест работы для борьбы с такой забывчивостью и несоответсвием баз применялся подход ежедневного реплицирования боевой базы данных на базу данных разработчиков. Т.е. утром человек приходил и выполнял все свои скрипты. Этот подход работает, но очень утомителен.</p>
+
+<h4>Применимость</h4>
+
+<p>Данный подход хорошо подходит для использования вместе с централизованными хранилищами исходного кода, такими как <a href="http://subversion.tigris.org/">SVN</a> или <a href="http://msdn.microsoft.com/en-us/vstudio/ff637362">TFS</a>, если все разработчики работают в одной ветке.</p>
+
+<p>Если все находятся в одном офисе в приделах видимости и слышимости остальных членов команды. Либо разработчики разрабатывают разные модули системы, которые общаются с разными частями базы и никогда не пересекаются (что очень маловероятно). Либо если разработчик на проекте один.</p>
+
+<p>Также такое решение применяется, если база данных очень требовательна к ресурсам или сложна в администрировании (например <a href="http://www.oracle.com/us/products/database/index.html">Oracle</a><em>), либо взимается дополнительная плата за каждый копию (<a href="http://www.microsoft.com/sqlserver">MS SQL Server</a></em>*).</p>
+
+<p>*конечно существует Oracle XE, но в силу своих ограничений его поведение и возможности <em>значительно</em> отличаются от старшего брата.</p>
+
+<p>**для MS SQL Server в версии Express Edition в основном отличия только на размер базы и количество процессорных ядер, а ядро системы такое же как и у старшего брата.</p>
+
+<h4>Индивидуальная база данных для каждого разработчика.</h4>
+
+<p>При этом подходе изменения в базе появляются у разработчика только тогда, когда он забирает изменения из вышестоящего репозитория. Обновление базы возможно как ручное, так и автоматическое.</p>
+
+<p>Сначала, когда мы обдумывали, переход на индивидуальную базу для каждого, тот факт, что каждому необходимо самому заботится о своей базе, казался нам большой проблемой. Но после некоторого времени использования, мы осознали, что проблема была преувеличена.</p>
+
+<p>Данный подход позволяет спокойно менять схему базы, не опасаясь что у кого-то возникнут проблемы в процессе разработке из-за этих изменений.</p>
+
+<p>Данный подход способствует распространению знаний между членами команды о том, как необходимо обновлять базу - в итоге, каждый разработчик мог самостоятельно развернуть проект на боевом сервере.</p>
+
+<p>Данный подход уменьшает количество интеграционных ошибок за счет частого интегрирования изменений.</p>
+
+<p>При использовании данного подхода необходимо следить за версией базы данных - разработчик должен понимать какие скрипты уже выполнены, а какие нет.</p>
+
+<p>Так же необходимо <em>максимально автоматизировать</em> процесс обновления базы, чтобы у разработчика это не отнимало драгоценное время. В конечном итоге такая автоматизация проекту пойдет только на пользу: обновление боевой версии продукта будет также автоматизированно.</p>
+
+<h5>Применимость</h5>
+
+<p>Данный подход идеален для варианта, работы с использованием децентрализованных систем контроля версия (<a href="http://git-scm.com/">Git</a>, <a href="http://mercurial.selenic.com/">Mercurial</a>, <a href="http://bazaar.canonical.com">Bazaar</a>). Либо для централизованных систем контроля версий, при активном использовании веток. Также идеально подходит для распределенных команд.</p>
+
+<h4>Заключение</h4>
+
+<p>В моем случае подход эволюционировал так:</p>
+
+<ol><li><p>Общая база данных (MS SQL), <a href="http://jedivcs.sourceforge.net/">Jedi VCS</a>, модульная разработка, индивидуальные миграционные скрипты, написанные вручную (MySuperModule.sql), каждый разработчик свой модуль заливает на боевой сервер сам.</p></li>
+<li><p>Общая база данных (Oracle), SVN, генерация модели данных по схеме БД (<a href="http://www.llblgen.com/">LLBLGen Pro</a>), общий миграционный скрипт на версию (v1.0.1.sql, v1.0.2.sql).</p></li>
+<li><p>Общая база данных (Оracle), mercurial, генерация схемы БД по модели (<a href="http://nhforge.org/">NHibernate</a>), общий миграционный скрипт на версию.</p></li>
+<li><p>Индивидуальная база данных (MS SQL Server), mercurial, генерация схемы БД по модели (NHibernate), общий миграционный скрипт на версию.</p></li>
+<li><p>Индивидуальная база данных (MS SQL Server), mercurial/git, генерация схемы БД и вставка начальных значений через механизм миграций (<a href="https://github.com/schambers/fluentmigrator">FluentMigrator</a>). Обновление через запуск файла <code>migrate.bat</code>, что в принципе может вызываться автоматически через post update hook.</p></li>
+</ol><p>Я рекомендую всем пользоваться только подходом c индивидуальной базой данных для разработчика, т.к. для меня его плюсы значительно существенней, чем недостатки.</p>
+
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page4">Позднее</a>
+  
+  
+    
+      <a class="pagination-item newer" href="/page2">Раньше</a>
+    
+  
+</div>
+
+    </div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'blog-hazzik-ru'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+<!-- Yandex.Metrika counter -->
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript"></script>
+<script type="text/javascript">
+try { var yaCounter13173247 = new Ya.Metrika({id:13173247,
+          webvisor:true,
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true});
+} catch(e) { }
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/13173247" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+  </body>
+</html>

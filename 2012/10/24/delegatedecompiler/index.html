@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Вычисляемые поля для любого LINQ-провайдера &middot; Hazzik's blog
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="tag-cloud">
+      <a href="/tag/dot-net" class="set-4">.NET</a> <a href="/tag/dot-net-3-dot-5" class="set-1">.NET 3.5</a> <a href="/tag/dot-netconf" class="set-1">.netconf</a> <a href="/tag/blog" class="set-1">Blog</a> <a href="/tag/db" class="set-2">DB</a> <a href="/tag/ddd" class="set-1">DDD</a> <a href="/tag/dropdown" class="set-1">DropDown</a> <a href="/tag/entityframework" class="set-1">EntityFramework</a> <a href="/tag/git" class="set-1">Git</a> <a href="/tag/headjs" class="set-1">HeadJS</a> <a href="/tag/hollywar" class="set-1">HollyWar</a> <a href="/tag/javasript" class="set-1">JavaSript</a> <a href="/tag/orm" class="set-1">ORM</a> <a href="/tag/oracle" class="set-1">Oracle</a> <a href="/tag/phpunit" class="set-1">PHPUnit</a> <a href="/tag/performance" class="set-1">Performance</a> <a href="/tag/postgresql" class="set-1">PostgreSQL</a> <a href="/tag/requirejs" class="set-1">RequireJS</a> <a href="/tag/resources" class="set-1">Resources</a> <a href="/tag/seo" class="set-1">SEO</a> <a href="/tag/sockets" class="set-1">Sockets</a> <a href="/tag/subversion" class="set-1">Subversion</a> <a href="/tag/tree-like-structures" class="set-1">Tree-like structures</a> <a href="/tag/version-control" class="set-1">Version Control</a> <a href="/tag/asp-dot-net" class="set-2">asp.net</a> <a href="/tag/asp-dot-net-mvc" class="set-5">asp.net mvc</a> <a href="/tag/bootstrapping" class="set-1">bootstrapping</a> <a href="/tag/business-rules" class="set-1">business rules</a> <a href="/tag/datepicker" class="set-1">datepicker</a> <a href="/tag/dotnetconf" class="set-1">dotnetconf</a> <a href="/tag/google-sitemap" class="set-1">google sitemap</a> <a href="/tag/jquery-ui" class="set-1">jquery-ui</a> <a href="/tag/lambda-expression" class="set-1">lambda expression</a> <a href="/tag/linq" class="set-1">linq</a> <a href="/tag/llblgen" class="set-1">llblgen</a> <a href="/tag/msil" class="set-1">msil</a> <a href="/tag/mvc" class="set-1">mvc</a> <a href="/tag/mvcextensions" class="set-4">mvcextensions</a> <a href="/tag/network" class="set-1">network</a> <a href="/tag/nhibernate" class="set-3">nhibernate</a> <a href="/tag/phalanger" class="set-1">phalanger</a> <a href="/tag/php" class="set-1">php</a> <a href="/tag/questions" class="set-1">questions</a> <a href="/tag/reflection" class="set-1">reflection</a> <a href="/tag/silverlight" class="set-1">silverlight</a> <a href="/tag/sitemap-dot-xml" class="set-1">sitemap.xml</a> <a href="/tag/xunit" class="set-1">xUnit</a> <a href="/tag/asinkhronnyi-vvod-vyvod" class="set-1">Асинхронный ввод-вывод</a> <a href="/tag/voprosy" class="set-2">Вопросы</a> <a href="/tag/khranimyie-protsiedury" class="set-1">Хранимые процедуры</a> <a href="/tag/poiskovaia-optimizatsiia" class="set-1">поисковая оптимизация</a>
+    </div>
+    <div class="sidebar-about">
+
+      <h1><a href="/">Hazzik's blog</a></h1>
+      <p class="lead"><a href="/"></a></p>
+
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item">
+        <a href="/">Главная</a>
+      </li>
+
+      
+
+      
+      
+            <li class="sidebar-nav-item">
+              <a href="/about/">Обо мне</a>
+            </li>
+      
+    </ul>
+    <ul class="sidebar-social">
+      <li class="sidebar-social-item"><a href="http://twitter.com/hazzik"><i class="fa fa-twitter"></i></a></li>
+      &middot;
+      <li class="sidebar-social-item"><a href="http://github.com/hazzik"><i class="fa fa-github"></i></a></li>
+      &middot;
+      <li class="sidebar-social-item"><a href="http://linkedin.com/in/hazzik"><i class="fa fa-linkedin"></i></a></li>
+    </ul>
+
+    <p>&copy; 2014. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title"><a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-10-24-delegatedecompiler.html"><i class="fa fa-edit"></i></a> Вычисляемые поля для любого LINQ-провайдера</h1>
+  <ul class="post-info">
+    <li><i class="fa fa-calendar"></i> 24 Oct 2012</li>
+    <li><i class="fa fa-tags"></i> <a href="/tag/dot-net" rel="tag">.net</a>, <a href="/tag/reflection" rel="tag">reflection</a>, <a href="/tag/lambda-expression" rel="tag">lambda expression</a>, <a href="/tag/linq" rel="tag">linq</a>, <a href="/tag/msil" rel="tag">msil</a></li>
+    <li><i class="fa fa-comments"></i> <a href="/2012/10/24/delegatedecompiler/#disqus_thread" data-disqus-identifier="http://blog.hazzik.ru/post/34179376585/delegatedecompiler">0 comments</a></li>
+  </ul>
+  <p>Сегодня я хочу рассказать, о маленькой библиотеке, которую я написал недавно на коленке всего за несколько часов. Эта библиотека может декомпилировать методы в их λ-представление.</p>
+
+<p>Зачем это может понадобиться - под катом. <!-- more --></p>
+
+<h4>Intro</h4>
+
+<p>В жизни случается, что в LINQ нужно использовать вычисляемое поле, к примеру у нас есть класс <i>Employee</i> с вычисляемым полем <i>FullName</i></p>
+
+<pre><code>class Employee
+{
+    public string FullName
+    {
+        get { return FirstName + " " + LastName; }
+    }
+
+    public string LastName { get; set; }
+
+    public string FirstName { get; set; }
+}
+</code></pre>
+
+<p>И тут к вам приходит заказчик и говорит, что нам нужно добавить поиск по полному имени сотрудника. Вы недолго думаете берете и пишите следующий запрос:</p>
+
+<pre><code>var employees = (from employee in db.Employees
+                 where (employee.FirstName + " " + employee.LastName) == "Test User"
+                 select employee).ToList();
+</code></pre>
+
+<p>Да, с таким простым полем, как <i>FullName</i> так можно поступить, но что делать, если поле не такое простое? Вот к примеру, вычисляемое поле из одного из проектов, в котором я учавствовал.</p>
+
+<pre><code>public class WayPoint 
+{
+    // все остальное опущено в целях наглядности
+    public virtual bool IsValid
+    {
+        get 
+        {
+            return (Account == null) ||
+               (Role == null || Account.Role == Role) &amp;&amp;
+               (StructuralUnit == null || Account.State.StructuralUnit == StructuralUnit);
+        }
+    }
+}
+</code></pre>
+
+<p>С этим сложнее. Итак, приступим. Что же у нас есть для решения таких задач?</p>
+
+<h4>&lt;formula&gt; в NHibernate</h4>
+
+<p>Если вы используете NHibernate, то можете замапить данное поле как формулу, но этот путь не очень дружелюбен к рефакторингу, к тому же &lt;formula&gt; поддерживает только sql, и если вы пишете приложение, которое планируется использовать с разными базами данных, то здесь вам нужно быть особенно осторожными.</p>
+
+<p>Поддреживается только в NHibernate.</p>
+
+<h4><a href="http://damieng.com/blog/2009/06/24/client-side-properties-and-any-remote-linq-provider">Microsoft.Linq.Translations</a></h4>
+
+<p>Для этого необходимо переписать наш класс и запрос следующим образом:</p>
+
+<pre><code>class Employee 
+{
+    private static readonly CompiledExpression&lt;Employee,string&gt; fullNameExpression
+     = DefaultTranslationOf&lt;Employee&gt;.Property(e =&gt; e.FullName).Is(e =&gt; e.FirstName + " " + e.LastName);
+
+    public string FullName 
+    {
+        get { return fullNameExpression.Evaluate(this); }
+    }
+
+    public string LastName { get; set; }
+
+    public string FirstName { get; set; }
+}
+
+var employees = (from employee in db.Employees
+                 where employee.FullName == "Test User"
+                 select employee).WithTranslations().ToList()
+</code></pre>
+
+<p>Все хорошо, запрос выглядит красиво, а вот объявление свойства - просто ужасно. К тому же Evaluate компилирует&#160;?-выражение в момент исполнения, что, на мой взгляд не менее ужасно, чем задание вычисляемого поля.</p>
+
+<p>И, наконец, мы подошли к моему творениею - DelegateDecompiler</p>
+
+<h4>DelegateDecompiler</h4>
+
+<p>Все что нужно, это вычисляемое поля пометить атрибутом <i>[Computed]</i>, а запрос преобразовать с помощью метода <i>.Decompile()</i></p>
+
+<pre><code>class Employee 
+{
+    [Computed]
+    public string FullName 
+    {
+        get { return FirstName + " " + LastName; }
+    }
+
+    public string LastName { get; set; }
+
+    public string FirstName { get; set; }
+}
+
+var employees = (from employee in db.Employees
+                 where employee.FullName == "Test User"
+                 select employee).Decompile().ToList()
+</code></pre>
+
+<p>По-моему изящно (сам не похвалишь - никто не похвалит)</p>
+
+<p>При вызове <i>.Decompile()</i> декомпилятор найдет все свойства и методы, помеченные атрибутом <i>[Computed]</i> и развернет их. Т.е. запрос будет преобразован к виду, из первоначального примера:</p>
+
+<pre><code>var employees = (from employee in db.Employees
+                 where (employee.FirstName + " " + employee.LastName) == "Test User"
+                 select employee).ToList();
+</code></pre>
+
+<p>Библиотечка в качестве декомпилятора использует Mono.Reflection (<a href="https://github.com/jbevain/mono.reflection/">GitHub</a>, <a href="https://nuget.org/packages/Mono.Reflection">NuGet</a>) от <a href="http://evain.net">Jean-Baptiste Evain</a> - создателя <i>Mono.Cecil</i>. Сама <i>Mono.Cecil</i> не используется из-за ее громоздкости.</p>
+
+<p>PS: Естественно, то что внутри вычисляемого поля должно поддерживаться вашим LINQ-провайдером.
+PPS: Это альфа-версия очень далекая от релиза - используйте на свой страх и риск.</p>
+
+<h4>Ссылки</h4>
+
+<ul><li><a href="https://github.com/hazzik/DelegateDecompiler">Исходный код на GitHub</a></li>
+<li><a href="https://nuget.org/packages/DelegateDecompiler">Пакет в NuGet</a></li>
+<li><a href="http://habrahabr.ru/post/155437/">Оригинал статьи на habrahabr.ru</a></li>
+</ul>
+
+</div>
+
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'blog-hazzik-ru'; // required: replace example with your forum shortname
+	var disqus_identifier = 'http://blog.hazzik.ru/post/34179376585/delegatedecompiler';
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/05/28/the-blog-has-been-moved-to-jekyll/">
+            Блог переехал на Jekyll и GitHub Pages
+            <small>28 May 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2013/03/04/in-english/">
+            Читайте меня на английском
+            <small>04 Mar 2013</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2012/09/13/mvcextensions-quick-start-project-template/">
+            MvcExtensions: Quick Start Project Template
+            <small>13 Sep 2012</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'blog-hazzik-ru'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+<!-- Yandex.Metrika counter -->
+<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript"></script>
+<script type="text/javascript">
+try { var yaCounter13173247 = new Ya.Metrika({id:13173247,
+          webvisor:true,
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true});
+} catch(e) { }
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/13173247" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+  </body>
+</html>
