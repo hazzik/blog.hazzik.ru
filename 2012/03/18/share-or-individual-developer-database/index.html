@@ -72,14 +72,17 @@
 
 
     <div class="content container">
-      <div class="post">
-  <h1 class="post-title"><a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-03-18-share-or-individual-developer-database.html"><i class="fa fa-edit"></i></a> Общая или личная база данных при разработке?</h1>
+      <div class="post hentry">
+  <h1 class="post-title entry-title">
+    <a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-03-18-share-or-individual-developer-database.html"><i class="fa fa-edit"></i></a> Общая или личная база данных при разработке?
+  </h1>
   <ul class="post-info">
-    <li><i class="fa fa-calendar"></i><time datetime="2012-03-18T22:56:00+12:00"> 18 Mar 2012 </time></li>
-    <li><i class="fa fa-tags"></i> <a href="/tag/db" rel="tag">DB</a>, <a href="/tag/voprosy" rel="tag">Вопросы</a></li>
+    <li><i class="fa fa-calendar"></i><time datetime="2012-03-18T22:56:00+12:00" class="published"> 18 Mar 2012 </time></li>
+    <li class="tags"><i class="fa fa-tags"></i> <a href="/tag/db" rel="tag">DB</a>, <a href="/tag/voprosy" rel="tag">Вопросы</a></li>
     <li><i class="fa fa-comments"></i> <a href="/2012/03/18/share-or-individual-developer-database/#disqus_thread" data-disqus-identifier="/2012/03/18/share-or-individual-developer-database/">0 comments</a></li>
   </ul>
-  <p>В этой статье я хочу рассказать о практиках работы разработчиков с базами данных в момент разработки продукта. Все из этих практик были опробованны мной <em>лично</em> и текст здесь основан на моем <em>личном</em> опыте.</p>
+  <div class="entry-content">
+    <p>В этой статье я хочу рассказать о практиках работы разработчиков с базами данных в момент разработки продукта. Все из этих практик были опробованны мной <em>лично</em> и текст здесь основан на моем <em>личном</em> опыте.</p>
 
 <p>Можно использовать единую для всех и индивидуальную базу данных для каждого разработчика. Оба подхода имеют как достоинства, так и недостатки.</p>
 
@@ -150,6 +153,7 @@
 <li><p>Индивидуальная база данных (MS SQL Server), mercurial/git, генерация схемы БД и вставка начальных значений через механизм миграций (<a href="https://github.com/schambers/fluentmigrator">FluentMigrator</a>). Обновление через запуск файла <code>migrate.bat</code>, что в принципе может вызываться автоматически через post update hook.</p></li>
 </ol><p>Я рекомендую всем пользоваться только подходом c индивидуальной базой данных для разработчика, т.к. для меня его плюсы значительно существенней, чем недостатки.</p>
 
+  </div>
 </div>
 
 

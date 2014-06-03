@@ -72,14 +72,17 @@
 
 
     <div class="content container">
-      <div class="post">
-  <h1 class="post-title"><a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2010-01-03-php-test-untestable-echo.html"><i class="fa fa-edit"></i></a> PHP: тестируем нетестируемое – echo</h1>
+      <div class="post hentry">
+  <h1 class="post-title entry-title">
+    <a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2010-01-03-php-test-untestable-echo.html"><i class="fa fa-edit"></i></a> PHP: тестируем нетестируемое – echo
+  </h1>
   <ul class="post-info">
-    <li><i class="fa fa-calendar"></i><time datetime="2010-01-03T21:09:00+12:00"> 03 Jan 2010 </time></li>
-    <li><i class="fa fa-tags"></i> <a href="/tag/php" rel="tag">php</a>, <a href="/tag/phpunit" rel="tag">PHPUnit</a>, <a href="/tag/xunit" rel="tag">xUnit</a></li>
+    <li><i class="fa fa-calendar"></i><time datetime="2010-01-03T21:09:00+12:00" class="published"> 03 Jan 2010 </time></li>
+    <li class="tags"><i class="fa fa-tags"></i> <a href="/tag/php" rel="tag">php</a>, <a href="/tag/phpunit" rel="tag">PHPUnit</a>, <a href="/tag/xunit" rel="tag">xUnit</a></li>
     <li><i class="fa fa-comments"></i> <a href="/2010/01/03/php-test-untestable-echo/#disqus_thread" data-disqus-identifier="/2010/01/03/php-test-untestable-echo/">0 comments</a></li>
   </ul>
-  <p>В данной заметке я хочу рассказать, как тестировать конструкции echo и ей подобные в <a href="http://php.net/">PHP</a>.<br/><a name="more"></a><br/>Допустим у нас есть такой код:<br/></p>
+  <div class="entry-content">
+    <p>В данной заметке я хочу рассказать, как тестировать конструкции echo и ей подобные в <a href="http://php.net/">PHP</a>.<br/><a name="more"></a><br/>Допустим у нас есть такой код:<br/></p>
 
 <pre class="brush:php"><br/>class World {<br/> public function printHello() {<br/>   echo 'hello world';<br/> }<br/><br/> public function printHello2() {<br/>?&gt;<br/>   hello world<br/>&lt;?php<br/> }<br/><br/>//...<br/><br/>}<br/></pre>
 
@@ -97,6 +100,7 @@
 
 <div class="blogger-post-footer"><img width="1" height="1" src="https://blogger.googleusercontent.com/tracker/1624027437398699573-6514169990731740574?l=hazzik.blogspot.com" alt=""/></div>
 
+  </div>
 </div>
 
 

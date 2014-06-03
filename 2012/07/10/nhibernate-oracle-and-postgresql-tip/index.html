@@ -72,14 +72,17 @@
 
 
     <div class="content container">
-      <div class="post">
-  <h1 class="post-title"><a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-07-10-nhibernate-oracle-and-postgresql-tip.html"><i class="fa fa-edit"></i></a> NHibernate: маленькая хитрость при работе с Oracle или PostgreSQL</h1>
+      <div class="post hentry">
+  <h1 class="post-title entry-title">
+    <a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-07-10-nhibernate-oracle-and-postgresql-tip.html"><i class="fa fa-edit"></i></a> NHibernate: маленькая хитрость при работе с Oracle или PostgreSQL
+  </h1>
   <ul class="post-info">
-    <li><i class="fa fa-calendar"></i><time datetime="2012-07-10T06:43:00+12:00"> 10 Jul 2012 </time></li>
-    <li><i class="fa fa-tags"></i> <a href="/tag/nhibernate" rel="tag">NHibernate</a>, <a href="/tag/oracle" rel="tag">Oracle</a>, <a href="/tag/postgresql" rel="tag">PostgreSQL</a>, <a href="/tag/performance" rel="tag">Performance</a>, <a href="/tag/db" rel="tag">DB</a></li>
+    <li><i class="fa fa-calendar"></i><time datetime="2012-07-10T06:43:00+12:00" class="published"> 10 Jul 2012 </time></li>
+    <li class="tags"><i class="fa fa-tags"></i> <a href="/tag/nhibernate" rel="tag">NHibernate</a>, <a href="/tag/oracle" rel="tag">Oracle</a>, <a href="/tag/postgresql" rel="tag">PostgreSQL</a>, <a href="/tag/performance" rel="tag">Performance</a>, <a href="/tag/db" rel="tag">DB</a></li>
     <li><i class="fa fa-comments"></i> <a href="/2012/07/10/nhibernate-oracle-and-postgresql-tip/#disqus_thread" data-disqus-identifier="/2012/07/10/nhibernate-oracle-and-postgresql-tip/">0 comments</a></li>
   </ul>
-  <p>В ADO.NET провайдерах для <a href="http://www.oracle.com/database">Oracle</a>, <a href="http://www.postgresql.org/">PostgreSQL</a> и, возможно, других есть одна неприятная особенность, которая может сказаться на производительности вашего приложения, если вы запрашиваете у сервера большие объемы данных: они не кэшируют вызовы метода <em><a href="http://msdn.microsoft.com/en-us/library/system.data.idatarecord.getordinal.aspx">IDataReader.GetOrdinal</a></em>. Как оказалось это очень критично для <a href="http://nhforge.org/">NHibernate</a>, но, к счастью, разработчики NHibernate (а точнее <a href="http://www.hibernate.org/">Hibernate</a>) эту проблему заметили и уже решили.</p>
+  <div class="entry-content">
+    <p>В ADO.NET провайдерах для <a href="http://www.oracle.com/database">Oracle</a>, <a href="http://www.postgresql.org/">PostgreSQL</a> и, возможно, других есть одна неприятная особенность, которая может сказаться на производительности вашего приложения, если вы запрашиваете у сервера большие объемы данных: они не кэшируют вызовы метода <em><a href="http://msdn.microsoft.com/en-us/library/system.data.idatarecord.getordinal.aspx">IDataReader.GetOrdinal</a></em>. Как оказалось это очень критично для <a href="http://nhforge.org/">NHibernate</a>, но, к счастью, разработчики NHibernate (а точнее <a href="http://www.hibernate.org/">Hibernate</a>) эту проблему заметили и уже решили.</p>
 
 <p>Но эта фича осталась незамеченной и почти не задокументированной.</p>
 
@@ -123,6 +126,7 @@ config.SetProperty(NHibernate.Cfg.Environment.WrapResultSets, "true");
     <li> <a href="http://martijndashorst.com/blog/2006/11/28/hibernate-31-something-performance-problems-contd/">http://martijndashorst.com/blog/2006/11/28/hibernate-31-something-performance-problems-contd/</a></li>
 </ul>
 
+  </div>
 </div>
 
 

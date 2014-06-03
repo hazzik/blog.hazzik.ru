@@ -72,14 +72,17 @@
 
 
     <div class="content container">
-      <div class="post">
-  <h1 class="post-title"><a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2010-05-21-ddd-business-rules.html"><i class="fa fa-edit"></i></a> Бизнес-правила в DDD</h1>
+      <div class="post hentry">
+  <h1 class="post-title entry-title">
+    <a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2010-05-21-ddd-business-rules.html"><i class="fa fa-edit"></i></a> Бизнес-правила в DDD
+  </h1>
   <ul class="post-info">
-    <li><i class="fa fa-calendar"></i><time datetime="2010-05-21T22:40:00+12:00"> 21 May 2010 </time></li>
-    <li><i class="fa fa-tags"></i> <a href="/tag/questions" rel="tag">questions</a>, <a href="/tag/business-rules" rel="tag">business rules</a>, <a href="/tag/ddd" rel="tag">DDD</a>, <a href="/tag/voprosy" rel="tag">Вопросы</a></li>
+    <li><i class="fa fa-calendar"></i><time datetime="2010-05-21T22:40:00+12:00" class="published"> 21 May 2010 </time></li>
+    <li class="tags"><i class="fa fa-tags"></i> <a href="/tag/questions" rel="tag">questions</a>, <a href="/tag/business-rules" rel="tag">business rules</a>, <a href="/tag/ddd" rel="tag">DDD</a>, <a href="/tag/voprosy" rel="tag">Вопросы</a></li>
     <li><i class="fa fa-comments"></i> <a href="/2010/05/21/ddd-business-rules/#disqus_thread" data-disqus-identifier="/2010/05/21/ddd-business-rules/">0 comments</a></li>
   </ul>
-  <p>У нас в системе есть одно очень интересное и достаточно распространенное бизнес-правило:<br/><br/><i>Адрес электронной почты пользователя должен быть уникальным в пределах системы.</i><br/><br/></p>
+  <div class="entry-content">
+    <p>У нас в системе есть одно очень интересное и достаточно распространенное бизнес-правило:<br/><br/><i>Адрес электронной почты пользователя должен быть уникальным в пределах системы.</i><br/><br/></p>
 
 <pre class="brush:csharp">public class User : IEntity<br/>{<br/>  public int Id { get; set; }<br/><br/>  public string Email { get; set; }<br/><br/>  public string Name { get; set; }<br/>}<br/></pre>
 
@@ -87,6 +90,7 @@
 
 <div class="blogger-post-footer"><img width="1" height="1" src="https://blogger.googleusercontent.com/tracker/1624027437398699573-1790873962076866235?l=hazzik.blogspot.com" alt=""/></div>
 
+  </div>
 </div>
 
 

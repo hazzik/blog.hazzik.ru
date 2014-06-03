@@ -72,14 +72,17 @@
 
 
     <div class="content container">
-      <div class="post">
-  <h1 class="post-title"><a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-07-05-how-to-deal-with-trees-in-nhibernate.html"><i class="fa fa-edit"></i></a> NHibernate: как хранить иерархические сущности (деревья) в базе</h1>
+      <div class="post hentry">
+  <h1 class="post-title entry-title">
+    <a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2012-07-05-how-to-deal-with-trees-in-nhibernate.html"><i class="fa fa-edit"></i></a> NHibernate: как хранить иерархические сущности (деревья) в базе
+  </h1>
   <ul class="post-info">
-    <li><i class="fa fa-calendar"></i><time datetime="2012-07-05T09:06:00+12:00"> 05 Jul 2012 </time></li>
-    <li><i class="fa fa-tags"></i> <a href="/tag/nhibernate" rel="tag">NHibernate</a>, <a href="/tag/tree-like-structures" rel="tag">Tree-like structures</a></li>
+    <li><i class="fa fa-calendar"></i><time datetime="2012-07-05T09:06:00+12:00" class="published"> 05 Jul 2012 </time></li>
+    <li class="tags"><i class="fa fa-tags"></i> <a href="/tag/nhibernate" rel="tag">NHibernate</a>, <a href="/tag/tree-like-structures" rel="tag">Tree-like structures</a></li>
     <li><i class="fa fa-comments"></i> <a href="/2012/07/05/how-to-deal-with-trees-in-nhibernate/#disqus_thread" data-disqus-identifier="/2012/07/05/how-to-deal-with-trees-in-nhibernate/">0 comments</a></li>
   </ul>
-  <p>Многие из вас, скорее всего, сталкивались с простой на первый взгляд задачей: сохранение иерархических данных в базу и последующая работа с ними. Кажется, что нет ничего проще: создадим в таблице колонку PARENT_ID и будем записывать туда, собственно, идентификатор нашей вышестоящей сущности.</p>
+  <div class="entry-content">
+    <p>Многие из вас, скорее всего, сталкивались с простой на первый взгляд задачей: сохранение иерархических данных в базу и последующая работа с ними. Кажется, что нет ничего проще: создадим в таблице колонку PARENT_ID и будем записывать туда, собственно, идентификатор нашей вышестоящей сущности.</p>
 
 <pre><code>    class Tree {
         int Id;
@@ -209,6 +212,7 @@ GO
 
 <p>PPS: для EF такое сделать также возможно, но т.к. <em>EF</em> не поддерживает скрытие коллекций за интерфейсом IEnumerable`1, я не стал выкладывать реализацию для EF в открытый доступ.</p>
 
+  </div>
 </div>
 
 

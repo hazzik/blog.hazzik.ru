@@ -72,19 +72,23 @@
 
 
     <div class="content container">
-      <div class="post">
-  <h1 class="post-title"><a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2010-05-23-ddd-business-rules-2.html"><i class="fa fa-edit"></i></a> Бизнес-правила в DDD-2</h1>
+      <div class="post hentry">
+  <h1 class="post-title entry-title">
+    <a href="http://github.com/hazzik/blog.hazzik.ru/edit/master/_posts/tumblr/2010-05-23-ddd-business-rules-2.html"><i class="fa fa-edit"></i></a> Бизнес-правила в DDD-2
+  </h1>
   <ul class="post-info">
-    <li><i class="fa fa-calendar"></i><time datetime="2010-05-23T15:29:00+12:00"> 23 May 2010 </time></li>
-    <li><i class="fa fa-tags"></i> <a href="/tag/questions" rel="tag">questions</a>, <a href="/tag/business-rules" rel="tag">business rules</a>, <a href="/tag/ddd" rel="tag">DDD</a>, <a href="/tag/voprosy" rel="tag">Вопросы</a></li>
+    <li><i class="fa fa-calendar"></i><time datetime="2010-05-23T15:29:00+12:00" class="published"> 23 May 2010 </time></li>
+    <li class="tags"><i class="fa fa-tags"></i> <a href="/tag/questions" rel="tag">questions</a>, <a href="/tag/business-rules" rel="tag">business rules</a>, <a href="/tag/ddd" rel="tag">DDD</a>, <a href="/tag/voprosy" rel="tag">Вопросы</a></li>
     <li><i class="fa fa-comments"></i> <a href="/2010/05/23/ddd-business-rules-2/#disqus_thread" data-disqus-identifier="/2010/05/23/ddd-business-rules-2/">0 comments</a></li>
   </ul>
-  <p>Продолжу мучить сообщество своими вопросами по DDD дальше. <br/><br/>Допустим, мы хотим добавить в систему идентификацию не только <a href="http://blog.hazzik.ru/2010/05/ddd.html">по адресу электронной почты</a>, но и по имени пользователя. В связи с этим у нас в системе возникает другое бизнес-правило:<br/><br/><i>Имя пользователя является уникальным</i><br/><br/>Это бизнес правило фигурирует в следующих историях использования:<br/><br/></p>
+  <div class="entry-content">
+    <p>Продолжу мучить сообщество своими вопросами по DDD дальше. <br/><br/>Допустим, мы хотим добавить в систему идентификацию не только <a href="http://blog.hazzik.ru/2010/05/ddd.html">по адресу электронной почты</a>, но и по имени пользователя. В связи с этим у нас в системе возникает другое бизнес-правило:<br/><br/><i>Имя пользователя является уникальным</i><br/><br/>Это бизнес правило фигурирует в следующих историях использования:<br/><br/></p>
 
 <ol><li>Пользователь регистрируется в системе, если уже есть другой пользователь с таким именем, то пользователю выводиться сообщение об ошибке.</li><li>Пользователь может изменить свое имя, если уже есть другой пользователь с таким именем, то пользователю выводиться сообщение об ошибке.</li></ol><p><br/>Где должна находиться реализация данного бизнес-правила?<br/><br/>Жду ваших ответов с примерами кода в комментариях.</p>
 
 <div class="blogger-post-footer"><img width="1" height="1" src="https://blogger.googleusercontent.com/tracker/1624027437398699573-6948422760771478543?l=hazzik.blogspot.com" alt=""/></div>
 
+  </div>
 </div>
 
 
