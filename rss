@@ -4,7 +4,7 @@
  <title>Hazzik's blog</title>
  <link href="http://blog.hazzik.ru/atom.xml" rel="self"/>
  <link href="http://blog.hazzik.ru/"/>
- <updated>2014-07-04T14:09:02+12:00</updated>
+ <updated>2014-07-04T16:48:25+12:00</updated>
  <id>http://blog.hazzik.ru</id>
  <author>
    <name>Alexander Zaytsev</name>
@@ -24,7 +24,7 @@
 2.  То, что было рождено или произведено вместе с другим.
 3.  Акт совместного взросления.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Я позволю себе перевести термин &lt;strong&gt;Connascence&lt;/strong&gt; как &amp;quot;близнецовая связь&amp;quot;. Итак, далее будет приблизительный перевод &lt;a href=&quot;https://en.wikipedia.org/wiki/Connascence_(computer_programming)&quot;&gt;статьи&lt;/a&gt; из англоязычной Википедии.&lt;/p&gt;
+&lt;p&gt;Я позволю себе перевести термин &lt;strong&gt;Connascence&lt;/strong&gt; как &amp;quot;близнецовая связь&amp;quot; (может быть есть более подходящий перевод?). Итак, далее будет приблизительный перевод &lt;a href=&quot;https://en.wikipedia.org/wiki/Connascence_(computer_programming)&quot;&gt;статьи&lt;/a&gt; из англоязычной Википедии.&lt;/p&gt;
 
 &lt;p&gt;В разработке программного обеспечения два компонента обладают близнецовой связью (&lt;strong&gt;Connascence&lt;/strong&gt;), если изменение в одном компоненте будут требовать изменение других компонентов для поддержания общей корректности всей системы.&lt;/p&gt;
 
