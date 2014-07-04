@@ -5,14 +5,17 @@
     </div>
     <div class="sidebar-about">
 
-      <h1><a href="/">{{ site.title }}</a></h1>
-      <p class="lead"><a href="/">{{ site.description }}</a></p>
-
+      <h1>
+        <a href="/" rel="home">{{ site.title }}</a>
+      </h1>
+      <p class="lead">
+        <a href="/" rel="home">{{ site.description }}</a>
+      </p>
     </div>
 
     <ul class="sidebar-nav">
       <li class="sidebar-nav-item{% if page.title == "Home" %} active{% endif %}">
-        <a href="/">Главная</a>
+        <a href="/" rel="home">Главная</a>
       </li>
 
       {% comment %}
@@ -28,11 +31,11 @@
       {% endif %}{% endif %}{% endfor %}
     </ul>
     <ul class="sidebar-social">
-      <li class="sidebar-social-item"><a href="http://twitter.com/hazzik"><i class="fa fa-twitter"></i></a></li>
+      <li class="sidebar-social-item"><a href="http://twitter.com/hazzik" rel="me"><i class="fa fa-twitter"></i></a></li>
       &middot;
-      <li class="sidebar-social-item"><a href="http://github.com/hazzik"><i class="fa fa-github"></i></a></li>
+      <li class="sidebar-social-item"><a href="http://github.com/hazzik" rel="me"><i class="fa fa-github"></i></a></li>
       &middot;
-      <li class="sidebar-social-item"><a href="http://linkedin.com/in/hazzik"><i class="fa fa-linkedin"></i></a></li>
+      <li class="sidebar-social-item"><a href="http://linkedin.com/in/hazzik" rel="me"><i class="fa fa-linkedin"></i></a></li>
     </ul>
 
     <p>&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p>
