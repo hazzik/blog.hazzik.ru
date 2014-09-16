@@ -17,7 +17,7 @@ How to use
 
   > $ bundle exec octopress serve
 
-4. The blog is now avaliable at http://localhost:4000/
+4. The blog is now avaliable at [http://localhost:4000/]()
  
 
 
