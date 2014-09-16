@@ -24,17 +24,17 @@ title: Home
 
 <div class="pagination">
   {% if paginator.next_page %}
-    <a class="pagination-item older" href="/page{{paginator.next_page}}">Позднее</a>
+    <a class="pagination-item older" href="/page{{paginator.next_page}}">Раньше</a>
   {% else %}
-    <span class="pagination-item older">Позднее</span>
+    <span class="pagination-item older">Раньше</span>
   {% endif %}
   {% if paginator.previous_page %}
     {% if paginator.page == 2 %}
-      <a class="pagination-item newer" href="/">Раньше</a>
+      <a class="pagination-item newer" href="/">Позднее</a>
     {% else %}
-      <a class="pagination-item newer" href="/page{{paginator.previous_page}}">Раньше</a>
+      <a class="pagination-item newer" href="/page{{paginator.previous_page}}">Позднее</a>
     {% endif %}
   {% else %}
-    <span class="pagination-item newer">Раньше</span>
+    <span class="pagination-item newer">Позднее</span>
   {% endif %}
 </div>
