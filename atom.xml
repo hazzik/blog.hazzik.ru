@@ -4,13 +4,24 @@
  <title>Hazzik&#39;s blog</title>
  <link href="http://blog.hazzik.ru/atom.xml" rel="self"/>
  <link href="http://blog.hazzik.ru/"/>
- <updated>2014-09-17T14:25:16+12:00</updated>
+ <updated>2014-09-17T14:34:59+12:00</updated>
  <id>http://blog.hazzik.ru</id>
  <author>
    <name>Alexander Zaytsev</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>msysGit + Plink</title>
+   <link href="http://blog.hazzik.ru/2014/09/17/git-plus-plink/"/>
+   <updated>2014-09-17T14:31:21+12:00</updated>
+   <id>http://blog.hazzik.ru/2014/09/17/git-plus-plink</id>
+   <content type="html">&lt;blockquote&gt;
+&lt;p&gt;SET GIT_SSH=C:\Program Files\TortoiseGit\bin\TortoiseGitPlink.exe&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Connascence</title>

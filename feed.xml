@@ -7,6 +7,17 @@
     <atom:link href="http://blog.hazzik.ru/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>msysGit + Plink</title>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;SET GIT_SSH=C:\Program Files\TortoiseGit\bin\TortoiseGitPlink.exe&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Wed, 17 Sep 2014 14:31:21 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2014/09/17/git-plus-plink/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2014/09/17/git-plus-plink/</guid>
+      </item>
+    
+      <item>
         <title>Connascence</title>
         <description>&lt;p&gt;Для меня это очень странно, но данный термин или практика не получили широкого распространения в рускоязычном мире разработки ПО, и, видимо, по-этому данный термин даже не имеет перевода. &lt;a href=&quot;http://www.thefreedictionary.com/Connascence&quot;&gt;Подсмотрим&lt;/a&gt; в The Free Dictionary что же это слово означает:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;Con`nas´cence, существительное
@@ -512,33 +523,6 @@ GO
         <pubDate>Thu, 05 Jul 2012 09:06:00 +1200</pubDate>
         <link>http://blog.hazzik.ru/2012/07/05/how-to-deal-with-trees-in-nhibernate/</link>
         <guid isPermaLink="true">http://blog.hazzik.ru/2012/07/05/how-to-deal-with-trees-in-nhibernate/</guid>
-      </item>
-    
-      <item>
-        <title>ASP.NET MVC - как построить по-настоящему гибкое веб-приложение (видео и слайды с .NETconf)</title>
-        <description>&lt;p&gt;Внезапно осознал, что у меня в блоге нет материалов с моего доклада на &lt;a href=&quot;http://www.dotnetconf.ru/&quot;&gt;.NETconf&lt;/a&gt;. Срочно исправляю эту оплошность.&lt;/p&gt;
-
-&lt;p&gt;&lt;!-- more --&gt;&lt;/p&gt;
-
-&lt;div style=&quot;float:left; width:500px; margin:5px;&quot;&gt;
-&lt;iframe src=&quot;http://player.vimeo.com/video/22080198?title=0&amp;amp;byline=0&amp;amp;portrait=0&amp;amp;color=59a5d1&quot; width=&quot;500&quot; height=&quot;350&quot; frameborder=&quot;0&quot; webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
-
-&lt;div style=&quot;float:left; width:420px; margin:5px;&quot; id=&quot;__ss_7557204&quot;&gt;
- &lt;iframe src=&quot;http://www.slideshare.net/slideshow/embed_code/34835075&quot; width=&quot;476&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
-
-&lt;/div&gt;
-
-&lt;p&gt;&lt;br style=&quot;clear:both&quot;/&gt;&lt;/p&gt;
-
-&lt;h3&gt;Ссылки&lt;/h3&gt;
-
-&lt;ul&gt;&lt;li&gt;&lt;p&gt;Страница доклада на .NETConf: &lt;a href=&quot;http://www.dotnetconf.ru/Materialy/Asp_net_mvc_kak_postroit_gibkoe_web_prilozenie&quot;&gt;http://www.dotnetconf.ru/Materialy/Asp_net_mvc_kak_postroit_gibkoe_web_prilozenie&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Слайды: &lt;a href=&quot;https://dl.dropbox.com/u/11463325/AgileMVCApplication.pptx&quot;&gt;https://dl.dropbox.com/u/11463325/AgileMVCApplication.pptx&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Fri, 08 Jun 2012 20:11:00 +1200</pubDate>
-        <link>http://blog.hazzik.ru/2012/06/08/asp-net-mvc-high-extensible-application/</link>
-        <guid isPermaLink="true">http://blog.hazzik.ru/2012/06/08/asp-net-mvc-high-extensible-application/</guid>
       </item>
     
   </channel>
