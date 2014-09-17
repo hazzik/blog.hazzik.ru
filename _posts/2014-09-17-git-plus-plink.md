@@ -5,4 +5,4 @@ date: 2014-09-17T14:31:21+12:00
 tags: 
   - для себя
 ---
-> SET GIT_SSH=C:\Program Files\TortoiseGit\bin\TortoiseGitPlink.exe
+> SET GIT_SSH=%ProgramFiles%\TortoiseGit\bin\TortoiseGitPlink.exe
