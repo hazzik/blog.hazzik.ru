@@ -9,7 +9,7 @@
       <item>
         <title>msysGit + Plink</title>
         <description>&lt;blockquote&gt;
-&lt;p&gt;SET GIT_SSH=C:\Program Files\TortoiseGit\bin\TortoiseGitPlink.exe&lt;/p&gt;
+&lt;p&gt;SET GIT_SSH=%ProgramFiles%\TortoiseGit\bin\TortoiseGitPlink.exe&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
         <pubDate>Wed, 17 Sep 2014 14:31:21 +1200</pubDate>
