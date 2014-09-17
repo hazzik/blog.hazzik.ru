@@ -15,7 +15,7 @@ title: Home
     <ul class="post-info">
       <li><i class="fa fa-calendar"></i> <time datetime="{{ post.date | date_to_xmlschema }}"> {{ post.date | date_to_string }} </time></li>
       <li><i class="fa fa-tags"></i> {{ post | tags }} </li>
-      <li><i class="fa fa-comments"></i> <a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{% if post.disqus_identifier %}{{ post.disqus_identifier}}{% else %}{{ post.url }}{% endif %}">0 комментариев</a></li>
+      <li><i class="fa fa-comments"></i> <a href="{{ post.url }}#disqus_thread" data-disqus-identifier="{% if post.disqus_identifier %}{{ post.disqus_identifier}}{% else %}{{ post.url }}{% endif %}">{%t 0 comments %}</a></li>
     </ul>
     {{ post.content }}
   </div>
@@ -24,17 +24,17 @@ title: Home
 
 <div class="pagination">
   {% if paginator.next_page %}
-    <a class="pagination-item older" href="/page{{paginator.next_page}}">Раньше</a>
+    <a class="pagination-item older" href="/page{{paginator.next_page}}">{%t Older %}</a>
   {% else %}
-    <span class="pagination-item older">Раньше</span>
+    <span class="pagination-item older">{%t Older %}</span>
   {% endif %}
   {% if paginator.previous_page %}
     {% if paginator.page == 2 %}
-      <a class="pagination-item newer" href="/">Позднее</a>
+      <a class="pagination-item newer" href="/">{%t Newer %}</a>
     {% else %}
-      <a class="pagination-item newer" href="/page{{paginator.previous_page}}">Позднее</a>
+      <a class="pagination-item newer" href="/page{{paginator.previous_page}}">{%t Newer %}</a>
     {% endif %}
   {% else %}
-    <span class="pagination-item newer">Позднее</span>
+    <span class="pagination-item newer">{%t Newer %}</span>
   {% endif %}
 </div>

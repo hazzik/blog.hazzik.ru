@@ -9,7 +9,7 @@ layout: default
   <ul class="post-info">
     <li><i class="fa fa-calendar"></i><time datetime="{{ page.date | date_to_xmlschema }}" class="published"> {{ page.date | date_to_string }} </time></li>
     <li class="tags"><i class="fa fa-tags"></i> {{ page | tags }}</li>
-    <li><i class="fa fa-comments"></i> <a href="{{ page.url }}#disqus_thread" data-disqus-identifier="{% if page.disqus_identifier %}{{ page.disqus_identifier}}{% else %}{{ page.url }}{% endif %}">0 комментариев</a></li>
+    <li><i class="fa fa-comments"></i> <a href="{{ page.url }}#disqus_thread" data-disqus-identifier="{% if page.disqus_identifier %}{{ page.disqus_identifier}}{% else %}{{ page.url }}{% endif %}">{%t 0 comments %}</a></li>
   </ul>
   <div class="entry-content">
     {{ content }}

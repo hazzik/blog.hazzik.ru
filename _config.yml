@@ -11,8 +11,9 @@ tagline:          ''
 description:      ''
 url:              http://blog.hazzik.ru
 timezone:         'NZS-12:00'
-tag_page_layout: tag_page
-tag_page_dir: tag
+tag_page_layout:  tag_page
+tag_page_dir:     tag
+lang:             ru
 
 author:
   name:           'Alexander Zaytsev'
