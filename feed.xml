@@ -7,6 +7,97 @@
     <atom:link href="http://blog.hazzik.ru/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>msysGit + Plink</title>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;SET GIT_SSH=%ProgramFiles%\TortoiseGit\bin\TortoiseGitPlink.exe&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Wed, 17 Sep 2014 14:31:21 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2014/09/17/git-plus-plink/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2014/09/17/git-plus-plink/</guid>
+      </item>
+    
+      <item>
+        <title>Connascence</title>
+        <description>&lt;p&gt;Для меня это очень странно, но данный термин или практика не получили широкого распространения в рускоязычном мире разработки ПО, и, видимо, по-этому данный термин даже не имеет перевода. &lt;a href=&quot;http://www.thefreedictionary.com/Connascence&quot;&gt;Подсмотрим&lt;/a&gt; в The Free Dictionary что же это слово означает:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;Con`nas´cence, существительное
+
+
+
+1.  Одновременное рождение двух или более; одновременное производство двух и более вместе.
+2.  То, что было рождено или произведено вместе с другим.
+3.  Акт совместного взросления.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Я позволю себе перевести термин &lt;strong&gt;Connascence&lt;/strong&gt; как &amp;quot;близнецовая связь&amp;quot; (может быть есть более подходящий перевод?). Итак, далее будет приблизительный перевод &lt;a href=&quot;https://en.wikipedia.org/wiki/Connascence_(computer_programming)&quot;&gt;статьи&lt;/a&gt; из англоязычной Википедии.&lt;/p&gt;
+
+&lt;p&gt;В разработке программного обеспечения два компонента обладают близнецовой связью (&lt;strong&gt;Connascence&lt;/strong&gt;), если изменение в одном компоненте будут требовать изменение других компонентов для поддержания общей корректности всей системы.&lt;/p&gt;
+
+&lt;p&gt;Connescence – это метрика качества программного обеспечения разарботанная Меилиром Пейдж-Джонсом (Meilir Page-Jones) чтобы разрешить рассуждения о сложности, вызванные отношениями зависимости в объектно-ориентированном дизайне, подобно тому, как это делает связанность (coupling) в структурном дизайне. В дополнение, к возможности категоризировать отношения, &amp;quot;близнецовая связь&amp;quot; также предоставляет систему для сравнения различных типов зависимостей. Такое сравнение часто подсказывает пути улучшения качества программного обеспечения.&lt;/p&gt;
+
+&lt;h1&gt;Метрики&lt;/h1&gt;
+
+&lt;h2&gt;Сила&lt;/h2&gt;
+
+&lt;p&gt;Форма &amp;quot;близнецовой связи&amp;quot; считается более сильной, если требует больших компенсационных изменений в связанных элементах. Чем сильнее связь, тем сложнее и затратнее совершить изменения в связанных компонентах.&lt;/p&gt;
+
+&lt;h2&gt;Степень&lt;/h2&gt;
+
+&lt;p&gt;Приемлемость связи связана со степенью ее возникновения. Связь, обладающая низкой степенью, может быть приемлемой, но связь, обладающая высокой степенью, не должна быть приемлема. Например, функция или метод, который принимает два аргумента обычно считаются приемлемымы. Однако это обычно неприемлемо для функций или методов принимать десять аргументов. Элементы с высокой степенью &amp;quot;близнецовой связи&amp;quot; требуют боллее сложных и затратных изменений, чем элементы, которые имеют более низкий уровень связи.&lt;/p&gt;
+
+&lt;h2&gt;Локальность&lt;/h2&gt;
+
+&lt;p&gt;Локальность имеет значение при анализе &amp;quot;близнецовой связи&amp;quot;. Сильные формы &amp;quot;близнецовой связи&amp;quot; приемлемы, если связанные элементы  расположены достаточно близко. Например, некоторые языки используют позиционные аргументы для вызова функций или методов. Эта &amp;quot;близнецовая связть по месту&amp;quot; приемлема из-за близкого расположения вызвающего и вызываемого кода, но вызов веб сервиса с использованием позицонных аргументов неприемлео, из-за достаточной отдаленности и несвязанности компонентов. &amp;quot;Близнецовые связи&amp;quot; с теми же силой и степенью будут иметь большую сложность и стоимость изменений, чем дальше связанные компоненты расположены.&lt;/p&gt;
+
+&lt;h1&gt;Типы &amp;quot;близнецовых связей&amp;quot;&lt;/h1&gt;
+
+&lt;p&gt;Далее представлен список близнецовых связей , остортированный приблизительно, от слабых до сильных.&lt;/p&gt;
+
+&lt;h2&gt;Близнецовая связь по имени (Connescence of Name – CoN)&lt;/h2&gt;
+
+&lt;p&gt;Близнецовая связь по имени возникает, когда несколько компонентов должны согласовать имя сущности. Например, такой связью является имя метода: если имя метода изменяется, то вызывающий код должен быть изменен, так, чтобы использовать новое имя метода.&lt;/p&gt;
+
+&lt;h2&gt;Близнецовая связь по типу (Connescence of Type – CoT)&lt;/h2&gt;
+
+&lt;p&gt;Близнецовая связь по типу возникает, когда несколько компонентов должны согласовать тип сущности. В статически типизированных языках программирования, тип аргументов метода может являтся образцом такой связи. Например, если метод изменит тип принимаемого аргумента с целого (integer) на строку (string), то вызывающий код должен быть изменен, так, чтобы отразить эти изменения.&lt;/p&gt;
+
+&lt;h2&gt;Близнецовая связь по смыслу (Connescence of Meaning – CoM)&lt;/h2&gt;
+
+&lt;p&gt;Близнецовая связь по смыслу возникает, когда несколько компонентов должны согласовать смысл каких-то значений. Например, возврашение из метода 0 и 1 для обозначения true и false соответсвенно.&lt;/p&gt;
+
+&lt;h2&gt;Близнецовая связь по месту (Connescence of Position – CoP)&lt;/h2&gt;
+
+&lt;p&gt;Близнецовая связь по месту (по позиции, по расположению) возникает, когда несколько компонентов должны согласовать порядок значений. Примером близнецовой связи по месту могут служить позиционные аргументы в методе. Вызвающий и вызываемый код должны согласиться с семантикой первого, воторого и т.д. параметров.&lt;/p&gt;
+
+&lt;h2&gt;Близнецовая связь по алгоритму (Connescence of Algorithm – CoA)&lt;/h2&gt;
+
+&lt;p&gt;Близнецовая связь по алгоритму возникает, когда несколько компонентов должны использовать определенный алгоритм.   &lt;/p&gt;
+
+&lt;h2&gt;Близнецовая связь по исполнению (Connescence of Execution – CoE)&lt;/h2&gt;
+
+&lt;p&gt;Близнецовая связь по исполнению возникает, когда важен порядок вызова компоентов.&lt;/p&gt;
+
+&lt;h2&gt;Близнецовая связь по времени (Connescence of Timing – CoT)&lt;/h2&gt;
+
+&lt;p&gt;Близнецовая связь по исполнению возникает, когда важено время выполнения каждого из компоентов.&lt;/p&gt;
+
+&lt;h2&gt;Близнецовая связь по значениям (Connescence of Values – CoV)&lt;/h2&gt;
+
+&lt;p&gt;Близнецовая связь по значениям возникает, когда несколько значений должны изменяться одновременно.&lt;/p&gt;
+
+&lt;h2&gt;Близнецовая связь по идентификатору (Connescence of Identity – CoI)&lt;/h2&gt;
+
+&lt;p&gt;Близнецовая связь по идентификатору возникает, когда несколько компонетов должны ссылаться на какую-то сущность.&lt;/p&gt;
+
+&lt;h1&gt;Уменьшение &amp;quot;близнецовой связи&amp;quot;&lt;/h1&gt;
+
+&lt;p&gt;Уменьшение &amp;quot;близнецовой связи&amp;quot; будет уменьшать стоимость изменения программной системы. Один из путей уменьшения &amp;quot;близнецовой связи&amp;quot; - это замена более сильных связей более слабыми. Другой путь - это уменьшение степени и увеличение локальности связанных элементов.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 04 Jul 2014 13:55:24 +1200</pubDate>
+        <link>http://blog.hazzik.ru/2014/07/04/connascence/</link>
+        <guid isPermaLink="true">http://blog.hazzik.ru/2014/07/04/connascence/</guid>
+      </item>
+    
+      <item>
         <title>Блог переехал на Jekyll и GitHub Pages</title>
         <description>&lt;p&gt;Перевел блог с tumblr на Jekyll и GitHub Pages. Вроде-бы миграция прошла отлично, и все работает.&lt;/p&gt;
 
@@ -434,104 +525,6 @@ GO
         <pubDate>Thu, 05 Jul 2012 09:06:00 +1200</pubDate>
         <link>http://blog.hazzik.ru/2012/07/05/how-to-deal-with-trees-in-nhibernate/</link>
         <guid isPermaLink="true">http://blog.hazzik.ru/2012/07/05/how-to-deal-with-trees-in-nhibernate/</guid>
-      </item>
-    
-      <item>
-        <title>ASP.NET MVC - как построить по-настоящему гибкое веб-приложение (видео и слайды с .NETconf)</title>
-        <description>&lt;p&gt;Внезапно осознал, что у меня в блоге нет материалов с моего доклада на &lt;a href=&quot;http://www.dotnetconf.ru/&quot;&gt;.NETconf&lt;/a&gt;. Срочно исправляю эту оплошность.&lt;/p&gt;
-
-&lt;p&gt;&lt;!-- more --&gt;&lt;/p&gt;
-
-&lt;div style=&quot;float:left; width:500px; margin:5px;&quot;&gt;
-&lt;iframe src=&quot;http://player.vimeo.com/video/22080198?title=0&amp;amp;byline=0&amp;amp;portrait=0&amp;amp;color=59a5d1&quot; width=&quot;500&quot; height=&quot;350&quot; frameborder=&quot;0&quot; webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
-
-&lt;div style=&quot;float:left; width:420px; margin:5px;&quot; id=&quot;__ss_7557204&quot;&gt;
- &lt;iframe src=&quot;http://www.slideshare.net/slideshow/embed_code/34835075&quot; width=&quot;476&quot; height=&quot;400&quot; frameborder=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
-
-&lt;/div&gt;
-
-&lt;p&gt;&lt;br style=&quot;clear:both&quot;/&gt;&lt;/p&gt;
-
-&lt;h3&gt;Ссылки&lt;/h3&gt;
-
-&lt;ul&gt;&lt;li&gt;&lt;p&gt;Страница доклада на .NETConf: &lt;a href=&quot;http://www.dotnetconf.ru/Materialy/Asp_net_mvc_kak_postroit_gibkoe_web_prilozenie&quot;&gt;http://www.dotnetconf.ru/Materialy/Asp_net_mvc_kak_postroit_gibkoe_web_prilozenie&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Слайды: &lt;a href=&quot;https://dl.dropbox.com/u/11463325/AgileMVCApplication.pptx&quot;&gt;https://dl.dropbox.com/u/11463325/AgileMVCApplication.pptx&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Fri, 08 Jun 2012 20:11:00 +1200</pubDate>
-        <link>http://blog.hazzik.ru/2012/06/08/asp-net-mvc-high-extensible-application/</link>
-        <guid isPermaLink="true">http://blog.hazzik.ru/2012/06/08/asp-net-mvc-high-extensible-application/</guid>
-      </item>
-    
-      <item>
-        <title>EF Bootstrapping</title>
-        <description>&lt;p&gt;Привет всем любителям EF Code First.&lt;/p&gt;
-
-&lt;p&gt;Вчера на коленке написал конфигуратор для EF CF во fluent- стиле. Использование выглядит так:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;var factory = Configure.WithContext&amp;lt;MyDbContext&amp;gt;(&quot;connectionstring&quot;) // использовать контекст типа MyDbContext и строку подключения connectionstring
-     .AddMappingsFromAssemblyOf&amp;lt;XXX&amp;gt;()  // здесь есть перегрузки, принимающие Type и Assembly. В подключенной сборке находит все реализации EntityTypeConfiguration`1 и ComplexTypeConfiguration`1
-     .LazyLoadingEnabled(true) // пример конфигурации контекста
-     .BuildDbContextFactory(); // возвращается реализация IDbContextFactory
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;!-- more --&gt;
-
-&lt;p&gt;Назначение - использовать generic context и автонахождение маппингов.&lt;/p&gt;
-
-&lt;h1&gt;Список методов&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code&gt;public static class Configure
-{
-    public static DbContextFactoryConfiguration WithContext&amp;lt;TContext&amp;gt;(string connectionString) where TContext : DbContext;
-
-    public static DbContextFactoryConfiguration WithContext(string connectionString);
-
-    public static DbContextFactoryConfiguration WithContext(Type contextType, string connectionString);
-}
-
-public class DbContextFactoryConfiguration
-{
-    public DbContextFactoryConfiguration AddMappingsFromAssembly(Assembly assembly);
-
-    public DbContextFactoryConfiguration AddMappingsFromAssemblyOf(Type type);
-
-    public DbContextFactoryConfiguration AddMappingsFromAssemblyOf&amp;lt;T&amp;gt;();
-
-    public DbContextFactoryConfiguration AutoDetectChangesEnabled(bool value);
-
-    public DbContextFactoryConfiguration LazyLoadingEnabled(bool value);
-
-    public DbContextFactoryConfiguration ProxyCreationEnabled(bool value);
-
-    public DbContextFactoryConfiguration ValidateOnSaveEnabled(bool value);
-
-    public IDbContextFactory BuildDbContextFactory();
-}
-
-public interface IDbContextFactory : System.Data.Entity.IDbContextFactory&amp;lt;DbContext&amp;gt;
-{
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1&gt;Вопросы&lt;/h1&gt;
-
-&lt;ul&gt;&lt;li&gt;это будет востребованно? &lt;/li&gt;
-&lt;li&gt;стоит развивать дальше?&lt;/li&gt;
-&lt;li&gt;какие конфигурационные параметры я пропустил?&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;что еще нужно добавить?&lt;/p&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;как вы конфигурируете контекст в EF?&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;h1&gt;Обсуждение&lt;/h1&gt;
-
-&lt;p&gt;В гуглгруппе DotNetConf: &lt;a href=&quot;https://groups.google.com/d/topic/dotnetconf/gx4PqT6xhtM/discussion&quot;&gt;https://groups.google.com/d/topic/dotnetconf/gx4PqT6xhtM/discussion&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1&gt;UPD&lt;/h1&gt;
-
-&lt;p&gt;Разместил код на GitHub: &lt;a href=&quot;https://github.com/hazzik/EFBootstrapper&quot;&gt;https://github.com/hazzik/EFBootstrapper&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 03 May 2012 20:46:00 +1200</pubDate>
-        <link>http://blog.hazzik.ru/2012/05/03/ef-bootstrapping/</link>
-        <guid isPermaLink="true">http://blog.hazzik.ru/2012/05/03/ef-bootstrapping/</guid>
       </item>
     
   </channel>
